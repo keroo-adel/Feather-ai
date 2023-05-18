@@ -1,0 +1,42 @@
+section{
+    position: relative;
+    overflow: hidden;
+}
+section .container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100vh;
+}
+
+section .img{
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section .img img{
+    width: 75%;
+}
+
+.circle{
+    position: absolute;
+    background-color: var(--color-main);
+    width: 25%;
+    height: 30%;
+    border-radius: 50%;
+    filter: blur(13rem);
+    top: -10%;
+    right: -10%;
+}
+
+span a {
+    color: var(--color-main);
+    text-decoration: none;
+}
+
+a:hover {
+color: var(--color-main-2); /* Green */
+}
+  

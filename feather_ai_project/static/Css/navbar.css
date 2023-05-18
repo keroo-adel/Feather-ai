@@ -1,0 +1,142 @@
+nav{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    position: relative;
+    padding: 1.5rem 0;
+    z-index: 100;
+}
+
+nav .logo{
+    width: 18rem;
+}
+
+nav button{
+    all:unset;
+    background-color:var(--color-dark-3);
+    font-size: 1.6rem;
+    font-weight: 300;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+nav button a{
+    text-decoration: none;
+    color: var(--color-white-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+nav button img{
+    width: 2rem;
+}
+
+nav button:hover{
+    background-color: #3a3d41;
+}
+
+/* -------------------------------- */
+
+nav .info{
+    position: absolute;
+    right: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 2.2rem;
+    color: var(--color-white-2);
+}
+
+nav .info #notification{
+    width: 3.3rem;
+}
+
+nav .info ion-icon{
+    cursor: pointer;
+}
+
+nav .info>span{
+    width: 1px;
+    height: 4rem;
+    background-color: var(--color-white-2);
+}
+
+nav .info .img{
+    height: 6rem;
+    padding: 0.2rem;
+    border-radius: 50%;
+    border: 1px solid var(--color-white-3);
+}
+
+nav .info .img img{
+    height: 100%;
+}
+
+nav .info .profile-info{
+    position: absolute;
+    top: 100%;
+    right: 0;
+    padding: 2rem;
+    margin-top: 1rem;
+    border-radius: 1.5rem;
+    border: 1px solid var(--color-white-3);
+    color: var(--color-white-1);
+    font-size: 1.6rem;
+    font-weight: 300;
+    display: none;
+    background-color: var(--color-dark-3);
+    
+}
+
+nav .info .profile-info.active{
+    display: block;
+}
+
+nav .info .profile-info .my-data{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-weight: 400;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--color-white-3);
+}
+
+nav .info .profile-info .my-data span{
+    text-transform: none;
+    margin-top: 0.4rem;
+    display: inline-block;
+}
+
+nav .info .profile-info ul{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1.5rem 0;
+}
+
+nav .info .profile-info ul li{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+nav .info .profile-info ul li ion-icon{
+    font-size: 2.2rem;
+    color: var(--color-white-2);
+}
+
+nav .info .profile-info ul span.hr{
+    height: 1px;
+    width: 80%;
+    background-color: var(--color-white-3);
+    align-self: center;
+}
+

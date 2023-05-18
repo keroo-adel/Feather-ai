@@ -1,0 +1,57 @@
+section{
+    overflow: hidden;
+    position: relative;
+}
+section .container{
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+section .form{
+    position: absolute;
+    z-index: 2;
+}
+
+section .form .textWelcome{
+    font-size: 2.4rem;
+    text-align: center;
+}
+
+section .form .textWelcome p:nth-of-type(1){
+    padding-bottom: 1rem;
+    font-weight: 700;
+}
+
+section .img{
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+
+section .img img{
+    width: 100%;
+}
+
+.circle{
+    position: absolute;
+    background-color: var(--color-main);
+    width: 25%;
+    height: 30%;
+    border-radius: 50%;
+    filter: blur(13rem);
+    top: -10%;
+    right: -10%;
+}
+
+span a {
+    color: var(--color-main);
+    text-decoration: none;
+}
+
+a:hover {
+color: var(--color-main-2); /* Green */
+}
+  

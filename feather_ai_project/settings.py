@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'pages',
     'accounts',
     
 ]
@@ -130,6 +131,7 @@ STATIC_ROOT =  os.path.join(BASE_DIR, 'static')
 STATIC_URL = 'static/'
 STATICFILES_DIRS  = [
     os.path.join(BASE_DIR,'feather_ai_project/static'),
+    os.path.join(BASE_DIR,'pages/static'),
     os.path.join(BASE_DIR ,'accounts/static'),
 ]
 

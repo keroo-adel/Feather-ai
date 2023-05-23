@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block bootstrap %}{% endblock  %}
+
+{% block styles %}
+
+<link rel="stylesheet" href="{% static 'Css/main.css' %} " />
+<link rel="stylesheet" href="{% static 'Css/landing.css' %} " />
+{% endblock %}
+
+{% block title %}
+Feather.ai
+{% endblock %}
+
+{% block content%}
+<section class="sec1 container">
+    <img src="{% static 'images/icon-1-6.svg' %}" alt="" />
+
+    <p>
+        <span> Feather.AI for Ecommerce Stores </span> <br />
+        improve your store’s Google ranking & boost sales through our
+        eCommerce tools. Generate engaging, SEO-optimized titles,
+        descriptions, and benefit bullet points for your products. When
+        your content is synchronized and semantically accurate, Google
+        will place your products high in the search results.
+    </p>
+    <div>
+        <img src="{% static 'images/screen-3.svg' %}" alt="" />
+    </div>
+    <div class="line-image">
+        <img src="{% static 'images/vector-2.svg' %}" alt="" />
+    </div>
+</section>
+        
+{% endblock  %}

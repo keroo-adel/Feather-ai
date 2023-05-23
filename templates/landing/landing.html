@@ -1,38 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block bootstrap %}{% endblock  %}
+
 {% block styles %}
 <link rel="stylesheet" href="{% static 'Css/main.css' %} " />
 <link rel="stylesheet" href="{% static 'Css/landing.css' %} " />
 {% endblock %}
+
 {% block title %}
 Feather.ai
 {% endblock %}
 
 {% block content%}
-        <header>
-            <div class="container">
-                <nav>
-                    <div class="logo">
-                        <img
-                            src="{% static 'images/feather ai logo.svg' %}"
-                            alt="logo feather.ai"
-                        />
-                    </div>
-                    <ul>
-                        <li><a href="" class="active">home</a></li>
-                        <li>
-                            <a href="Page/Dashboard/dashboard.html">feature</a>
-                        </li>
-                        <li><a href="">about us</a></li>
-                        <li><a href="">contact</a></li>
-                    </ul>
-                    <div class="btn">
-                        <button><a href="">sign in</a></button>
-                        <button><a href="">get started</a></button>
-                    </div>
-                </nav>
-            </div>
-        </header>
+
         <section class="sec1">
             <div class="container">
                 <div class="part1">
@@ -54,7 +34,7 @@ Feather.ai
                 </div>
                 <div class="part2">
                     <div>
-                        <a href="#">
+                        <a href="{% url 'register' %}">
                             <p>Start Writing</p>
                             <ion-icon name="arrow-forward-outline"></ion-icon>
                         </a>
@@ -153,70 +133,11 @@ Feather.ai
                 will place your products high in the search results.
             </p>
             <div>
-                <img src="{% static 'images/screen-4.svg' %}" alt="" />
+                <img src="{% static 'images/screen-4.png' %}" alt="" />
             </div>
             <div class="line-image">
                 <img src="{% static 'images/vector-2.svg' %}" alt="" />
             </div>
         </section>
 
-        <footer class="container">
-            <div class="p1">
-                <div>
-                    <img src="{% static 'images/feather ai logo.svg' %}" alt="" class="logo" />
-                    <div>
-                        <img src="{% static 'images/icon-1-8.svg' %}" alt="" />
-                        <img src="{% static 'images/icon-1-9.svg' %}" alt="" />
-                    </div>
-                </div>
-                <div>
-                    <p>Tools</p>
-                    <ul>
-                        <li>
-                            <a href="#">AI Article Writer</a>
-                        </li>
-                        <li>
-                            <a href="#">Paraphrasing Tool</a>
-                        </li>
-                        <li>
-                            <a href="#">Sentence Expander</a>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <p>Free Tools</p>
-                    <ul>
-                        <li>
-                            <a href="#">Freather - AI Chat Assistant</a>
-                        </li>
-                        <li>
-                            <a href="#">Product Name Generator</a>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <p>Compare</p>
-                    <ul>
-                        <li>
-                            <a href="#">Jasper</a>
-                        </li>
-                        <li>
-                            <a href="#">Blog</a>
-                        </li>
-                        <li>
-                            <a href="#">ChatGPT</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div class="p2">
-                <p>Earn 40% commission as a ChatSonic Affiliate Partner</p>
-                <button>JOIN US NOW</button>
-            </div>
-            <div class="p3">
-                <p>© 2023 Feather.ai, Inc. All rights reserved.</p>
-                <p>Backed by</p>
-                <p>TermsPrivacy Policy</p>
-            </div>
-        </footer>
         {% endblock  %}

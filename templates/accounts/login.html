@@ -4,49 +4,69 @@
 {% block styles %}    
 <link rel="stylesheet" href="{% static 'Css/sign-in.css' %}">
 {% endblock  %}
+
+{% block bootstrap %}{% endblock  %}
+
 {% block title %}Login | Feather.ia - Best AI Writing Tool{% endblock %}
 
 {% block content %}
+{% block landing_header %}{% endblock landing_header %}
+
 <section>
-        <div class="circle"></div>
-        <div class="container">
-            <div class="form">
+    <div class="circle"></div>
+    <div class="container">
+        <div class="form">
+            <a href="{% url 'landing' %}">
                 <img
-                    src="{% static 'images/logo-feather-ai.png' %} "
+                    src="{% static 'images/logo-feather-ai.png' %}"
                     alt="logo feather ai"
                 />
-                <div class="textWelcome">
-                    <p>welcome back</p>
-                    <p>have we met before?</p>
-                </div>
-                <button>
-                    <ion-icon name="logo-google"></ion-icon>
-                    <p>sign in with GOOGLE</p>
-                </button>
+            </a>
 
-                <button>
-                    <ion-icon name="logo-apple"></ion-icon>
-                    <p>sign in with apple</p>
-                </button>
-
-                <p>or continue with</p>
-
-                <form action="">
-                    <label for="email">business email</label>
-                    <input type="email" name="email" id="" placeholder="user@example.com"/>
-                    <button type="submit">sign in with OTP</button>
-                    <button type="submit">sign in with password</button>
-                </form>
-
-                <p>new to feather.ai? <span><a href="{% url 'register' %}">sign up</a> </span></p>
+            <div class="textWelcome">
+                <p>welcome back</p>
+                <p>have we met before?</p>
             </div>
-            <div class="img">
-                <img
-                    src="{% static 'images/Background sign-in page.svg' %}"
-                    alt="Someone looking at the phone"
+            <button>
+                <ion-icon name="logo-google"></ion-icon>
+                <p>sign in with GOOGLE</p>
+            </button>
+
+            <button>
+                <ion-icon name="logo-apple"></ion-icon>
+                <p>sign in with apple</p>
+            </button>
+
+            <p>or continue with</p>
+
+            <form action="">
+                <label for="email">business email</label>
+                <input
+                    type="email"
+                    name="email"
+                    id=""
+                    placeholder="user@example.com"
                 />
-            </div>
+                <button type="submit">sign in with OTP</button>
+                <button type="submit">sign in with password</button>
+            </form>
+
+            <p>
+                new to feather.ai?
+                <span>
+                    <a href="{% url 'register' %}">sign up</a>
+                </span>
+            </p>
         </div>
-    </section>
+        <div class="img">
+            <img
+                src="{% static 'images/Background sign-in page.svg' %} "
+                alt="Someone looking at the phone"
+            />
+        </div>
+    </div>
+</section>
+
+{% block landing_footer %}{% endblock landing_footer %}
 
 {% endblock %}

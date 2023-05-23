@@ -4,6 +4,9 @@ nav {
     align-items: center;
     justify-content: space-between;
     height: 10vh;
+    position: fixed;
+    z-index: 1000;
+    background-color: var(--color-dark);
 }
 
 nav .logo {
@@ -30,10 +33,11 @@ nav ul li a {
     text-decoration: none;
     font-size: 1.7rem;
     font-weight: 700;
+    transition: 0.3s;
 }
 
-nav ul li a.active {
-    color: var(--color-white-1);
+nav ul li a:hover ,nav ul li a.active{
+    color: var(--color-main);
 }
 
 nav .btn button {
@@ -54,6 +58,10 @@ nav .btn button:nth-of-type(2) a {
     margin-left: 1.5rem;
 }
 
+.sec1{
+    padding-top: 10vh;
+}
+
 .sec1 .container{
     display: flex;
     justify-content: space-between;
@@ -61,7 +69,6 @@ nav .btn button:nth-of-type(2) a {
 
 .sec1 .part1 {
     width: 90%;
-    height: 40vh;
     padding: 3rem;
     border-radius: 1.5rem;
     display: flex;
@@ -91,13 +98,8 @@ nav .btn button:nth-of-type(2) a {
     gap: 1rem;
 }
 
-.sec1 .part1 .img {
-    width: fit-content;
-    height: 100%;
-}
-
 .sec1 .part1 .img img {
-    height: 100%;
+    width: 40rem;
 }
 
 .sec1 .part1 .text img {
@@ -132,10 +134,9 @@ nav .btn button:nth-of-type(2) a {
 
 .sec1 .part2{
     width: 10rem;
-    height: 40vh;
     border-radius: 1.5rem;
     background-color: var(--color-main);
-    font-size: 4rem;
+    font-size: 3.5rem;
     font-weight: 500;
     position: relative;
 }
@@ -489,3 +490,4 @@ footer .p3{
     font-size: 1.6rem;
     font-weight: 300;
 }
+

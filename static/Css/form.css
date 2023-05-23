@@ -11,9 +11,13 @@ section .form{
     padding: 0rem 3rem ;
 }
 
-section .form>img{
+section .form> a{
     padding: 3rem 0 1rem 0;
     width: 15rem;
+}
+
+section .form> a img{
+    width: 100%;
 }
 
 section .form>button{
@@ -110,7 +114,8 @@ section .form>p:nth-of-type(2){
     margin-bottom: 2rem;
 }
 
-section .form>p:nth-of-type(2) span{
+section .form>p:nth-of-type(2) span a{
     color: var(--color-main);
+    text-decoration: none;
 }
 

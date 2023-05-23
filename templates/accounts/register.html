@@ -1,46 +1,95 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block styles %}<link rel="stylesheet" href="{% static 'Css/sign-up.css' %}" />{% endblock  %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'Css/sign-up.css' %}" />
+<style>
+    #password,
+    #confirm_password,
+    #password_label,
+    #confirm_password_label {
+        display: none;
+    }
+</style>
+{% endblock  %}
+{% block bootstrap %}{% endblock  %}
+
 {% block title %}Sign Up | Feather.ia - Best AI Writing Tool{% endblock %}
 
 {% block content %}
-        <section>
-            <div class="circle"></div>
-            <div class="container">
-                <div class="form">
-                    <img
-                        src="{% static 'images/logo-feather-ai.png ' %}"
-                        alt="logo feather ai"
-                    />
-                    <button>
-                        <ion-icon name="logo-google"></ion-icon>
-                        <p>sign in with GOOGLE</p>
-                    </button>
+{% block landing_header %}{% endblock landing_header %}
+        
+<section>
+    <div class="circle"></div>
+    <div class="container">
+        <div class="form">
+            <a href="{% url 'landing' %}">
+                <img src="{% static 'images/logo-feather-ai.png' %}" alt="logo feather ai" />
+            </a>
+            <button>
+                <ion-icon name="logo-google"></ion-icon>
+                <p>sign in with GOOGLE</p>
+            </button>
 
-                    <button>
-                        <ion-icon name="logo-apple"></ion-icon>
-                        <p>sign in with apple</p>
-                    </button>
+            <button>
+                <ion-icon name="logo-apaple"></ion-icon>
+                <p>sign in with apple</p>
+            </button>
 
-                    <p>or continue with</p>
+            <p>or continue with</p>
 
-                    <form action="">
-                        <label for="username">full name</label>
-                        <input type="text" name="username" id="" placeholder="Enter your full name here"/>
-                        <label for="email">business email</label>
-                        <input type="email" name="email" id="" placeholder="user@example.com"/>
-                        <button type="submit">sign up with OTP</button>
-                        <button type="submit">sign up with password</button>
-                    </form>
+            <form method="POST" action="{% url 'register' %}">
+                {% csrf_token %}
+                <label for="username">full name</label>
+                <input type="text" name="username" id="username" placeholder="Enter your full name here" />
+                <label for="email">business email</label>
+                <input type="email" name="email" id="" placeholder="user@example.com" />
+                <label for="password" id="password_label">password</label>
+                <input type="password" name="password" id="password" placeholder="Enter your password" />
+                <label for="confirm_password" id="confirm_password_label">confirm password</label>
+                <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm your password" />
+                <button type="submit" id="signup-button">Sign Up with OTP</button>
+                <button type="button" id="password-button">Sign up with Password</button>
+            
+            </form>
 
-                    <p>already have an account? <span><a href="{% url 'login' %}" styles="color: #ffffff;">sign in</a> </span></p>
-                </div>
-                <div class="img">
-                    <img
-                        src="{% static 'images/sign-up-page-img.png ' %}"
-                        alt="Someone looking at the phone"
-                    />
-                </div>
-            </div>
-        </section>
+            <p>already have an account? <span>
+                <a href="{% url 'login' %}">sign in</a>
+            </span></p>
+        </div>
+        <div class="img">
+            <img src="{% static 'images/sign-up-page-img.png' %}" alt="Someone looking at the phone" />
+        </div>
+    </div>
+</section>
+
+{% block landing_footer %}{% endblock landing_footer %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const passwordButton = document.getElementById('password-button');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirm_password');
+        const passwordLabel = document.getElementById('password_label');
+        const confirmPasswordLabel = document.getElementById('confirm_password_label');
+        const signupButton = document.getElementById('signup-button');
+        let passwordVisible = false;
+
+        passwordButton.addEventListener('click', function() {
+            passwordVisible = !passwordVisible;
+            passwordInput.style.display = passwordVisible ? 'block' : 'none';
+            confirmPasswordInput.style.display = passwordVisible ? 'block' : 'none';
+            passwordLabel.style.display = passwordVisible ? 'block' : 'none';
+            confirmPasswordLabel.style.display = passwordVisible ? 'block' : 'none';
+            passwordButton.innerText = passwordVisible ? 'Sign up with OTP' : 'Sign up with Password';
+            signupButton.innerText = passwordVisible ? 'Sign Up' : 'Sign Up with OTP';
+
+            const urlParams = new URLSearchParams(window.location.search);
+            urlParams.set('with_password', passwordVisible.toString());
+            const newUrl = window.location.pathname + '?' + urlParams.toString();
+            history.pushState(null, null, newUrl);
+        });
+    });
+</script>
 {% endblock %}

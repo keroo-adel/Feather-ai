@@ -1,0 +1,47 @@
+{% load static %}
+
+<header>
+    <div class="container">
+        <nav class="container">
+            <div class="logo">
+                <a href="{% url 'landing' %}"><img
+                    src="{% static 'images/feather ai logo.svg' %}"
+                    alt="logo feather.ai"
+                /></a>
+            </div>
+            <ul>
+                <li><a href="{% url 'landing' %}" 
+                    {% if '/' == request.path %}
+                    class="active"
+                    {% else %}
+                    class=""
+                    {% endif %}>home</a></li>
+                <li>
+                    <a href="{% url 'features' %}" 
+                    {% if 'features' in request.path %}
+                    class="active"
+                    {% else %}
+                    class=""
+                    {% endif %}>feature</a>
+                </li>
+                <li><a href="{% url 'about' %}"
+                    {% if 'about' in request.path %}
+                    class="active"
+                    {% else %}
+                    class=""
+                    {% endif %}
+                    >about us</a></li>
+                <li><a href="{% url 'contact' %}"
+                    {% if 'contact' in request.path %}
+                    class="active"
+                    {% else %}
+                    class=""
+                    {% endif %}>contact</a></li>
+            </ul>
+            <div class="btn">
+                <button><a href="{% url 'login' %}">sign in</a></button>
+                <button><a href="{% url 'register' %}">get started</a></button>
+            </div>
+        </nav>
+    </div>
+</header>

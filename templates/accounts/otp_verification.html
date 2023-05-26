@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}    
+<link rel="stylesheet" href="{% static 'Css/sign-in.css' %}">
+{% endblock  %}
+
+{% block bootstrap %}{% endblock  %}
+
+{% block title %}OTP Verification | Feather.ia - Best AI Writing Tool{% endblock %}
+
+{% block content %}
+{% block landing_header %}{% endblock landing_header %}
+
+<section>
+    <div class="circle"></div>
+    <div class="container">
+        <div class="form">
+            <a href="{% url 'landing' %}">
+                <img
+                    src="{% static 'images/logo-feather-ai.png' %}"
+                    alt="logo feather ai"
+                />
+            </a>
+
+            <div class="textWelcome">
+                <p>welcome back</p>
+                <p>have we met before?</p>
+            </div>
+            {% if messages %}
+            {% for message in messages %}
+              <div style="color: red;">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+            <form method="POST">
+                {% csrf_token %}
+                <label for="otp_code">Enter OTP code</label>
+                <input
+                    type="text"
+                    name="otp_code"
+                    id=""
+                    placeholder="Enter OTP code"
+                />
+
+                <button type="submit">Verify OTP</button>
+            </form>
+
+            <p>
+                new to feather.ai?
+                <span>
+                    <a href="{% url 'register' %}">sign up</a>
+                </span>
+            </p>
+        </div>
+        <div class="img">
+            <img
+                src="{% static 'images/Background sign-in page.svg' %} "
+                alt="Someone looking at the phone"
+            />
+        </div>
+    </div>
+</section>
+
+{% block landing_footer %}{% endblock landing_footer %}
+
+{% endblock %}

@@ -1,0 +1,75 @@
+{% load static %}
+<aside id="aside-nav" class="">
+    <ul>
+        <li id="btnToggleAside">
+            <div>
+                <ion-icon name="chevron-forward-outline" role="img" class="md hydrated"></ion-icon>
+            </div>
+        </li>
+        <li id="asideLiSearch">
+            <img src="{% static  'images/Icon search.svg '%} " alt="search">
+            <input type="text" placeholder="Search">
+        </li>
+        <li class="active">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'images/Icon dashboard.svg '%}" alt="dashboard">
+                <p>Home page</p>
+            </a>
+        </li>
+        <li>
+            <a href="../Long form editor/Long-form-editor.html">
+                <img src="{% static 'images/Icon edit.svg '%}" alt="long form editor">
+                <p>long form editor</p>
+            </a>
+        </li>
+        <li>
+            <a href="../Chat Feather/chat-feather.html">
+                <img src="{% static 'images/Icon chat.svg '%}" alt="chat">
+                <p>chat feather</p>
+            </a>
+        </li>
+        <li>
+            <a href="../Email tools/emailTool.html">
+                <img src="{% static 'images/Icon email.svg '%}" alt="email">
+                <p>email tools</p>
+            </a>
+        </li>
+        <li>
+            <a href="../Social media tool/socialMediaTool.html">
+                <img src="{% static 'images/Icon social.svg '%}" alt="email">
+                <p>social media tool</p>
+            </a>
+        </li>
+        <li>
+            <a href="../Saved Copies/savedCopies.html">
+                <img src="{% static 'images/Icon saved.svg '%}" alt="saved">
+                <p>saved copies</p>
+            </a>
+        </li>
+        <li>
+            <a href="../Recent Activity/recentActivity.html">
+                <img src="{% static 'images/Icon clock.svg '%}" alt="activity">
+                <p>recent activity</p>
+            </a>
+        </li>
+        <li id="liTextAccount">
+            <p id="textAccount">account</p>
+        </li>
+        <li>
+            <a href="../Change Language/changeLanguage.html">
+                <img src="{% static 'images/Icon language.svg '%}" alt="language">
+                <p>change language</p>
+            </a>
+        </li>
+    </ul>
+    <div id="themeToggle">
+        <button id="light" class="active">
+            <img src="{% static 'images/icon sun.svg '%}" alt="sun">
+            <p>light</p>
+        </button>
+        <button id="dark">
+            <img src="{% static 'images/icon moon.svg '%}" alt="moon">
+            <p>dark</p>
+        </button>
+    </div>
+</aside>

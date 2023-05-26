@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Feather.AI - OTP Code</title>
+</head>
+<body style="background-color: #23272e; color: white">
+    <table style="width: 100%; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <tr>
+            <td style="text-align: center;">
+                <img src="{% static 'images/logo-feather-ai.png' %}" alt="Feather.AI Logo" style="max-width: 200px;">
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center; padding: 40px 0;">
+                <h1>Feather.AI - OTP Code</h1>
+                <p>Your OTP code is: <strong>{{ otp_code }}</strong></p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

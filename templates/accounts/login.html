@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load socialaccount %}
 {% block styles %}    
 <link rel="stylesheet" href="{% static 'Css/sign-in.css' %}">
 {% endblock  %}
@@ -27,19 +27,22 @@
                 <p>welcome back</p>
                 <p>have we met before?</p>
             </div>
-            <button>
+
+            <a href="" onclick="openGoogleLoginPopup(event);" class="signWith">
                 <ion-icon name="logo-google"></ion-icon>
                 <p>sign in with GOOGLE</p>
-            </button>
+            </a>
 
-            <button>
+            <a href="#" class="signWith">
                 <ion-icon name="logo-apple"></ion-icon>
                 <p>sign in with apple</p>
-            </button>
+            </a>
 
             <p>or continue with</p>
 
-            <form action="">
+          
+            <form method="POST" >
+                {% csrf_token %}
                 <label for="email">business email</label>
                 <input
                     type="email"
@@ -47,8 +50,20 @@
                     id=""
                     placeholder="user@example.com"
                 />
-                <button type="submit">sign in with OTP</button>
-                <button type="submit">sign in with password</button>
+
+                <label for="password" id="password-label" style="display: none;">password</label>
+                <input type="password" name="password" id="password" placeholder="Enter your password" style="display: none;"/>
+                {% if messages %}
+                {% for message in messages %}
+                  <span class="error active" id="email-error">
+                    <ion-icon name="alert-circle"></ion-icon>
+                    <p>{{ message }}</p>
+                </span>
+                {% endfor %}
+              {% endif %}
+                
+                <button type="submit" id="email-button">sign in with OTP</button>
+                <button type="button" id="password-button">sign in with password</button>
             </form>
 
             <p>
@@ -68,5 +83,68 @@
 </section>
 
 {% block landing_footer %}{% endblock landing_footer %}
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const passwordButton = document.getElementById('password-button');
+        const passwordlabel = document.getElementById('password-label');
+        const passwordField = document.getElementById('password');
+        const emailField = document.getElementById('email-button');
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Show password field if the 'with_password' parameter is true in the URL
+        const withPassword = urlParams.get('with_password');
+        if (withPassword === 'true') {
+            passwordField.style.display = 'block';
+            passwordlabel.style.display = 'block';
+            passwordButton.innerText = 'sign in with OTP';
+            emailField.innerText = 'sign in';
+        }
+
+        // Add or remove the 'with_password' parameter on button click
+        passwordButton.addEventListener('click', function() {
+            const currentURL = new URL(window.location.href);
+            const currentWithPassword = urlParams.get('with_password');
+            if (currentWithPassword === 'true') {
+                currentURL.searchParams.delete('with_password');
+            } else {
+                currentURL.searchParams.set('with_password', 'true');
+            }
+            window.location.href = currentURL.toString();
+        });
+    });
+    
+
+    function openGoogleLoginPopup(event) {
+        event.preventDefault();
+        
+        var url = "{% provider_login_url 'google' %}";
+        var width = 600;
+        var height = 600;
+        var left = window.screen.width / 2 - width / 2;
+        var top = window.screen.height / 2 - height / 2;
+    
+        var googleLoginWindow = window.open(
+        url,
+        "GoogleLogin",
+        "width=" + width + ", height=" + height + ", left=" + left + ", top=" + top
+        );
+    
+        // Check for successful authentication every second
+        var interval = setInterval(function() {
+        if (googleLoginWindow.closed) {
+            clearInterval(interval);
+            window.location.href = "{% url 'home' %}";
+        }
+        }, 1000);
+        
+
+    }
+</script>
 
 {% endblock %}

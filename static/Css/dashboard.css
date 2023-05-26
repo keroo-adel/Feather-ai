@@ -1,0 +1,262 @@
+.main-page .title p:nth-of-type(1) {
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.main-page .title p:nth-of-type(1) img{
+    width: 2.5rem;
+}
+.main-page .title p:nth-of-type(2) {
+    color: var(--color-white-2);
+    font-weight: 200;
+    margin: 1rem 0;
+}
+
+.main-page .search {
+    background-color: var(--color-dark);
+    border-radius: 1.5rem;
+    padding: 1.5rem 2rem 0;
+}
+
+.main-page .search .input {
+    background-color: var(--color-dark-3);
+    padding: 0 1.5rem;
+    border-radius: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+.main-page .search .input input {
+    all: unset;
+    width: 100%;
+    height: 6rem;
+    font-size: 2rem;
+    font-weight: 300;
+}
+
+.main-page .search .templates-types {
+    width: 100%;
+    padding: 1.5rem 0 1.5rem 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.5rem;
+    font-weight: 300;
+    overflow-x: auto;
+}
+
+.main-page .search .templates-types::-webkit-scrollbar {
+    height: 0.8rem;
+}
+
+.main-page .search .templates-types span {
+    white-space: nowrap;
+    background-color: var(--color-dark-3);
+    border-radius: 5rem;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.main-page .search .templates-types span.active {
+    background-color: var(--color-main);
+    color: var(--color-dark);
+}
+
+.features {
+    height: 74%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-right: 1rem;
+    overflow-y: auto;
+}
+
+.features::-webkit-scrollbar {
+    width: 0.8rem;
+    background-color: transparent;
+}
+
+.features::-webkit-scrollbar-thumb {
+    border-radius: 0.5rem;
+    background-color: var(--color-dark);
+    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.features::-webkit-scrollbar-thumb:hover {
+    border: 1px solid var(--color-dark-2);
+}
+
+.features > div {
+    height: 18rem;
+    background-color: var(--color-dark-3);
+    padding: 1rem;
+    border: 1px solid transparent;
+    border-radius: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    transition: 0.3s;
+    cursor: pointer;
+    position: relative;
+    background: radial-gradient(
+                35.36% 35.36% at 100% 25%,
+                #0000 66%,
+                rgba(33, 33, 33, 0.8) 68% 70%,
+                #0000 72%
+            )
+            30px 30px / calc(2 * 30px) calc(2 * 30px),
+        radial-gradient(
+                35.36% 35.36% at 0 75%,
+                #0000 66%,
+                rgba(33, 33, 33, 0.8) 68% 70%,
+                #0000 72%
+            )
+            30px 30px / calc(2 * 30px) calc(2 * 30px),
+        radial-gradient(
+                35.36% 35.36% at 100% 25%,
+                #0000 66%,
+                rgba(33, 33, 33, 0.8) 68% 70%,
+                #0000 72%
+            )
+            0 0 / calc(2 * 30px) calc(2 * 30px),
+        radial-gradient(
+                35.36% 35.36% at 0 75%,
+                #0000 66%,
+                rgba(33, 33, 33, 0.8) 68% 70%,
+                #0000 72%
+            )
+            0 0 / calc(2 * 30px) calc(2 * 30px),
+        repeating-conic-gradient(#292d32 0 25%, #0000 0 50%) 0 0 /
+            calc(2 * 30px) calc(2 * 30px),
+        radial-gradient(#0000 66%, rgba(33, 33, 33, 0.8) 68% 70%, #0000 72%) 0
+            calc(30px / 2) / 30px 30px #292d32;
+}
+
+.features > div a{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    text-decoration: none;
+    color: var(--color-white);
+}
+.features > div:hover {
+    background: #ec6f4d41;
+    border-color: var(--color-main);
+}
+
+.features .feature-1 {
+    grid-area: 1 / 1 / 2 / 4;
+    background: linear-gradient(135deg, #0000 20.5%, #292d32 0 29.5%, #0000 0) 0
+            12px,
+        linear-gradient(45deg, #0000 8%, #292d32 0 17%, #0000 0 58%) 24px 0,
+        linear-gradient(
+            135deg,
+            #0000 8%,
+            #292d32 0 17%,
+            #0000 0 58%,
+            #292d32 0 67%,
+            #0000 0
+        ),
+        linear-gradient(
+            45deg,
+            #0000 8%,
+            #292d32 0 17%,
+            #0000 0 58%,
+            #292d32 0 67%,
+            #0000 0 83%,
+            #292d32 0 92%,
+            #0000 0
+        ),
+        rgba(33, 33, 33, 0.8);
+    background-size: 48px 48px;
+    padding: 0 1rem;
+}
+
+
+.features .part-1 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.features .part-1 .icon {
+    width: 7rem;
+    height: 7rem;
+    background-color: var(--color-dark-4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.features .feature-1 .part-1 .icon {
+    background-color: var(--color-main-2);
+}
+.features .part-1 .icon img {
+    width: 50%;
+}
+
+.features .part-1 .text {
+    width: 80%;
+}
+
+.features .part-1 .text p:nth-of-type(2) {
+    color: var(--color-white-3);
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.features .feature-1 .part-2 {
+    width: 35%;
+    height: 100%;
+    position: relative;
+    right: 8rem;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.features .feature-1 .part-2 img {
+    position: absolute;
+    height: 110%;
+}
+
+.features .part-1 .fav {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: var(--color-white-2);
+    padding: 1rem;
+    transition: 0.3s;
+}
+
+.features .part-1 .fav:hover {
+    transform: scale(1.15);
+}
+
+.features .part-1 .fav.active ion-icon {
+    color: var(--color-main);
+}
+
+.features .state {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 300;
+    padding: 0.5rem 1rem;
+    border-radius: 5rem;
+    background-color: var(--color-main-2);
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}

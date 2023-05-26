@@ -44,9 +44,22 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'pages',
     'accounts',
-    
+    'api',
+    'library',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
+    'django_otp.plugins.otp_static',
 ]
 
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': '1067911559674-mo29eo7eauu15js9i9mb1f0s0vpo2sdm.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        }
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -56,7 +69,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_otp.middleware.OTPMiddleware',
 ]
+
+OTP_TOTP_ISSUER = 'Feather.ia'  # Replace with your desired issuer name
+
 
 ROOT_URLCONF = 'feather_ai_project.urls'
 
@@ -133,6 +150,7 @@ STATICFILES_DIRS  = [
     os.path.join(BASE_DIR,'feather_ai_project/static'),
     os.path.join(BASE_DIR,'pages/static'),
     os.path.join(BASE_DIR ,'accounts/static'),
+
 ]
 
 
@@ -140,3 +158,26 @@ STATICFILES_DIRS  = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+OTP_CODE_LENGTH = 6
+
+OTP_CODE_TIMEOUT = 300 # in seconds (5 minutes)
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = 'kerooadel5@gmail.com'
+EMAIL_HOST_PASSWORD = 'axvzoimqktbghrgw'
+DEFAULT_FROM_EMAIL = 'kerooadel5@gmail.com'
+
+AUTHENTICATION_BACKENDS = [
+    'accounts.backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+SOCIALACCOUNT_LOGIN_ON_GET=True
+
+LOGIN_REDIRECT_URL = "/library/all/"
+

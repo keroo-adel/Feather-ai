@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load socialaccount %}
 {% block styles %}
 <link rel="stylesheet" href="{% static 'Css/sign-up.css' %}" />
 <style>
@@ -25,28 +26,35 @@
             <a href="{% url 'landing' %}">
                 <img src="{% static 'images/logo-feather-ai.png' %}" alt="logo feather ai" />
             </a>
-            <button>
+            <a href="" onclick="openGoogleLoginPopup(event);" class="signWith">
                 <ion-icon name="logo-google"></ion-icon>
                 <p>sign in with GOOGLE</p>
-            </button>
+            </a>
 
-            <button>
-                <ion-icon name="logo-apaple"></ion-icon>
+            <a href="#" class="signWith">
+                <ion-icon name="logo-apple"></ion-icon>
                 <p>sign in with apple</p>
-            </button>
-
+            </a>
             <p>or continue with</p>
 
-            <form method="POST" action="{% url 'register' %}">
+            <form method="POST">
                 {% csrf_token %}
-                <label for="username">full name</label>
-                <input type="text" name="username" id="username" placeholder="Enter your full name here" />
+                <label for="full_name">full name</label>
+                <input type="text" name="full_name" id="full_name" placeholder="Enter your full name here" />
                 <label for="email">business email</label>
                 <input type="email" name="email" id="" placeholder="user@example.com" />
                 <label for="password" id="password_label">password</label>
                 <input type="password" name="password" id="password" placeholder="Enter your password" />
                 <label for="confirm_password" id="confirm_password_label">confirm password</label>
                 <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm your password" />
+                {% if messages %}
+                {% for message in messages %}
+                  <span class="error active" id="email-error">
+                    <ion-icon name="alert-circle"></ion-icon>
+                    <p>{{ message }}</p>
+                </span>
+                {% endfor %}
+              {% endif %}
                 <button type="submit" id="signup-button">Sign Up with OTP</button>
                 <button type="button" id="password-button">Sign up with Password</button>
             
@@ -91,5 +99,32 @@
             history.pushState(null, null, newUrl);
         });
     });
+
+    
+    function openGoogleLoginPopup(event) {
+        event.preventDefault();
+        
+        var url = "{% provider_login_url 'google' %}";
+        var width = 600;
+        var height = 600;
+        var left = window.screen.width / 2 - width / 2;
+        var top = window.screen.height / 2 - height / 2;
+    
+        var googleLoginWindow = window.open(
+        url,
+        "GoogleLogin",
+        "width=" + width + ", height=" + height + ", left=" + left + ", top=" + top
+        );
+    
+        // Check for successful authentication every second
+        var interval = setInterval(function() {
+        if (googleLoginWindow.closed) {
+            clearInterval(interval);
+            window.location.href = "{% url 'home' %}";
+        }
+        }, 1000);
+        
+
+    }
 </script>
 {% endblock %}

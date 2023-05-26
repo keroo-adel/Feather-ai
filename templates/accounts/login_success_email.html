@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login Successful</title>
+</head>
+<body style="background-color: #23272e; color: white">
+    <table style="width: 100%; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <tr>
+            <td style="text-align: center;">
+                <img src="{% static 'images/logo-feather-ai.png' %}" alt="Feather.AI Logo" style="max-width: 200px;">
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: center; padding: 40px 0;">
+                <h1>Login Successful To Feather.AI</h1>
+                <p>Dear {{ username }}</p>
+                <p>Your login was successful. Thank you for using our website!</p>
+
+            </td>
+        </tr>
+    </table>
+
+    <h1></h1>
+ 
+</body>
+</html>

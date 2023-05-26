@@ -9,6 +9,9 @@ section .form{
     flex-direction: column;
     gap: 2rem;
     padding: 0rem 3rem ;
+    max-height: 90vh;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 section .form> a{
@@ -20,7 +23,7 @@ section .form> a img{
     width: 100%;
 }
 
-section .form>button{
+section .form>.signWith{
     all: unset;
     display: flex;
     align-items: center;
@@ -36,13 +39,13 @@ section .form>button{
     cursor: pointer;
 }
 
-section .form>button ion-icon{
+section .form>.signWith ion-icon{
     color: var(--color-main);
 }
 
 section .form>p:nth-of-type(1){
     width: fit-content;
-    font-size: 2rem;
+    font-size: 1.7rem;
     font-weight: 200;
     padding: 1rem 0;
     position: relative;
@@ -51,7 +54,7 @@ section .form>p:nth-of-type(1){
 section .form>p:nth-of-type(1)::before,
 section .form>p:nth-of-type(1)::after{
     content: "";
-    width: 50%;
+    width: 60%;
     height: 1px;
     position: absolute;
     top: 50%;
@@ -59,10 +62,10 @@ section .form>p:nth-of-type(1)::after{
 }
 
 section .form>p:nth-of-type(1)::before{
-    left: -55%;
+    left: -65%;
 }
 section .form>p:nth-of-type(1)::after{
-    right: -55%;
+    right: -65%;
 }
 
 section .form form{
@@ -87,6 +90,7 @@ section .form form input{
     width: calc(100% - 2rem);
     padding: 1rem 2rem;
     font-size: 1.8rem;
+    text-transform: none;
 }
 
 section .form form button{
@@ -97,6 +101,7 @@ section .form form button{
     font-size: 2.2rem;
     font-weight: 300;
     border-radius: 0.5rem;
+    cursor: pointer;
 }
 section .form form button:nth-of-type(1){
     background-color: var(--color-main);
@@ -119,3 +124,30 @@ section .form>p:nth-of-type(2) span a{
     text-decoration: none;
 }
 
+form .error{
+    color: rgb(250, 83, 83);
+    width: 100%;
+    font-size: 1.3rem;
+    display: none;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+
+form .error.active{
+    display: flex;
+}
+
+#password-label{
+    display: none;
+}
+#password{
+    display: none;
+}
+
+#password-label.active{
+    display: block;
+}
+#password.active{
+    display:block;
+}

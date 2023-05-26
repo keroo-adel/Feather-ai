@@ -27,12 +27,12 @@
 
 <div class="container">
     {% block home_nav %}
-    <!--footer-->  
-    {% include 'partials\home_nav.html' %}
+    <!--nav bar-->  
+    {% include 'partials\home_nav.html' with user=request.user %}
     {% endblock %} 
 <section class="sec-home" id="main-page">
 {% block home_side %}
-    <!--footer-->  
+    <!--side bar-->  
 {% include 'partials\home_side.html' %}
 {% endblock %} 
 

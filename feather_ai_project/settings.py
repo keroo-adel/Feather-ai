@@ -175,6 +175,7 @@ DEFAULT_FROM_EMAIL = 'kerooadel5@gmail.com'
 
 AUTHENTICATION_BACKENDS = [
     'accounts.backends.EmailBackend',
+    'accounts.authentication.EmailOTPBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 SOCIALACCOUNT_LOGIN_ON_GET=True

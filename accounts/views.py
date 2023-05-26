@@ -19,20 +19,29 @@ def login_view(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         with_password = False
-        if '?with_password=true' in request.get_full_path():
+        if 'with_password=true' in request.get_full_path():
             with_password = True
         
+
         if with_password:
             # Authenticate with email and password
-            user = authenticate(request, email=email, password=password)
-            if user is not None:
-                login(request, user)
+            users = User.objects.filter(email=email)
+            authenticated_user = None
+            for user in users:
+                if user.check_password(password):
+                    authenticated_user = user
+                    break
+
+            if authenticated_user is not None:
+                authenticated_user.backend = 'django.contrib.auth.backends.ModelBackend'  # Set the backend attribute
+                login(request, authenticated_user)
                 messages.success(request, 'You have successfully logged in')
-                send_login_success_email(user)
+                send_login_success_email(authenticated_user)
                 return redirect('home')
             else:
                 messages.error(request, 'Invalid email or password')
                 return redirect('login')
+
 
         else:
             # Generate a new OTP code and send it to the user's email address
@@ -43,7 +52,8 @@ def login_view(request):
                 return redirect(redirect_url)
 
             otp_code = get_random_string(length=settings.OTP_CODE_LENGTH, allowed_chars='0123456789')
-            user_profile, created = UserProfile.objects.get_or_create(email=email)
+            user_profile, created = UserProfile.objects.get_or_create(user=User.objects.get(email=email))
+            
             if not created:
                 # User profile already exists, update the OTP code
                 user_profile.otp_code = otp_code
@@ -76,7 +86,7 @@ def otp_verification(request):
             return redirect('otp_verification')
 
         # Check if the OTP code and email match
-        user_profile = UserProfile.objects.filter(email=email, otp_code=otp_code).first()
+        user_profile = UserProfile.objects.filter(user=User.objects.get(email=email), otp_code=otp_code).first()
 
         if user_profile is None:
             messages.error(request, 'Invalid OTP code')
@@ -88,11 +98,20 @@ def otp_verification(request):
             messages.error(request, 'OTP code has expired')
             return redirect('otp_verification')
 
-        messages.success(request, 'OTP verification successful')
-        return redirect('home')
+        # Clear the session variable
+        del request.session['otp_email']
+
+        # Authenticate and login the user
+        user = user_profile.user
+        if user is not None:
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+            login(request, user)
+            return redirect('home')
+
+        messages.error(request, 'Invalid OTP code')
+        return redirect('otp_verification')
 
     return render(request, 'accounts/otp_verification.html')
-
 
 class RegisterView(FormView):
     template_name = 'accounts/register.html'

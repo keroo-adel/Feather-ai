@@ -27,7 +27,8 @@
             <div class="my-data">
                 <img src="{% static  'images/My personal photo.svg'%}" alt="my personal photo">
                 <p>
-                    kirolos adel
+                {{ user.first_name }} {{' '}} {{ user.last_name }}
+
     
                     <br>
                     <span> keroadel5@gmail.com </span>
@@ -57,7 +58,7 @@
                 </li>
                 <li>
                     <img src="{% static  'images/Icon log out.svg'%}" alt="log out icon">
-                    <p>log out</p>
+                    <p><a href="{% url 'logout' %}"> log out</a></p>
                 </li>
             </ul>
         </div>

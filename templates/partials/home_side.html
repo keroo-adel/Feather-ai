@@ -10,13 +10,19 @@
             <img src="{% static  'images/Icon search.svg '%} " alt="search">
             <input type="text" placeholder="Search">
         </li>
-        <li class="active">
+        <li 
+            {% if '/all' in request.path %}
+            class="active"
+            {% else %}
+            class=""
+            {% endif %}
+        >
             <a href="{% url 'home' %}">
                 <img src="{% static 'images/Icon dashboard.svg '%}" alt="dashboard">
                 <p>Home page</p>
             </a>
         </li>
-        <li>
+        <li >
             <a href="../Long form editor/Long-form-editor.html">
                 <img src="{% static 'images/Icon edit.svg '%}" alt="long form editor">
                 <p>long form editor</p>

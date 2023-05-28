@@ -60,7 +60,7 @@ def login_view(request):
                 user_profile.otp_created_at = timezone.now()
                 user_profile.save()
 
-            send_otp_code(email, otp_code)
+            send_otp_code( email, otp_code)
 
             # Store the email in the session
             request.session['otp_email'] = email
@@ -72,7 +72,7 @@ def login_view(request):
         return render(request, 'accounts/login.html')
 
 def otp_verification(request):
-    email = request.session.get('otp_email')  # Retrieve the email from the session
+    email = request.session.get('otp_email') 
 
     if not email:
         messages.error(request, 'Email not found')
@@ -92,8 +92,8 @@ def otp_verification(request):
             messages.error(request, 'Invalid OTP code')
             return redirect('otp_verification')
 
-        # Check if the OTP code is expired (e.g., valid for 5 minutes)
-        otp_expiry_time = user_profile.otp_updated_at + timedelta(minutes=5)
+        # Check if the OTP code is expired (e.g., valid for 60 minutes)
+        otp_expiry_time = user_profile.otp_updated_at + timedelta(hours=1)
         if otp_expiry_time < timezone.now():
             messages.error(request, 'OTP code has expired')
             return redirect('otp_verification')
@@ -112,6 +112,45 @@ def otp_verification(request):
         return redirect('otp_verification')
 
     return render(request, 'accounts/otp_verification.html')
+
+def otp_verification_url(request, otp_code):
+    email = request.session.get('otp_email')  # Retrieve the email from the session
+
+    if not email:
+        messages.error(request, 'Email not found')
+        return redirect('login')
+
+    # Check if the OTP code is provided
+    if not otp_code:
+        messages.error(request, 'Please provide OTP code')
+        return redirect('otp_verification')
+
+    # Check if the OTP code and email match
+    user_profile = UserProfile.objects.filter(user=User.objects.get(email=email), otp_code=otp_code).first()
+
+    if user_profile is None:
+        messages.error(request, 'Invalid OTP code')
+        return redirect('otp_verification')
+
+    # Check if the OTP code is expired (e.g., valid for 60 minutes)
+    otp_expiry_time = user_profile.otp_updated_at + timedelta(hours=1)
+    if otp_expiry_time < timezone.now():
+        messages.error(request, 'OTP code has expired')
+        return redirect('otp_verification')
+
+    # Clear the session variable
+    del request.session['otp_email']
+
+    # Authenticate and login the user
+    user = user_profile.user
+    if user is not None:
+        user.backend = 'django.contrib.auth.backends.ModelBackend'
+        login(request, user)
+        return redirect('home')
+
+    messages.error(request, 'Invalid OTP code')
+    return redirect('otp_verification')
+
 
 class RegisterView(FormView):
     template_name = 'accounts/register.html'

@@ -1,23 +1,178 @@
-{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Feather.AI - OTP Code</title>
 </head>
-<body style="background-color: #23272e; color: white">
-    <table style="width: 100%; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <tr>
-            <td style="text-align: center;">
-                <img src="{% static 'images/logo-feather-ai.png' %}" alt="Feather.AI Logo" style="max-width: 200px;">
+<body>
+    <div class="WordSection1">
+        <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100.0%;mso-cellspacing:0in;background:#F2F4F6;mso-yfti-tbllook:
+         1184;mso-padding-alt:0in 0in 0in 0in">
+         <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes">
+          <td style="padding:0in 0in 0in 0in">
+          <div align="center">
+          <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:1184;mso-padding-alt:
+           0in 0in 0in 0in">
+           <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes">
+            <td style="padding:18.75pt 0in 18.75pt 0in">
+            <p class="MsoNormal" align="center" style="text-align:center"><span style="font-size:12.0pt;font-family:&quot;Nunito Sans&quot;;mso-fareast-font-family:
+            &quot;Times New Roman&quot;"><a href="#"><b><span style="font-family:&quot;Arial&quot;,sans-serif;color:#A8AAAF;text-decoration:none;
+            text-underline:none"><img border="0" width="200" id="_x0000_i1025" src="cid:logo-feather-ai.png" style="display:inline!important;outline:none;border-bottom-style:none;
+            border-left-style:none;border-right-style:none;border-top-style:none;
+            height:auto;max-width:1000px;padding-bottom:0in;text-decoration:none;
+            vertical-align:bottom" alt="feather.ai" align="center"></span></b></a><o:p></o:p></span></p>
             </td>
-        </tr>
-        <tr>
-            <td style="text-align: center; padding: 40px 0;">
-                <h1>Feather.AI - OTP Code</h1>
-                <p>Your OTP code is: <strong>{{ otp_code }}</strong></p>
+           </tr>
+           <tr style="mso-yfti-irow:1">
+            <td width="100%" style="width:100.0%;padding:0in 0in 0in 0in" cellpadding="0" cellspacing="0">
+            <div align="center">
+            <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="570" style="width:427.5pt;mso-cellspacing:0in;background:white;mso-yfti-tbllook:
+             1184;mso-padding-alt:0in 0in 0in 0in" role="presentation">
+        <!-- Body content -->
+             <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes">
+              <td style="padding:33.75pt 33.75pt 33.75pt 33.75pt">
+              <div>
+              <p style="margin-top:4.8pt;margin-right:0in;margin-bottom:14.25pt;
+              margin-left:0in"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif;
+              color:#51545E">You're well on your way to setting up your Feather.AI
+              account. We just need to verify your email. Click the button below to let
+              us know know this is really you.<o:p></o:p></span></p>
+              <p style="margin-top:4.8pt;margin-right:0in;margin-bottom:14.25pt;
+              margin-left:0in"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif;
+              color:#51545E">This link is valid for 60 minutes.<o:p></o:p></span></p>
+        <!-- Action -->
+              <div align="center">
+              <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+               1184;mso-padding-alt:0in 0in 0in 0in">
+               <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes">
+                <td style="padding:0in 0in 0in 0in"><!-- Border based button https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
+                <div align="center">
+                <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="100%" style="width:100.0%;mso-cellspacing:0in;mso-yfti-tbllook:
+                 1184;mso-padding-alt:0in 0in 0in 0in">
+                 <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+                  yes">
+                  <td style="padding:0in 0in 0in 0in">
+                  <div align="center">
+                  <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" style="mso-cellspacing:0in;mso-yfti-tbllook:1184;mso-padding-alt:
+                   0in 0in 0in 0in">
+                   <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+                    yes">
+                    <td style="padding:0in 0in 0in 0in">
+                    <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Nunito Sans&quot;;
+                    mso-fareast-font-family:&quot;Times New Roman&quot;">
+                    
+                    <a href="{{ otp_verification_url }}" style="display:inline-block;border-radius:3px;box-shadow:0 2px 3px rgba(0,0,0,0.16);
+                    -webkit-text-size-adjust:none;box-sizing:border-box">
+                    <span style="color:white;border:solid #2254D8 6.0pt;padding:0in;
+                    background:#2254D8;text-decoration:none;text-underline:none">Verify
+                    Email Address</span></a> <o:p></o:p></span></p>
+                    </td>
+                   </tr>
+                  </tbody></table>
+                  </div>
+                  </td>
+                 </tr>
+                </tbody></table>
+                </div>
+                </td>
+               </tr>
+               <tr style="mso-yfti-irow:1;mso-yfti-lastrow:yes">
+                <td style="padding:0in 0in 0in 0in"><!-- Border based button https://litmus.com/blog/a-guide-to-bulletproof-buttons-in-email-design -->
+                <div align="center">
+                <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" style="mso-cellspacing:0in;mso-yfti-tbllook:1184;mso-padding-alt:0in 0in 0in 0in">
+                 <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+                  yes">
+                  <td style="padding:0in 0in 0in 0in">
+                  <div align="center">
+                  <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" style="mso-cellspacing:0in;mso-yfti-tbllook:1184;mso-padding-alt:
+                   0in 0in 0in 0in">
+                   <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:
+                    yes">
+                    <td style="padding:0in 0in 0in 0in">
+                    <table class="MsoNormalTable" border="0" cellspacing="3" cellpadding="0" style="mso-cellspacing:1.5pt;background:#F2F4F6;mso-yfti-tbllook:
+                     1184;mso-padding-alt:15.0pt 15.0pt 15.0pt 15.0pt">
+                     <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes">
+                      <td colspan="2" style="padding:15.0pt 15.0pt 15.0pt 15.0pt">
+                      <p class="MsoNormal" style="margin-top:15.0pt"><span style="font-size:12.0pt;font-family:&quot;Nunito Sans&quot;;mso-fareast-font-family:
+                      &quot;Times New Roman&quot;;color:black;mso-color-alt:windowtext">Or you
+                      can also use this code:</span><span style="font-size:12.0pt;
+                      font-family:&quot;Nunito Sans&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;"><o:p></o:p></span></p>
+                      </td>
+                     </tr>
+                     <tr style="mso-yfti-irow:1;mso-yfti-lastrow:yes">
+                      <td style="padding:15.0pt 15.0pt 15.0pt 15.0pt">
+                      <p class="MsoNormal" align="center" style="margin-top:15.0pt;
+                      text-align:
+                      center"><b><span style="font-size:12.0pt;font-family:
+                      &quot;Nunito Sans&quot;;mso-fareast-font-family:&quot;Times New Roman&quot;;
+                      color:#2254D8">{{ otp_code }}<o:p></o:p></span></b></p>
+                      </td>
+                      <td style="padding:15.0pt 15.0pt 15.0pt 15.0pt"></td>
+                     </tr>
+                    </tbody></table>
+                    </td>
+                   </tr>
+                  </tbody></table>
+                  </div>
+                  </td>
+                 </tr>
+                </tbody></table>
+                </div>
+                </td>
+               </tr>
+              </tbody></table>
+        <!-- Sub copy --></div>
+              <p class="MsoNormal"><span style="font-size:12.0pt;font-family:&quot;Arial&quot;,sans-serif;
+              mso-fareast-font-family:&quot;Times New Roman&quot;;display:none;mso-hide:all"><o:p>&nbsp;</o:p></span></p>
+              <table class="MsoNormalTable" border="1" cellspacing="3" cellpadding="0" style="mso-cellspacing:1.5pt;border:none;border-top:solid #EAEAEC 1.0pt;
+               mso-border-top-alt:solid #EAEAEC .75pt;mso-yfti-tbllook:1184;mso-padding-top-alt:
+               18.75pt">
+               <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes">
+                <td style="border:none;padding:18.75pt .75pt .75pt .75pt">
+                <p class="sub" style="margin-top:4.8pt;margin-right:0in;margin-bottom:
+                14.25pt;margin-left:0in"><span style="font-size:10.0pt;font-family:
+                &quot;Nunito Sans&quot;;color:#51545E">If you’re having trouble with the button
+                above, copy and paste the URL below into your web browser.<o:p></o:p></span></p>
+                <p class="sub" style="margin-top:4.8pt;margin-right:0in;margin-bottom:
+                14.25pt;margin-left:0in"><span style="font-size:10.0pt;font-family:
+                &quot;Nunito Sans&quot;;color:#51545E"><a href=""></a><o:p></o:p></span></p>
+                </td>
+               </tr>
+              </tbody></table>
+              </div>
+              </td>
+             </tr>
+            </tbody></table>
+            </div>
             </td>
-        </tr>
-    </table>
+           </tr>
+           <tr style="mso-yfti-irow:2;mso-yfti-lastrow:yes">
+            <td style="padding:0in 0in 0in 0in">
+            <div align="center">
+            <table class="MsoNormalTable" border="0" cellspacing="0" cellpadding="0" width="570" style="width:427.5pt;mso-cellspacing:0in;mso-yfti-tbllook:1184;mso-padding-alt:
+             0in 0in 0in 0in" role="presentation">
+             <tbody><tr style="mso-yfti-irow:0;mso-yfti-firstrow:yes;mso-yfti-lastrow:yes">
+              <td style="padding:33.75pt 33.75pt 33.75pt 33.75pt">
+              <p class="f-fallback" align="center" style="margin-top:4.8pt;margin-right:
+              0in;margin-bottom:14.25pt;margin-left:0in;text-align:center"><span style="font-size:10.0pt;color:#A8AAAF">© 2023 feather.ai All rights
+              reserved.<o:p></o:p></span></p>
+              </td>
+             </tr>
+            </tbody></table>
+            </div>
+            </td>
+           </tr>
+          </tbody></table>
+          </div>
+          </td>
+         </tr>
+        </tbody></table>
+        
+        <p class="MsoNormal"><span style="mso-fareast-font-family:&quot;Times New Roman&quot;"><o:p>&nbsp;</o:p></span></p>
+        
+        </div>
+
 </body>
 </html>
+
+

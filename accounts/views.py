@@ -24,6 +24,7 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_str
 
+############## login methods #############
 def login_view(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -180,7 +181,7 @@ def otp_verification_url(request, otp_code):
     messages.error(request, 'Invalid OTP code')
     return redirect('otp_verification')
 
-
+############## register methods #############
 class RegisterView(View):
     def get(self, request):
         return render(request, 'accounts/register.html')
@@ -255,8 +256,6 @@ class RegisterView(View):
 
             # Render the OTP login form
             return redirect('otp_verification')
-
-    
     
 class EmailVerificationView(View):
     def get(self, request, uidb64, token):
@@ -280,6 +279,8 @@ class EmailVerificationView(View):
 
         return redirect('home')  
     
+############## profile methods #############
+
 @login_required
 def profile_view(request):
     # Retrieve the user profile or relevant information

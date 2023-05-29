@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'accounts',
     'api',
     'library',
+    
+    'verification',
     'django_otp',
     'django_otp.plugins.otp_totp',
     'django_otp.plugins.otp_static',

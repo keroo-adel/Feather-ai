@@ -8,6 +8,7 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     profile_image = models.ImageField(upload_to='profile_images', blank=True, null=True)
     user_profile = models.OneToOneField('UserProfile', on_delete=models.CASCADE, related_name='user', default=None, null=True)
+    is_verified = models.BooleanField(default=False)
 
     class Meta:
         swappable = 'AUTH_USER_MODEL'

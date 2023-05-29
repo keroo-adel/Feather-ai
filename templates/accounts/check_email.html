@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}     
+<link rel="stylesheet" href="{% static 'Css/sign-in.css' %}">
+{% endblock  %}
+
+{% block bootstrap %}{% endblock  %}
+
+{% block title %}Email Verification | Feather.ia - Best AI Writing Tool{% endblock %}
+
+{% block content %}
+
+{% block landing_header %}{% endblock landing_header %}
+
+<div align="center" class="container">
+    <img src="{% static 'images/logo-feather-ai.png' %}" alt="logo feather ai" />
+    <h1> Please check your email to verify your account. </h1>
+</div>
+
+{% block landing_footer %}{% endblock landing_footer %}
+
+{% endblock  %}
+

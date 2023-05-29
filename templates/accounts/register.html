@@ -26,7 +26,7 @@
             <a href="{% url 'landing' %}">
                 <img src="{% static 'images/logo-feather-ai.png' %}" alt="logo feather ai" />
             </a>
-            <a href="" onclick="openGoogleLoginPopup(event);" class="signWith">
+            <a href="{% provider_login_url 'google' %}" class="signWith">
                 <ion-icon name="logo-google"></ion-icon>
                 <p>sign in with GOOGLE</p>
             </a>
@@ -39,9 +39,10 @@
 
             <form method="POST">
                 {% csrf_token %}
+
                 <label for="full_name">full name</label>
                 <input type="text" name="full_name" id="full_name" placeholder="Enter your full name here" />
-                <label for="email">business email</label>
+                <label for="email">Email</label>
                 <input type="email" name="email" id="" placeholder="user@example.com" />
                 <label for="password" id="password_label">password</label>
                 <input type="password" name="password" id="password" placeholder="Enter your password" />
@@ -100,7 +101,7 @@
         });
     });
 
-    
+{% comment %}     
     function openGoogleLoginPopup(event) {
         event.preventDefault();
         
@@ -125,6 +126,6 @@
         }, 1000);
         
 
-    }
+    } {% endcomment %}
 </script>
 {% endblock %}

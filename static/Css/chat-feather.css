@@ -33,7 +33,7 @@
 }
 
 .part-2 div.list-chats {
-    height: 510px;
+    height: 100%;
     padding: 4rem 1rem 0;
     display: flex;
     flex-direction: column;
@@ -132,7 +132,7 @@
 .main-chat-feather {
     padding: 1rem 2rem;
     position: relative;
-    height: 510px;
+    height: 100%;
     overflow: hidden;
 }
 
@@ -328,6 +328,7 @@
 .chat-with-ai .message .text .copy {
     align-self: flex-end;
     cursor: pointer;
+    display: flex;
 }
 
 .chat-with-ai .message.ai .img {
@@ -401,4 +402,9 @@
 }
 
 
+
+.copy ion-icon {
+    margin-right: 5px;
+
+}
 

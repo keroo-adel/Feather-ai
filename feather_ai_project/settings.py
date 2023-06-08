@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'saved_copies',
     'recent_activity',
     'settings',
+    'library_template',
     'verification',
     'django_otp',
     'django_otp.plugins.otp_totp',

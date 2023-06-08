@@ -13,4 +13,6 @@ urlpatterns = [
     path('social-auth/', include('social_django.urls', namespace='social')),
     path('long_form_editor/', include('long_form_editor.urls')),
     path('chat_feather/', include('chat_feather.urls')),
+    path('template/', include('library_template.urls')),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

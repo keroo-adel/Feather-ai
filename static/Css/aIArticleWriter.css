@@ -1,0 +1,715 @@
+.part-1 {
+    position: relative;
+}
+
+.main-page .part-1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0 1rem 1rem;
+}
+
+.main-page .part-1>div {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: 500;
+}
+
+.main-page .part-1>div:nth-of-type(1) img {
+    background-color: var(--color-main-2);
+    color: var(--color-dark-2);
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.main-page .part-1>div:nth-of-type(2) a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-page .part-1>div:nth-of-type(2) img {
+    background-color: var(--color-main);
+    padding: 1rem;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.optionExport{
+    position: absolute;
+    z-index: 99;
+    top: -40rem;
+    right: -40rem;
+    opacity: 0;
+    max-width: 35rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start !important;
+    padding: 2.5rem;
+    background-color: var(--color-dark);
+    border: 1px solid var(--color-white-3);
+    border-radius: 1rem;
+    transition: 0.4s;
+}
+
+.optionExport.active{
+    top: 95%;
+    right: 0;
+    opacity: 1;
+}
+
+.optionExport p{
+    font-size: 1.6rem;
+    font-weight: 400;
+}
+
+.optionExport >p:nth-of-type(1){
+    font-size: 1.8rem;
+    font-weight: 300;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-dark-4);
+    width: 100%;
+}
+
+.optionExport>div:nth-of-type(1){
+    background-color: var(--color-dark-2);
+    padding:1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10rem;
+    border-radius:1.5rem;
+}
+
+.optionExport >div:nth-of-type(1) p{
+    margin-bottom: 0.5rem;
+}
+
+.optionExport >div:nth-of-type(2){
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    width: 100%;
+}
+
+.optionExport >div:nth-of-type(2) ul{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.optionExport >div:nth-of-type(2) ul li{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--color-dark-2);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    cursor: pointer;
+}
+
+/* -------------------------- */
+
+.part-2 {
+    gap: 2rem;
+    overflow-y: auto;
+}
+
+.steps,
+.complete-the-fields,
+.part-2-2 {
+    background-color: var(--color-dark-3);
+    border-radius: 1.5rem;
+    padding: 2rem;
+}
+
+.part-2-1 {
+    display: grid;
+    grid-template-rows: minmax(0, 17rem) 1fr;
+    gap: 2rem;
+}
+
+.head,
+.steps .step-by-step {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.steps {
+    max-height: 17rem;
+}
+
+.head p {
+    font-size: 1.5rem;
+}
+
+.steps .step-by-step {
+    padding: 2rem 0;
+    justify-content: center;
+}
+
+.steps .step-by-step div {
+    color: #959595;
+    background: var(--color-white-1-2);
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 2.5rem;
+    position: relative;
+}
+
+.steps .step-by-step span {
+    width: 4rem;
+    height: 0.5rem;
+    background-color: var(--color-white-1-2);
+    border-radius: 2rem;
+}
+
+.steps .step-by-step div.active {
+    color: var(--color-main);
+    background: #ffcec0;
+}
+
+.steps .step-by-step span.active {
+    background: #ffcec0;
+}
+
+.steps .step-by-step div.activeLast {
+    background: var(--color-main);
+}
+
+.steps .step-by-step div img {
+    display: none;
+}
+
+.steps .step-by-step div.activeLast .stepNum {
+    display: none;
+}
+
+.steps .step-by-step div.activeLast img {
+    display: block;
+}
+
+.steps .step-by-step div>p.stepText {
+    font-size: 1.2rem;
+    position: absolute;
+    bottom: -2.5rem;
+}
+
+/* --------------------- */
+
+.complete-the-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.complete-the-fields .head {
+    margin-bottom: 1rem;
+}
+
+.complete-the-fields form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.4rem;
+}
+
+input,
+div.divSelect {
+    background-color: transparent;
+    color: var(--color-white-2);
+    border: 1px solid var(--color-white-3);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    outline: none;
+}
+
+button {
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: transparent;
+    color: var(--color-white-3);
+    outline: none;
+    border: none;
+    border-radius: 1rem;
+    font-size: 1.6rem;
+}
+
+button.valid {
+    background-color: var(--color-main);
+    color: var(--color-dark);
+
+}
+
+.or {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.or p {
+    font-size: 1.5rem;
+    text-align: center;
+    width: 20%;
+}
+
+.or span {
+    width: 40%;
+    height: 1px;
+    background-color: var(--color-white-3);
+}
+
+.complete-the-fields>p {
+    font-size: 1.5rem;
+    font-weight: 200;
+    text-align: center;
+}
+
+div.divSelect {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.6rem;
+    font-weight: 300;
+    cursor: pointer;
+}
+
+div.divSelect.active {
+    border: 1px solid var(--color-main);
+}
+
+div.divSelect ion-icon {
+    transition: 0.3s;
+}
+
+div.divSelect.active ion-icon {
+    transform: rotate(180deg);
+}
+
+.ulSelect ul {
+    display: flex;
+    opacity: 0;
+    flex-direction: column;
+    gap: 2rem;
+    font-size: 1.5rem;
+    font-weight: 200;
+    padding: 0 2rem;
+    overflow: hidden;
+    width: 0;
+    height: 0;
+    transition: 0.3;
+}
+
+
+div.ulSelect.active ul {
+    width: 100%;
+    height: fit-content;
+    opacity: 1;
+}
+
+.ulSelect ul li {
+    list-style-type: none;
+    cursor: pointer;
+}
+
+/* ------------------------ */
+
+.someKeyWords {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.someKeyWords div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5rem;
+    background-color: var(--color-main-2);
+    color: var(--color-main);
+}
+
+.someKeyWords div ion-icon {
+    margin-top: 0.2rem;
+    cursor: pointer;
+}
+
+
+/* ------------------------ */
+.part-2-2 {
+    position: relative;
+    overflow-y: auto;
+}
+
+.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
+    font-size: 1.5rem;
+    color: var(--color-white-3);
+    max-width: 40rem;
+    text-align: center;
+    line-height: 2.5rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* ------------------------------- */
+
+.part-2-2>div {
+    display: none;
+
+}
+
+.part-2-2>div>ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.part-2-2>div>ul>li {
+    padding: 2rem;
+    border-radius: 1rem;
+    font-size: 1.8rem;
+    list-style: none;
+    background-color: var(--color-dark-4);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.26) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.048) 0px 0px 0px 1px inset;
+    cursor: pointer;
+}
+
+.part-2-2>div>ul>li .select {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.part-2-2>div>ul>li .select span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.3rem;
+    border: 1px solid var(--color-white-3);
+    border-radius: 0.7rem;
+    font-size: 1.8rem;
+}
+
+.part-2-2>div .details {
+    margin-top: 1rem;
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.part-2-2>div>ul>li.active {
+    border: 1px solid var(--color-main);
+    background-color: var(--color-main-2);
+    color: var(--color-main);
+}
+
+.part-2-2>div>ul li .select div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 1px solid var(--color-white-3);
+
+}
+
+.part-2-2>div>ul li .select div ion-icon {
+    font-size: 1rem;
+}
+
+.part-2-2>div>ul li.active .select div {
+    border: 1px solid var(--color-main);
+}
+
+.divAllKeyWords ul li.active span {
+    background-color: var(--color-main);
+    color: var(--color-white-1);
+    border: none !important;
+}
+
+.AllOutline>ul li .select {
+    align-items: flex-start !important;
+}
+
+.AllOutline>ul li .select ul {
+    margin-left: 2.5rem;
+}
+
+.AllOutline>ul li .select ul li {
+    list-style-type: decimal;
+    margin-bottom: 0.5rem;
+}
+
+/* --------------------- */
+.complete-the-fields.step {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.complete-the-fields.step .p1 {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.complete-the-fields.step .p1>div:not(:first-of-type) {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.complete-the-fields.step .p1 input {
+    width: 100%;
+}
+
+.complete-the-fields.step>div:last-of-type {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.complete-the-fields.step>div:last-of-type>div {
+    width: 4rem;
+    height: 4rem;
+    background-color: var(--color-main);
+    color: var(--color-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 2.5rem;
+    cursor: pointer;
+}
+
+.complete-the-fields.step>div:last-of-type input {
+    width: 8rem;
+}
+
+.complete-the-fields.step>div:last-of-type button {
+    background-color: var(--color-main);
+    color: var(--color-dark);
+    width: 50%;
+}
+
+/* ---------------------------- */
+.toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1rem 0 2rem;
+    color: var(--color-white-3);
+    font-size: 1.8rem;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 5rem;
+    height: 3rem;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-white-3);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 2rem;
+    width: 2rem;
+    left: 0.5rem;
+    bottom: 0.5rem;
+    background-color: var(--color-white-1-2);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #ec6f4dc4;
+}
+
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(2rem);
+    -ms-transform: translateX(2rem);
+    transform: translateX(2rem);
+}
+
+.slider.round {
+    border-radius: 3rem;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/*----------------------------------*/
+
+.complete-the-fields.four .Article-Outline>span {
+    font-size: 1rem;
+    font-weight: 200;
+    margin-bottom: 1rem;
+}
+
+.Article-Outline .up {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.Article-Outline .up .oneArt,
+.Article-Outline .up input {
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.3rem;
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: var(--color-dark-4);
+}
+
+
+
+.Article-Outline .up .oneArt>img {
+    width: 0.8rem;
+}
+
+.Article-Outline .up .oneArt span {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Article-Outline .up .oneArt span ion-icon {
+    font-size: 2.5rem;
+    color: var(--color-white-2);
+    cursor: pointer;
+}
+
+.Article-Outline .up .oneArt:nth-of-type(1) {
+    border: 1px solid var(--color-main);
+}
+
+.Article-Outline .up .oneArt:nth-of-type(1) span ion-icon {
+    color: var(--color-main);
+}
+
+.Article-Outline .up .oneArt .img {
+    display: none;
+}
+
+.Article-Outline .up .oneArt:nth-of-type(1) .img {
+    background-color: var(--color-main);
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    border-radius: 0.5rem;
+}
+
+.Article-Outline .up .oneArt:not(:first-of-type),
+.Article-Outline .up input {
+    width: 90% !important;
+    align-self: flex-end;
+}
+
+.Article-Outline .up input {
+    margin-bottom: 1rem;
+}
+
+.complete-the-fields.four .btnNext {
+    background-color: var(--color-dark-4) !important;
+}
+
+/* ----------------------- */
+.endArt .img {
+    width: 90%;
+    margin: auto;
+    border-radius: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    padding: 2rem;
+}
+
+.endArt .img img {
+    width: 100%;
+}
+
+.endArt .text .head-1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    padding: 1rem 0 2.5rem;
+    text-transform: uppercase;
+}
+
+.endArt .text .head-2 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.endArt .text {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 1.8rem;
+    line-height: 2.5rem;
+    font-weight: 300;
+}
+
+.endArt .text p {
+    padding: 0.5rem 0;
+}

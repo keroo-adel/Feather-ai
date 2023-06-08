@@ -137,14 +137,19 @@
     {% for card_template in card_templates %}
 
     {% if card_template.additional_photo %}
+    
     <div class="feature-1">
         <div class="part-1">
+            <a href="
+            {% if card_template.title == 'Chat Feather(Like ChatGPT)' %}
+            {% url 'chat_feather' %}            
+            {% endif %}
+            ">
             {% if card_template.icon %}
                 <div class="icon">
                     <img src="{{card_template.icon.url}}" alt="">
                 </div>
             {% endif %}
-
             <div class="text">
                 <p>{{card_template.title}}</p>
                 <p>
@@ -152,16 +157,20 @@
                 </p>
             </div>
         </div>
+    </a>
+
+
         <div class="part-2">
             <img src="{{card_template.additional_photo.url}}" alt="">
         </div>    
-
+        
         {% if card_template.tags %}
             <div class="state">
             <ion-icon name="star-sharp" role="img" class="md hydrated"></ion-icon>
             <p>{{card_template.tags}}</p>
         </div>
         {% endif %}
+    
 
     </div>
 
@@ -169,8 +178,14 @@
 
     {% if not card_template.additional_photo %}
     <div>
-        <a href="#">
-            </a><div class="part-1"><a href="#">
+            <div class="part-1">
+                <a href="
+                    {% if card_template.title == 'ai article writer' %}
+                    {% url 'ai article writer' %}
+                    {% else %}
+                    #
+                    {% endif %}
+                ">
                 {% if card_template.icon %}
                 <div class="icon">
                     <img src="{{ card_template.icon.url }}" alt="">
@@ -183,8 +198,8 @@
                         {{card_template.description}}
                     </p>
                 </div>
-        </a>
         
+    
                     
                 <div class="fav">
                     <a href="{% url 'bookmark_toggle' card_template.id %}" title="Add to Bookmarks">

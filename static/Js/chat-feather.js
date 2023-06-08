@@ -160,5 +160,15 @@ function copyToClipboard(text) {
     tempInput.select();
     document.execCommand('copy');
     document.body.removeChild(tempInput);
-    alert("Text copied to clipboard!");
+    
+    const copyIcon = document.querySelector('.copy-icon');
+    copyIcon.setAttribute('name', 'checkmark-outline');  // Change the icon name
+
+    const tooltip = document.querySelector('.tooltip');
+    tooltip.innerText = 'copied!';
+
+    setTimeout(() => {
+        tooltip.innerText = 'copy';  // Clear the inner text
+        copyIcon.setAttribute('name', 'copy-outline');  // Reset the icon name
+    }, 3000);
 }

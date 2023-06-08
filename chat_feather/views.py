@@ -4,7 +4,8 @@ from .models import Chat, Message, Response
 # from .ai_model import load_ai_model  # Replace with the code to load your AI model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
-
+from urllib.parse import unquote
+import json
     
 class ChatFeatherView(LoginRequiredMixin,ListView):
     template_name = 'chat_feather/chat-feather.html'
@@ -61,19 +62,22 @@ class UpdateActiveChatView(View):
         return redirect('chat_feather')  
     
 class SendMessageView(LoginRequiredMixin, View):
-    def post(self, request, chat_id, message):
+    def post(self, request):
+        data = json.loads(request.body)
+        chat_id = data.get('chat_id')
+        message_content = data.get('message')
 
         try:
             chat = Chat.objects.get(pk=chat_id)
         except Chat.DoesNotExist:
-            chat = Chat.objects.create(user=request.user, name='new_chat',active=True)
+            chat = Chat.objects.create(user=request.user, name='new_chat', active=True)
 
-        message = Message.objects.create(chat=chat, content=message)
+        message = Message.objects.create(chat=chat, content=message_content)
 
-        # Here, you can call your AI model to get the response
+        # Ai model response
         ai_response = "Ai model say hello"
 
         response = Response.objects.create(message=message, content=ai_response)
 
-        return HttpResponse(ai_response , content_type="text/plain")
+        return HttpResponse(ai_response, content_type="text/plain")
     

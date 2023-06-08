@@ -33,42 +33,42 @@ function isValid(value) {
 }
 
 function writeMessage() {
-    let message = `
-    <div class="message me">
-        <div class="img">
-            <img src="
-            ${staticUrl}/MyPersonalPhoto.svg"
-            
-            " alt="">
-        </div>
-        <div class="text">
-            <p>
-                ${inputChat.value}
-            </p>
-        </div>
-    </div>
-	`;
+    const messageText = document.createElement('p');
+    messageText.innerText = inputChat.value;
 
-    divChatWithAi.insertAdjacentHTML("beforeend", message);
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message', 'me');
+    messageDiv.innerHTML = `
+        <div class="img">
+            <img src="${staticUrl}/MyPersonalPhoto.svg" alt="">
+        </div>
+        <div class="text"></div>
+    `;
+    messageDiv.querySelector('.text').appendChild(messageText);
+
+    divChatWithAi.appendChild(messageDiv);
     inputChat.focus();
 
     const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-const headers = {
-  'Content-Type': 'application/json',
-  'X-CSRFToken': csrfToken,
-};
-
-    fetch(`send_message/${activeChatId}/${inputChat.value}/`, {
+    fetch('send_message/', {
         method: 'POST',
-        headers: headers,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfToken,
+        },
+        body: JSON.stringify({
+          chat_id: activeChatId,
+          message: inputChat.value,
+        }),
       })
         .then(response => response.text())
         .then(responseText => {
-            autoReply(responseText);
-          })
+          autoReply(responseText);
+        })
         .catch(error => {
           console.error('Error:', error);
         });
+      
   
     inputChat.value = "";
     scrollBottom();
@@ -160,5 +160,15 @@ function copyToClipboard(text) {
     tempInput.select();
     document.execCommand('copy');
     document.body.removeChild(tempInput);
-    alert("Text copied to clipboard!");
+    
+    const copyIcon = document.querySelector('.copy-icon');
+    copyIcon.setAttribute('name', 'checkmark-outline');  // Change the icon name
+
+    const tooltip = document.querySelector('.tooltip');
+    tooltip.innerText = 'copied!';
+
+    setTimeout(() => {
+        tooltip.innerText = 'copy';  // Clear the inner text
+        copyIcon.setAttribute('name', 'copy-outline');  // Reset the icon name
+    }, 3000);
 }

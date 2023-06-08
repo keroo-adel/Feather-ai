@@ -33,42 +33,42 @@ function isValid(value) {
 }
 
 function writeMessage() {
-    let message = `
-    <div class="message me">
-        <div class="img">
-            <img src="
-            ${staticUrl}/MyPersonalPhoto.svg"
-            
-            " alt="">
-        </div>
-        <div class="text">
-            <p>
-                ${inputChat.value}
-            </p>
-        </div>
-    </div>
-	`;
+    const messageText = document.createElement('p');
+    messageText.innerText = inputChat.value;
 
-    divChatWithAi.insertAdjacentHTML("beforeend", message);
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message', 'me');
+    messageDiv.innerHTML = `
+        <div class="img">
+            <img src="${staticUrl}/MyPersonalPhoto.svg" alt="">
+        </div>
+        <div class="text"></div>
+    `;
+    messageDiv.querySelector('.text').appendChild(messageText);
+
+    divChatWithAi.appendChild(messageDiv);
     inputChat.focus();
 
     const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-const headers = {
-  'Content-Type': 'application/json',
-  'X-CSRFToken': csrfToken,
-};
-
-    fetch(`send_message/${activeChatId}/${inputChat.value}/`, {
+    fetch('send_message/', {
         method: 'POST',
-        headers: headers,
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfToken,
+        },
+        body: JSON.stringify({
+          chat_id: activeChatId,
+          message: inputChat.value,
+        }),
       })
         .then(response => response.text())
         .then(responseText => {
-            autoReply(responseText);
-          })
+          autoReply(responseText);
+        })
         .catch(error => {
           console.error('Error:', error);
         });
+      
   
     inputChat.value = "";
     scrollBottom();
@@ -87,7 +87,7 @@ function autoReply(responseText) {
             <p id="ai-text">
                 ${responseText}
             </p>
-            <div class="copy">
+            <div class="copy" onclick="copyToClipboard('${responseText}')">
                 <ion-icon
                     name="copy-outline"
                 ></ion-icon>
@@ -97,13 +97,7 @@ function autoReply(responseText) {
 	`;
     divChatWithAi.insertAdjacentHTML("beforeend", message);
     scrollBottom();
-    
-    const btnCopy = document.querySelector(".copy");
-    btnCopy.addEventListener("click", () => {
-        let text = document.querySelector("#ai-text").innerText;
-        navigator.clipboard.writeText(text);
-        alert("Text copied to clipboard!");
-    });
+
 }
 
 function scrollBottom() {
@@ -157,6 +151,14 @@ recognition.addEventListener("end", () => {
     if (isRecording) {
         recognition.start();
     }
-});;
+});
 
-
+function copyToClipboard(text) {
+    const tempInput = document.createElement('input');
+    tempInput.value = text;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+    alert("Text copied to clipboard!");
+}

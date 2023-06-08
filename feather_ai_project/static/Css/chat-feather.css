@@ -328,6 +328,7 @@
 .chat-with-ai .message .text .copy {
     align-self: flex-end;
     cursor: pointer;
+    display: flex;
 }
 
 .chat-with-ai .message.ai .img {
@@ -399,3 +400,11 @@
   .hidden {
     display: none;
 }
+
+
+
+.copy ion-icon {
+    margin-right: 5px;
+
+}
+

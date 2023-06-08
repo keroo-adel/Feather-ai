@@ -1,0 +1,425 @@
+{% extends 'base2.html' %}
+
+{% load static %}
+{% block title %}ChatFeather | Feather.ai{% endblock  %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'Css/chat-feather.css' %} " />
+{% endblock  %}
+
+{% block bootstrap %}
+{% endblock %}
+{% block content %}
+
+                <div class="main-page">
+                    <div class="part-1">
+                        <div>
+                            <img
+                                src="{% static 'images/chat-2.svg'%}"
+                                alt="chat logo"
+                            />
+                        </div>
+                        <p>chat feather</p>
+                    </div>
+
+                    <div class="part-2">
+                        <div class="list-chats">
+                            <div id="search-chat">
+                                <img
+                                    src="{% static 'images/Icon search.svg'%}"
+                                    alt=""
+                                />
+                                <input type="text" id="chat-search-input" placeholder="Search">
+                            </div>
+                            <hr />
+
+                            <div id="add-new-chat">
+                                <ion-icon name="add-outline" id="new-chat-icon"></ion-icon>
+                                <p id="new-chat-text">new chat</p>
+                            </div>
+                            <ul id="list-chats"> 
+                                <form id="new-chat-form" style="display: none;" method="post" action="{% url 'chat_feather' %}" class="chat-form">
+                                    {% csrf_token %}
+                                    <div class="input-container">
+                                      <input type="text" name="chat_name" placeholder="Chat Name" class="chat-input">
+                                      <button type="submit" name="new_chat" class="icon-button">
+                                        <img src="{% static 'images/tick-square.svg'%}" alt="" class="icon-image">
+                                    </button>
+                                      <img src="{% static 'images/close-square.svg'%}" alt="" class="close-icon">
+
+                                    </div>
+                                  </form>
+                                {% for chat in chats %}
+                                <li class="chat-item {% if chat.active %}active{% endif %}" data-chat-id="{{ chat.id }}">                                    
+                                    <p id="chat-name-{{ chat.id }}" contenteditable="false">{{ chat.name }}</p>
+                                    
+                                    <div class="icon">      
+                                
+                                        <button type="button" class="icon-button edit-chat" data-chat-id="{{ chat.id }}">
+                                            <img src="{% static 'images/Icon ben.svg' %}" alt="" id="edit-icon-{{ chat.id }}">
+                                            <img src="{% static 'images/tick-square.svg' %}" alt="" id="tick-icon-{{ chat.id }}" style="display: none;">
+                                        </button>
+                                        <form method="post" action="{% url 'delete_chat' chat.id %}">
+                                            {% csrf_token %}
+                                            <button type="submit" class="icon-button delete-chat" >
+                                              <img src="{% static 'images/Icon  trash.svg'%}" alt="">
+                                            </button>
+                                          </form>
+                                    </div>
+                                </li>
+                                {% endfor %}
+
+                            </ul>
+                        </div>
+                        <div class="main-chat-feather">
+                            <div class="welcome {% if active_chat_id and has_message_response_pairs %}hidden{% endif %}">
+                                <p>Welcome to ChatFeather</p>
+                                <p>Your personalised AI-powered chatbot</p>
+                                <div class="some-features">
+                                    <div class="feature">
+                                        <div>
+                                            <img
+                                                src="{% static 'images/Icon  ben-2.svg'%}"
+                                                alt=""
+                                            />
+                                            <p>Ask complex questions</p>
+                                        </div>
+                                        <div>
+                                            <p>
+                                                "Tell me more about the upcoming
+                                                meteor event happening this
+                                                February 2023."
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="feature">
+                                        <div>
+                                            <img
+                                                src="{% static 'images/Icon  image.svg'%}"
+                                                alt=""
+                                            />
+                                            <p>Create digital artwork</p>
+                                        </div>
+                                        <div>
+                                            <p>
+                                                "Create an HD wallpaper with
+                                                super cool sports car racing on
+                                                the track."
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="feature">
+                                        <div>
+                                            <img
+                                                src="{% static 'images/Icon  mic.svg'%}"
+                                                alt=""
+                                            />
+                                            <p>Give voice commands</p>
+                                        </div>
+                                        <div>
+                                            <p>
+                                                "Hey ChatFeather, compare the
+                                                iPhone 14 Pro with the iPhone 13
+                                                Pro."
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="feature">
+                                        <div>
+                                            <img
+                                                src="{% static 'images/Icon  page.svg'%}"
+                                                alt=""
+                                            />
+                                            <p>Generate professional content</p>
+                                        </div>
+                                        <div>
+                                            <p>
+                                                "Write a high-converting landing
+                                                page headline and sub headline
+                                                for ChatSonic."
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="some-prompts {% if active_chat_id and has_message_response_pairs %}hidden{% endif %}">
+                                <div>
+                                    <p id="hide-prompts">Try asking about</p>
+                                    <ion-icon
+                                        id="hide"
+                                        name="chevron-down-outline"
+                                    ></ion-icon>
+                                    <ion-icon
+                                        id="reload-prompts"
+                                        name="reload-outline"
+                                    ></ion-icon>
+                                </div>
+                                <ul id="list-prompts">
+                                    <li>Writing Help</li>
+                                    <li>Recommendations</li>
+                                    <li>Travel</li>
+                                    <li>test text</li>
+                                    <li>test text</li><li>test text</li>
+                                </ul>
+
+                            </div>
+                            <div class="chat-with-ai {% if active_chat_id %}active{% endif %}" >
+                                {% for message, response in message_response_pairs %}
+                                <div class="message me">
+                                    <div class="img">
+                                        <img src="{% static 'images/MyPersonalPhoto.svg' %}" alt="">
+                                    </div>
+                                    <div class="text">
+                                        <p>
+                                            {{ message.content }}
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="message ai">
+                                    <div class="img">
+                                    <img src="{% static 'images/robot.svg' %}" alt="">
+                                    </div>
+                                    <div class="text">
+                                        <p class="ai-text">{{ response.content }}</p>
+                                        <div class="copy" onclick="copyToClipboard('{{ response.content }}')">
+                                        <ion-icon name="copy-outline"></ion-icon>
+                                    </div>
+                                    </div>
+                                </div>
+                                {% endfor %} 
+                            </div>
+
+                            <div class="input-chat">
+                                <img
+                                    id="mic"
+                                    src="{% static 'images/Icon  mic-2.svg'%}"
+                                    alt=""
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="write a message"
+                                    id="inputChat"
+                                />
+                                <div class="sent">
+                                    <img
+                                        src="{% static 'images/Icon  sent.svg'%}"
+                                        alt=""
+                                        id="sendButton"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+{% endblock %}
+{% block scripts %}
+<script src=" {% static 'Js/chat-feather.js' %}"></script>
+
+
+  <script>
+    const addNewChat = document.getElementById('add-new-chat');
+    const newChatForm = document.getElementById('new-chat-form');
+    const listChats = document.getElementById('list-chats');
+    const newChatInput = newChatForm.querySelector('.chat-input');
+    const newChatSubmit = newChatForm.querySelector('button[type="submit"]');
+    const closeIcon = newChatForm.querySelector('.close-icon');
+    function toggleNewChatForm() {
+        newChatForm.style.display = newChatForm.style.display === 'none' ? 'block' : 'none';
+      }
+  
+      // Event listener for adding new chat on button click
+      addNewChat.addEventListener('click', toggleNewChatForm);
+    // Function to add a new chat to the list
+    function addChat() {
+      newChatForm.style.display = 'block';
+      newChatInput.focus();
+    }
+    
+    // Function to close the form
+    function closeForm() {
+      newChatForm.style.display = 'none';
+    }
+    
+    // Event listener for adding new chat on button click
+    addNewChat.addEventListener('click', addChat);
+    
+    // Event listener for closing the form on "Esc" key press
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeForm();
+      }
+    });
+    
+    // Event listener for closing the form on close icon click
+    closeIcon.addEventListener('click', () => {
+      closeForm();
+    });
+    
+    // Event listener for saving changes when icon-image is clicked
+    newChatSubmit.addEventListener('click', () => {
+      closeForm();
+    });
+    
+    // Event listener for saving changes on Enter key press
+    newChatForm.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        newChatSubmit.click();
+      }
+    });
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        const editButtons = document.querySelectorAll('.edit-chat');
+        const delete_icon = document.querySelectorAll('.delete-chat');
+        const chatNames = document.querySelectorAll('[id^="chat-name-"]');
+    
+        editButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const chatId = button.getAttribute('data-chat-id');
+                const chatName = document.querySelector(`#chat-name-${chatId}`);
+    
+                if (chatName.contentEditable === 'false') {
+                    chatName.contentEditable = 'true';
+                    chatName.focus();
+                    button.innerHTML = '<img src="{% static 'images/tick-square.svg' %}" alt="">';
+
+                    button.classList.add('editing');
+                    chatName.addEventListener('keydown', function(event) {
+                        if (event.key === 'Enter') {
+                            event.preventDefault();
+                            chatName.blur();
+                        }
+                    });
+                } else {
+                    chatName.contentEditable = 'false';
+                    button.innerHTML = '<img src="{% static 'images/Icon ben.svg' %}" alt="">';
+                    
+                    button.classList.remove('editing');
+                    saveChatName(chatId, chatName.innerText);
+                }
+            });
+        });
+    
+
+        chatNames.forEach(chatName => {
+            chatName.addEventListener('blur', function(event) {
+                const chatId = chatName.getAttribute('data-chat-id');
+                const newChatName = chatName.innerText;
+                if (newChatName.trim() !== '') {
+                    saveChatName(chatId, newChatName);
+                } else {
+                    // Reset the chat name to its original value if it is empty
+                    chatName.innerText = chatName.getAttribute('data-original-name');
+                }
+            });
+        });
+    
+        function saveChatName(chatId, newChatName) {
+            const csrfToken = document.querySelector('[name="csrfmiddlewaretoken"]').value;
+            const url = `update_chat_name/${chatId}/`;
+            const data = new FormData();
+            data.append('new_name', newChatName);
+            data.append('csrfmiddlewaretoken', csrfToken);
+    
+            fetch(url, {
+                method: 'POST',
+                body: data
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Chat name updated successfully');
+                } else {
+                    console.error('Failed to update chat name');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const chatList = document.getElementById('list-chats');
+        const searchInput = document.getElementById('chat-search-input');
+    
+        searchInput.addEventListener('input', function(event) {
+            const searchTerm = event.target.value.toLowerCase();
+            const chatNames = chatList.getElementsByTagName('p');
+    
+            for (let i = 0; i < chatNames.length; i++) {
+                const chatName = chatNames[i].textContent.toLowerCase();
+                const chatItem = chatNames[i].parentNode;
+    
+                if (chatName.includes(searchTerm)) {
+                    chatItem.style.display = 'flex';
+                } else {
+                    chatItem.style.display = 'none';
+                }
+            }
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const chatItems = document.querySelectorAll('.chat-item');
+
+        chatItems.forEach(item => {
+            item.addEventListener('click', function(event) {
+                const chatId = item.getAttribute('data-chat-id');
+                setActiveChat(chatId);
+            });
+    
+            const divElement = item.querySelector('.icon' );
+            divElement.addEventListener('click', function(event) {
+                event.stopPropagation(); // Stop the event from propagating to the parent <li> element
+            });
+        });
+    
+        function setActiveChat(chatId) {
+            fetch(`update_active_chat/${chatId}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken'),
+                },
+                body: JSON.stringify({ chatId: chatId }),
+                
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log('Chat activated successfully');
+                    location.reload();
+                } else {
+                    console.error('Failed to activate chat');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    
+        // Function to get the value of a cookie
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+    });
+ 
+    
+      // my var for js file
+      var staticUrl = "{% static 'images/' %}";
+      let activeChatId;
+      if (document.querySelector(".chat-item.active"))
+      {
+        activeChatId = document.querySelector(".chat-item.active").dataset.chatId;
+      }else {
+        activeChatId = 0;
+      }
+      
+  
+  
+    </script>
+
+{% endblock %}

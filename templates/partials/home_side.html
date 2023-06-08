@@ -1,4 +1,6 @@
 {% load static %}
+{% load custom_filters %}
+
 <aside id="aside-nav" class="">
     <ul>
         <li id="btnToggleAside">
@@ -11,11 +13,14 @@
             <input type="text" placeholder="Search">
         </li>
         <li 
-            {% if '/all' in request.path %}
+
+        {% with categories="all,new,articles-and-blogs,email-letters,writing-tools,social-media,sales-copy,digital-ad-copy,brainstorming-tools,personal-tools,startup-tools,website-copy"|split_string:"," %}
+        {% if request.path|has_any:categories %}
             class="active"
-            {% else %}
+        {% else %}
             class=""
-            {% endif %}
+        {% endif %}
+    {% endwith %}
         >
             <a href="{% url 'home' %}">
                 <img src="{% static 'images/Icon dashboard.svg '%}" alt="dashboard">
@@ -23,13 +28,13 @@
             </a>
         </li>
         <li >
-            <a href="../Long form editor/Long-form-editor.html">
+            <a href="{% url 'long_form_editor' %}" title="long form editor">
                 <img src="{% static 'images/Icon edit.svg '%}" alt="long form editor">
                 <p>long form editor</p>
             </a>
         </li>
         <li>
-            <a href="../Chat Feather/chat-feather.html">
+            <a href="{% url 'chat_feather' %}">
                 <img src="{% static 'images/Icon chat.svg '%}" alt="chat">
                 <p>chat feather</p>
             </a>

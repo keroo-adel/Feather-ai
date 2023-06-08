@@ -33,12 +33,12 @@ aside ul li {
     align-items: center;
     justify-content: center;
     gap: 2rem;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: 300;
     padding: 1.5rem;
     border-radius: 1rem;
     cursor: pointer;
-
+    
 }
 
 aside ul li a{
@@ -114,6 +114,10 @@ aside ul li#btnToggleAside div {
 aside ul li#btnToggleAside div ion-icon {
     font-size: 2rem;
     color: var(--color-dark);
+}
+
+aside ul li#btnToggleAside div.active ion-icon{
+    transform: rotate(180deg);
 }
 
 aside ul li p#textAccount {

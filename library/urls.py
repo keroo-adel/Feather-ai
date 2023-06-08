@@ -1,9 +1,10 @@
 from django.urls import path
 from . import views
-from django.conf.urls.static import static
-from django.conf import settings
+
 urlpatterns = [
     path('all/', views.HomeView.as_view(), name='home'),
-]
+    path('bookmark/<int:card_template_id>/', views.BookmarkToggleView.as_view(), name='bookmark_toggle'),
+    # path('library/all/', views.SearchView.as_view(), name='search'),
+    path('<str:category>/', views.FilterByCategoryView.as_view(), name='filter_by_category'),
 
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+]

@@ -1,0 +1,340 @@
+.main-page {
+    overflow: hidden;
+    overflow-y: auto;
+}
+.main-page .part-1 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+}
+
+.main-page .part-1 > div {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: 500;
+}
+
+.main-page .part-1 > div:nth-of-type(1) img {
+    background-color: var(--color-main-2);
+    color: var(--color-dark-2);
+    padding: 1rem;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+.main-page .part-1 > div:nth-of-type(2) a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-page .part-1 > div:nth-of-type(2) img {
+    background-color: var(--color-main);
+    padding: 1rem;
+    border-radius: 50%;
+}
+
+.part-2 li {
+    margin-left: 16px;
+}
+
+.part-2 {
+    color: var(--color-dark);
+    background-color: var(--color-dark-3);
+    width: 100%;
+    margin-top: 2rem;
+    border-radius: 1rem;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: var(--color-dark);
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+.toolbar .head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    color: var(--color-white);
+    padding: 1rem;
+}
+
+.toolbar .head select {
+    background-color: var(--color-dark-3);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    width: 16rem;
+    color: var(--color-white-2);
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.toolbar .head .color input {
+    border: none;
+    outline: none;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+}
+
+.toolbar .btn-toolbar {
+    display: flex;
+    align-items: center;
+}
+
+.toolbar .btn-toolbar button {
+    background: transparent;
+    color: var(--color-white-2);
+    border: none;
+    cursor: pointer;
+    width: 4rem;
+    height: 4rem;
+    font-size: 2.2rem;
+}
+
+#btn-save {
+    outline: none;
+    border: none;
+    color: var(--color-white-2);
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    background-color: var(--color-dark-3);
+    width: 7rem;
+    height: 3.9rem;
+}
+
+.mainContent {
+    padding: 2rem;
+    outline: none;
+    overflow: auto;
+    color: var(--color-white-2);
+    min-height: 50rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 1.8rem;
+}
+
+#content {
+    outline: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.mainContent input {
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: var(--color-white-2);
+}
+
+#headTitle{
+    text-transform: capitalize;
+    font-size: 4rem;
+    font-weight: 600;
+    color: var(--color-white-1);
+    padding-bottom: 1rem;
+}
+
+.mainContent .askFeather {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.mainContent .askFeather .input {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 2rem;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    border-radius: 1rem;
+}
+
+.mainContent .askFeather .input input {
+    width: 100%;
+    font-size: 1.5rem;
+}
+
+.mainContent .askFeather .input .icon {
+    background-color: var(--color-main);
+    font-size: 1.8rem;
+    color: var(--color-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 1.5rem;
+    cursor: pointer;
+}
+
+.select {
+    width: 25rem;
+    margin-top: 1rem;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.5rem;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    overflow: hidden;
+}
+
+.step2{
+    display: none;
+}
+
+.select > p {
+    color: var(--color-white-1);
+    padding: 1rem;
+}
+
+.select > div .option,
+.optionEnd {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    font-size: 1.4rem;
+    font-weight: 300;
+    width: 100%;
+    cursor: pointer;
+}
+
+.select > div .option ion-icon{
+    font-size: 1.5rem;
+}
+.seeMore {
+    position: relative;
+}
+
+.seeMore ion-icon {
+    position: absolute;
+    right: 1rem;
+}
+.select .option:hover {
+    background-color: #3f444b;
+}
+
+.hr {
+    display: inline-block;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    height: 1px;
+    width: 100%;
+    background-color: var(--color-white-3);
+}
+
+.commandsOption{
+    width: 20rem;
+    border-radius: 1rem;
+    font-size: 1.5rem;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    overflow: hidden;
+    margin-top: 1rem;
+    display: none;
+}
+
+.commandsOption ul{
+    display: flex;
+    flex-direction: column;
+}
+
+.commandsOption ul li{
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    cursor: pointer;
+    margin-left: 0;
+    padding:  0.8rem 1.5rem;
+}
+
+.commandsOption ul li:hover,.commandsOption ul li.focused{
+    background-color: var(--color-dark-4);
+}
+
+.commandsOption ul li >div{
+    background-color: var(--color-dark-4);
+    width: 4rem;
+    height: 4rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+
+.commandsOption ul li >div ion-icon{
+    font-size: 2.2rem;
+}
+
+
+.askAi{
+    color: var(--color-main);
+    font-weight: 600;
+}
+
+.newBlock{
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor:grab;
+}
+
+.newBlock img{
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.newBlock:hover img{
+    opacity: 1;
+}
+.newBlock ion-icon{
+    display: none;
+    font-size: 1.4rem;
+}
+
+.newBlock.listStyle ion-icon{
+    display: block;
+}
+
+.paragraphStyle{
+    transition: all 0.3s;
+}
+
+.h1Style{
+    font-size: 3.5rem;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.h2Style{
+    font-size: 3rem;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.h3Style{
+    font-size: 2.5rem;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.listStyle{
+    transition: all 0.3s;
+}

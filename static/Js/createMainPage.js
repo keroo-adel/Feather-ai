@@ -1,19 +1,9 @@
-const containerPage = document.querySelector(".container");
-const mainPage = document.querySelector(".sec-home");
-
-// nav ----------------------------------
-const createNav = document.createElement("nav");
-// ... Add your JavaScript actions for the nav here ...
-containerPage.prepend(createNav);
-
-// aside -------------------------------
-
-
-// -------------------------------
 const profileInfo = document.getElementById("profile-info");
 const btnProfileInfo = document.getElementById("btnProfileInfo");
 const asideNav = document.getElementById("aside-nav");
 const btnToggleAsideActive = document.getElementById("btnToggleAside");
+const iconToggleAsideActive= document.querySelector("#btnToggleAside div");
+
 
 btnProfileInfo.addEventListener("click", () => {
     profileInfo.classList.toggle("active");
@@ -21,6 +11,7 @@ btnProfileInfo.addEventListener("click", () => {
 
 btnToggleAsideActive.addEventListener("click", () => {
     asideNav.classList.toggle("active");
+    iconToggleAsideActive.classList.toggle("active");
 });
 
 window.addEventListener("click", function (event) {

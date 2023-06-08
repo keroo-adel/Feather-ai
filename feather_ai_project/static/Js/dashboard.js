@@ -4,3 +4,5 @@ btnStart.forEach(btn => {
         btn.classList.toggle("active");
     });
 });
+
+

@@ -46,7 +46,11 @@ INSTALLED_APPS = [
     'accounts',
     'api',
     'library',
-    
+    'long_form_editor',
+    'chat_feather',
+    'saved_copies',
+    'recent_activity',
+    'settings',
     'verification',
     'django_otp',
     'django_otp.plugins.otp_totp',
@@ -151,10 +155,21 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS  = [
     os.path.join(BASE_DIR,'feather_ai_project/static'),
     os.path.join(BASE_DIR,'pages/static'),
-    os.path.join(BASE_DIR ,'accounts/static'),
+    # os.path.join(BASE_DIR ,'accounts/static'),
 
 ]
 
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+# Allow SVG files
+ALLOWED_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.svg']
+
+...
+
+# Add SVG to allowed MIME types
+import mimetypes
+mimetypes.add_type("image/svg+xml", ".svg")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

@@ -14,224 +14,238 @@
                 <p>what would you like to create today ?</p>
             </div>
             <div class="search">
-                <div class="input">
+                    <div class="input">
                     <ion-icon name="search-outline" role="img" class="md hydrated"></ion-icon>
-                    <input type="text" id="search-input" placeholder="Search Content Types">
-                </div>
+                    <input type="text" id="search-input"  name="q" placeholder="Search Content Types">
+                </div>  
+
                 <div class="templates-types">
-                    <span class="active">all templates</span>
-                    <span>new </span>
-                    <span>Article And Blogs</span>
-                    <span>Email/Letter</span>
-                    <span>Writing Tools</span>
-                    <span>Social Media</span>
-                    <span>Sales copy</span>
-                    <span>digital ad copy</span>
-                    <span>brainstorming tools</span>
-                    <span>personal tools</span>
-                    <span>startup tools</span>
-                    <span>website copy</span>
+                    <span 
+                    {% if '/all' in request.path %}
+                    class="active"
+                    {% else %}
+                    class =""
+                    {% endif %}
+                    >
+                    <a href="{% url 'home' %}">all templates</a></span>
+
+                    <span 
+                    {% if 'new/' in request.path %}
+                    class="active"
+                    {% else %}
+                    class =""
+                    {% endif %}
+                    ><a href="{% url 'filter_by_category' 'new' %}">new✨</a> </span>
+                    <span
+                    {% if 'articles-and-blogs/' in request.path %}
+                    class="active"
+                    {% else %}
+                    class =""
+                    {% endif %} 
+                    ><a href="{% url 'filter_by_category' 'articles-and-blogs' %}">Article And Blogs</a></span>
+                    <span
+                    {% if 'email-letters/' in request.path %}
+                    class="active"
+                    {% else %}
+                    class =""
+                    {% endif %}   
+                    
+                    ><a href="{% url 'filter_by_category' 'email-letters' %}">Email/Letter</a> </span>
+                    <span 
+                    {% if '/writing-tools' in request.path %}
+                    class="active"
+                    {% else %}
+                    class =""
+                    {% endif %} 
+                    
+                    
+                    ><a href="{% url 'filter_by_category' 'writing-tools' %}">Writing Tools </a></span>
+                    <span
+                    {% if '/social-media' in request.path %}
+                    class="active"
+                    {% else %}
+                    class =""
+                    {% endif %} 
+                    ><a href="{% url 'filter_by_category' 'social-media' %}">Social Media</a> </span>
+                    <span 
+                    {% if '/sales-copy' in request.path %}
+                    class="active"
+                    {% else %}
+                    class =""        
+                    {% endif %}
+                    >
+                    
+                    <a href="{% url 'filter_by_category' 'sales-copy' %}">Sales copy </a></span>
+                    <span
+                    
+                    {% if '/digital-ad-copy' in request.path %}
+                    class="active"
+                    {% else %}
+                    class =""
+                    {% endif %}
+                    >
+                    <a href="{% url 'filter_by_category' 'digital-ad-copy' %}">
+                    digital ad copy </a></span>
+                    <span
+                    {% if '/brainstorming-tools' in request.path %} 
+                    class="active"
+                    {% else %}
+                    class =""
+                    {% endif %}
+                    > 
+                    <a href="{% url 'filter_by_category' 'brainstorming-tools' %}">
+                    brainstorming tools </a></span>
+                    <span
+                    {% if '/personal-tools' in request.path %}
+                    class="active"
+                    {% else %}
+                    class =""
+                    {% endif %}
+                    >  
+                    <a href="{% url 'filter_by_category' 'personal-tools' %}">
+                    personal tools</a></span>
+                    <span  
+                    {% if '/startup-tools' in request.path %}
+                    class="active"
+                    {% else %}
+                    class =""
+                    {% endif %}
+
+                    > 
+                    
+                    <a href="{% url 'filter_by_category' 'startup-tools' %}">
+                    startup tools </a></span>
+                    <span
+                    
+                    {% if '/website-copy' in request.path %}
+                    class="active"
+                    {% else %}
+                    class =""
+                    {% endif %}
+
+                    > 
+                    
+                    <a href="{% url 'filter_by_category' 'website-copy' %}">
+
+                    website copy </a></span>
                 </div>
             </div>
-            <div class="features">
-                <div class="feature-1">
-                    <div class="part-1">
-                        <div class="icon">
-                            <img src="{% static 'images/Vector-1.svg '%}" alt="">
-                        </div>
-                        <div class="text">
-                            <p>Chat Feather(Like ChatGPT)</p>
-                            <p>
-                                A chatbot like ChatGPT but with
-                                real-time data, images &amp; voice search.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="part-2">
-                        <img src="{% static 'images/illustration-2.svg '%}" alt="">
-                    </div>
-                    <div class="state">
-                        <ion-icon name="star-sharp" role="img" class="md hydrated"></ion-icon>
-                        <p>new</p>
-                    </div>
+
+<div class="features">
+                
+                
+    {% for card_template in card_templates %}
+
+    {% if card_template.additional_photo %}
+    <div class="feature-1">
+        <div class="part-1">
+            {% if card_template.icon %}
+                <div class="icon">
+                    <img src="{{card_template.icon.url}}" alt="">
                 </div>
-            
-<div>
-<a href="../AI article writer/aIArticleWriter.html">
-    </a><div class="part-1"><a href="../AI article writer/aIArticleWriter.html">
-        <div class="icon">
-            <img src="{% static 'images/aiArticle.svg '%}" alt="">
-        </div>
-        <div class="text">
-            <p>ai article writer</p>
-            <p>
-                A chatbot like ChatGPT but with
-real-time data, images &amp; voice search.
-            </p>
-        </div>
-</a>
-        <div class="fav">
-            <ion-icon name="star-outline" role="img" class="md hydrated"></ion-icon>
-        </div>
-    </div>
-</div>
+            {% endif %}
 
-<div>
-<a href="undefined">
-    </a><div class="part-1"><a href="undefined">
-        <div class="icon">
-            <img src="{% static 'images/blog ideas.svg'%}" alt="">
+            <div class="text">
+                <p>{{card_template.title}}</p>
+                <p>
+                    {{card_template.description}}
+                </p>
+            </div>
         </div>
-        <div class="text">
-            <p>blog ideas</p>
-            <p>
-                Brainstorm topics for blog articles.
-            </p>
-        </div>
-</a>
-        <div class="fav">
-            <ion-icon name="star-outline" role="img" class="md hydrated"></ion-icon>
-        </div>
-    </div>
-</div>
+        <div class="part-2">
+            <img src="{{card_template.additional_photo.url}}" alt="">
+        </div>    
 
-<div>
-<a href="undefined">
-    </a><div class="part-1"><a href="undefined">
-        <div class="icon">
-            <img src="{% static 'images/paragraph writer.svg '%}" alt="">
+        {% if card_template.tags %}
+            <div class="state">
+            <ion-icon name="star-sharp" role="img" class="md hydrated"></ion-icon>
+            <p>{{card_template.tags}}</p>
         </div>
-        <div class="text">
-            <p>paragraph writer</p>
-            <p>
-                Write short, punchy paragraphs that turn your readers into customers.
-            </p>
-        </div>
-</a>
-        <div class="fav">
-            <ion-icon name="star-outline" role="img" class="md hydrated"></ion-icon>
-        </div>
-    </div>
-</div>
+        {% endif %}
 
-<div>
-<a href="undefined">
-    </a><div class="part-1"><a href="undefined">
-        <div class="icon">
-            <img src="{% static 'images/ai article outlines.svg '%}" alt="">
-        </div>
-        <div class="text">
-            <p>ai article outlines</p>
-            <p>
-                Detailed article outlines that help you write better content on a consistent basis.
-            </p>
-        </div>
-</a>
-        <div class="fav">
-            <ion-icon name="star-outline" role="img" class="md hydrated"></ion-icon>
-        </div>
     </div>
-</div>
 
-<div>
-<a href="undefined">
-    </a><div class="part-1"><a href="undefined">
-        <div class="icon">
-            <img src="{% static 'images/product descriptions.svg'%}" alt="">
-        </div>
-        <div class="text">
-            <p>product descriptions</p>
-            <p>
-                Detailed article outlines that help you write better content on a consistent basis.
-            </p>
-        </div>
-</a>
-        <div class="fav">
-            <ion-icon name="star-outline" role="img" class="md hydrated"></ion-icon>
-        </div>
-    </div>
-</div>
+    {% endif %}
 
-<div>
-<a href="undefined">
-    </a><div class="part-1"><a href="undefined">
-        <div class="icon">
-            <img src="{% static 'images/facebook.svg '%}" alt="">
-        </div>
-        <div class="text">
-            <p>facebook ads</p>
-            <p>
-                Facebook ad copies that make
-your ads truly stand out.
-            </p>
-        </div>
-</a>
-        <div class="fav">
-            <ion-icon name="star-outline" role="img" class="md hydrated"></ion-icon>
-        </div>
-    </div>
-</div>
+    {% if not card_template.additional_photo %}
+    <div>
+        <a href="#">
+            </a><div class="part-1"><a href="#">
+                {% if card_template.icon %}
+                <div class="icon">
+                    <img src="{{ card_template.icon.url }}" alt="">
+                </div>
+                {% endif %}
 
-<div>
-<a href="undefined">
-    </a><div class="part-1"><a href="undefined">
-        <div class="icon">
-            <img src="{% static 'images/content rephase.svg '%}" alt="">
-        </div>
-        <div class="text">
-            <p>content rephrase</p>
-            <p>
-                Detailed article outlines that help you write better content on a consistent basis.
-            </p>
-        </div>
-</a>
-        <div class="fav">
-            <ion-icon name="star-outline" role="img" class="md hydrated"></ion-icon>
-        </div>
-    </div>
-</div>
+                <div class="text">
+                    <p>{{card_template.title}}</p>
+                    <p>
+                        {{card_template.description}}
+                    </p>
+                </div>
+        </a>
+        
+                    
+                <div class="fav">
+                    <a href="{% url 'bookmark_toggle' card_template.id %}" title="Add to Bookmarks">
+                    {% if card_template.bookmarked %}
+                    <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M11.7299 1.50965L13.4899 5.02965C13.7299 5.51965 14.3699 5.98965 14.9099 6.07965L18.0999 6.60965C20.1399 6.94965 20.6199 8.42965 19.1499 9.88965L16.6699 12.3696C16.2499 12.7896 16.0199 13.5996 16.1499 14.1796L16.8599 17.2496C17.4199 19.6796 16.1299 20.6196 13.9799 19.3496L10.9899 17.5796C10.4499 17.2596 9.55991 17.2596 9.00991 17.5796L6.01991 19.3496C3.87991 20.6196 2.57991 19.6696 3.13991 17.2496L3.84991 14.1796C3.97991 13.5996 3.74991 12.7896 3.32991 12.3696L0.849909 9.88965C-0.610091 8.42965 -0.140091 6.94965 1.89991 6.60965L5.08991 6.07965C5.61991 5.98965 6.25991 5.51965 6.49991 5.02965L8.25991 1.50965C9.21991 -0.400352 10.7799 -0.400352 11.7299 1.50965Z" fill="#EC704D"/>
+                        </svg>
+                    {% else %}
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.7299 2.50965L14.4899 6.02965C14.7299 6.51965 15.3699 6.98965 15.9099 7.07965L19.0999 7.60965C21.1399 7.94965 21.6199 9.42965 20.1499 10.8896L17.6699 13.3696C17.2499 13.7896 17.0199 14.5996 17.1499 15.1796L17.8599 18.2496C18.4199 20.6796 17.1299 21.6196 14.9799 20.3496L11.9899 18.5796C11.4499 18.2596 10.5599 18.2596 10.0099 18.5796L7.01991 20.3496C4.87991 21.6196 3.57991 20.6696 4.13991 18.2496L4.84991 15.1796C4.97991 14.5996 4.74991 13.7896 4.32991 13.3696L1.84991 10.8896C0.389909 9.42965 0.859909 7.94965 2.89991 7.60965L6.08991 7.07965C6.61991 6.98965 7.25991 6.51965 7.49991 6.02965L9.25991 2.50965C10.2199 0.599648 11.7799 0.599648 12.7299 2.50965Z" stroke="#EC704D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        
+                    {% endif %}
 
-<div>
-<a href="undefined">
-    </a><div class="part-1"><a href="undefined">
-        <div class="icon">
-            <img src="{% static 'images/product descriptions.svg '%}" alt="">
-        </div>
-        <div class="text">
-            <p>product descriptions</p>
-            <p>
-                Authentic product descriptions that will compel, inspire, and influence.
-            </p>
-        </div>
-</a>
-        <div class="fav">
-            <ion-icon name="star-outline" role="img" class="md hydrated"></ion-icon>
-        </div>
-    </div>
-</div>
+                    </a>
+                </div>
 
-<div>
-<a href="undefined">
-    </a><div class="part-1"><a href="undefined">
-        <div class="icon">
-            <img src="{% static 'images/blog ideas-2.svg'%}" alt="">
+            </div>
+
+            {% if card_template.tags %}
+            <div class="state">
+            <ion-icon name="star-sharp" role="img" class="md hydrated"></ion-icon>
+            <p>{{card_template.tags}}</p>
         </div>
-        <div class="text">
-            <p>blog ideas</p>
-            <p>
-                Brainstorm topics for blog articles.
-            </p>
-        </div>
-</a>
-        <div class="fav">
-            <ion-icon name="star-outline" role="img" class="md hydrated"></ion-icon>
-        </div>
+        {% endif %}
+    
     </div>
+
+{% endif %}
+
+
+{% endfor %}
+
 </div>
-</div>
-        </div>
         
 
 
 {% endblock %}
 
+
+{% block scripts %}
+<script>
+    const searchInput = document.getElementById('search-input');
+    const featureCards = document.getElementsByClassName('features')[0].children;
+
+    searchInput.addEventListener('input', function() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+
+        for (const card of featureCards) {
+            const cardTitle = card.querySelector('.text p').textContent.toLowerCase();
+            const cardDescription = card.querySelector('.text > :last-child').textContent.toLowerCase();
+
+            const matchTitle = cardTitle.includes(searchTerm);
+            const matchDescription = cardDescription.includes(searchTerm);
+
+            if (searchTerm === '' || matchTitle || matchDescription) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        }
+    });
+</script>
+{% endblock  %}

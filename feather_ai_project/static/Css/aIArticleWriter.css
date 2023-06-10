@@ -162,6 +162,7 @@
     border-radius: 50%;
     font-size: 2.5rem;
     position: relative;
+    cursor: pointer;
 }
 
 .steps .step-by-step span {
@@ -249,12 +250,15 @@ button {
     border: none;
     border-radius: 1rem;
     font-size: 1.6rem;
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 button.valid {
     background-color: var(--color-main);
     color: var(--color-dark);
-
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .or {

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        />
+        <!-- Google Fonts -->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="../../Css/main.css" />
+        <link rel="stylesheet" href="../../Css/navbar.css" />
+        <link rel="stylesheet" href="../../Css/aside.css" />
+        <link rel="stylesheet" href="../Email tools/emailTool.css" />
+        <link rel="stylesheet" href="aIArticleWriter.css" />
+        <title>Social Media Tool</title>
+    </head>
+    <body>
+        <div class="container">
+            <section class="sec-home" id="main-page">
+                <div class="main-page">
+                    <div class="part-1">
+                        <div>
+                            <img
+                                src="../../images/aiArticle.svg"
+                                alt="email icon"
+                            />
+                            <p>ai article writer</p>
+                        </div>
+                        <div>
+                            <a href="#">
+                                <img
+                                    src="../../images/Icon  video.svg"
+                                    alt="icon video"
+                                />
+                            </a>
+                            
+                        </div>
+                        
+                    </div>
+
+                    <div class="part-2">
+                        <div class="part-2-1">
+                            <div class="steps">
+                                <div class="head">
+                                    <img
+                                        src="../../images/task-square.svg"
+                                        alt=""
+                                    />
+                                    <p>follow steps</p>
+                                </div>
+                                <div class="step-by-step">
+                                    <div class="one activeLast">
+                                        <p class="stepNum ">1</p>
+                                        <img
+                                            src="../../images/step-1.svg"
+                                            alt=""
+                                        />
+                                        <p class="stepText">KEYWORDS</p>
+                                    </div>
+                                    <span></span>
+                                    <div class="two activeLast">
+                                        <p class="stepNum">2</p>
+                                        <img
+                                            src="../../images/step-2.svg"
+                                            alt=""
+                                        />
+                                        <p class="stepText">IDEAS</p>
+                                    </div>
+                                    <span></span>
+                                    <div class="three active">
+                                        <p class="stepNum">3</p>
+                                        <img
+                                            src="../../images/step-3.svg"
+                                            alt=""
+                                        />
+                                        <p class="stepText">OUTLINE</p>
+                                    </div>
+                                    <span></span>
+                                    <div class="four">
+                                        <img
+                                            src="../../images/step-4.svg"
+                                            alt=""
+                                        />
+                                        <p class="stepNum">4</p>
+                                        <p class="stepText">ARTICLE</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ------------------step 3 ------------>
+                            <div class="complete-the-fields step three">
+                                <div class="p1">
+                                    <div class="head">
+                                        <img
+                                            src="../../images/Icon ben.svg"
+                                            alt=""
+                                        />
+                                        <p>complete the fields</p>
+                                    </div>
+                                    <div>
+                                        <label for="inputSearchKeywords">
+                                            <p>topic</p>
+                                            <img
+                                                src="../../images/Exclamation mark.svg"
+                                                alt=""
+                                            />
+                                        </label>
+                                        <input
+                                            type="text"
+                                            placeholder="The Importance of UI/UX Design in Product Development"
+                                            class="inputSearchKeywords"
+                                            id="inputSearchKeywords"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label for="inputAddTag">
+                                            <p>keywords</p>
+                                            <img
+                                                src="../../images/Exclamation mark.svg"
+                                                alt=""
+                                            />
+                                        </label>
+                                        <input
+                                            type="text"
+                                            placeholder="Add a tag..."
+                                            class="inputAddTag"
+                                            id="inputAddTag"
+                                        />
+                                        <div class="someKeyWords">
+                                            <div>
+                                                <p>text</p>
+                                                <ion-icon
+                                                    name="close-outline"
+                                                    class="deleteKey"
+                                                ></ion-icon>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label>
+                                            <p>tone of voice</p>
+                                        </label>
+                                        <div class="divSelect tone">
+                                            <p class="valueSelect">
+                                                Professional
+                                            </p>
+                                            <ion-icon
+                                                name="caret-down-outline"
+                                            ></ion-icon>
+                                        </div>
+                                    </div>
+                                    <div class="ulSelect tone">
+                                        <ul>
+                                            <li>Professional</li>
+                                            <li>excited</li>
+                                            <li>encouraging</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <label>
+                                            <p>language</p>
+                                        </label>
+                                        <div class="divSelect language">
+                                            <p class="valueSelect">English</p>
+                                            <ion-icon
+                                                name="caret-down-outline"
+                                            ></ion-icon>
+                                        </div>
+                                    </div>
+                                    <div class="ulSelect language">
+                                        <ul>
+                                            <li>English</li>
+                                            <li>arabic</li>
+                                            <li>German</li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div class="btnBack">
+                                        <ion-icon
+                                            name="caret-back-outline"
+                                        ></ion-icon>
+                                    </div>
+                                    <input type="number" name="" id="" />
+                                    <button class="GenerateOutline">
+                                        Generate Outlines
+                                    </button>
+                                    <div class="btnNext">
+                                        <ion-icon
+                                            name="caret-forward-outline"
+                                        ></ion-icon>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- ---------------------------------- -->
+                        </div>
+                        <div class="part-2-2">
+                            <div class="empty">
+                                <img
+                                    src="../../images/img empty ai article.svg"
+                                    alt="no article"
+                                />
+                                <p>
+                                    Your copies created by artificial
+                                    intelligence will appear here.
+                                </p>
+                            </div>
+
+                            <!-- -------------------- -->
+                            <div class="AllOutline">
+                                <div class="toggle">
+                                    <p>select individual outlines</p>
+                                    <label class="switch">
+                                        <input type="checkbox" checked />
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <div class="select">
+                                            <div>
+                                                <ion-icon
+                                                    name="ellipse-sharp"
+                                                ></ion-icon>
+                                            </div>
+                                            <ul>
+                                                <li>Introduction</li>
+                                                <li>
+                                                    User Experience (UX) Design
+                                                </li>
+                                                <li>
+                                                    User Interface (UI) Design
+                                                </li>
+                                                <li>
+                                                    Benefits of UI/UX Design in
+                                                    Product Development
+                                                </li>
+                                                <li>
+                                                    Best Practices in UI/UX
+                                                    Design
+                                                </li>
+                                                <li>Conclusion</li>
+                                            </ul>
+                                        </div>
+                                        <div class="details">
+                                            <p>49 words / 224 character</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="select">
+                                            <div>
+                                                <ion-icon
+                                                    name="ellipse-sharp"
+                                                ></ion-icon>
+                                            </div>
+                                            <ul>
+                                                <li>Introduction</li>
+                                                <li>
+                                                    User Experience (UX) Design
+                                                </li>
+                                                <li>
+                                                    User Interface (UI) Design
+                                                </li>
+                                                <li>
+                                                    Benefits of UI/UX Design in
+                                                    Product Development
+                                                </li>
+                                                <li>
+                                                    Best Practices in UI/UX
+                                                    Design
+                                                </li>
+                                                <li>Conclusion</li>
+                                            </ul>
+                                        </div>
+                                        <div class="details">
+                                            <p>49 words / 224 character</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- --------------------- -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <script
+            type="module"
+            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+        ></script>
+        <script
+            nomodule
+            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+        ></script>
+        <script src="../../Js/createMainPage.js"></script>
+        <script src="./js-3.js"></script>
+        <script src="aIArticleWriter.js"></script>
+    </body>
+</html>

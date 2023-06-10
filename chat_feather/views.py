@@ -75,7 +75,7 @@ class SendMessageView(LoginRequiredMixin, View):
         message = Message.objects.create(chat=chat, content=message_content)
 
         # Ai model response
-        ai_response = "Ai model say hello"
+        ai_response = "ai model response"
 
         response = Response.objects.create(message=message, content=ai_response)
 

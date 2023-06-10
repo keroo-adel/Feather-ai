@@ -1,7 +1,9 @@
 from django.urls import path
-from django.views.generic import TemplateView
 from . import views
 
 urlpatterns = [
-    path('ai-article-writer', TemplateView.as_view(template_name='ai_article_writer/aIArticleWriter.html') , name='ai article writer'),
+    path('ai-article-writer/keywords/', views.AiArticleWriterView.as_view() , name='ai article writer'),
+    path('email-tools/', views.EmailToolsView.as_view() , name='email tools'),
+    path('SocialMedia-tools/', views.SocialMediaToolsView.as_view() , name='social media tools'),
+    
 ]

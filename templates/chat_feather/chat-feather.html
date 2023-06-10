@@ -182,10 +182,10 @@
                                     </div>
                                     <div class="text">
                                         <p class="ai-text">{{ response.content }}</p>
-                                        <div class="copy" onclick="copyToClipboard('{{ response.content }}')">
-                                        <ion-icon name="copy-outline" class="copy-icon"></ion-icon>
-                                        <div class="tooltip"> copy</div>
-                                    </div>
+                                        <div class="copy" onclick="copyToClipboard('{{ response.content }}', {{ response.id }})">
+                                            <ion-icon name="copy-outline" class="copy-icon-{{ response.id }}"></ion-icon>
+                                            <div class="tooltip-{{ response.id }}">Copy</div>
+                                        </div>
                                     </div>
                                 </div>
                                 {% endfor %} 

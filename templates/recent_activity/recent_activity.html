@@ -1,0 +1,43 @@
+{% extends 'base2.html' %}
+
+{% load static %}
+{% block title %}Recent Activity | Feather.ai{% endblock  %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'Css/recentActivity.css' %} " />
+{% endblock  %}
+
+{% block bootstrap %}
+{% endblock %}
+{% block content %}
+<div class="main-page">
+    <div class="part-1">
+        <div>
+            <img
+                src="{% static 'images/timer-2.svg'%}"
+                alt="chat logo"
+            />
+        </div>
+        <p>Recent Activity</p>
+    </div>
+
+    <div class="part-2">
+        <p>recent activity</p>
+        <p>
+            back to previous requests are make changes to
+            generated content
+        </p>
+        <div class="previous-requests">
+            <p>refer to all your recent requests :</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    var staticUrl   = "{% static 'images/' %}";
+</script>
+<script src=" {% static 'Js/recentActivity.js' %}"></script>
+
+{% endblock %}

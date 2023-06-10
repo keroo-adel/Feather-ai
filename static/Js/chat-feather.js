@@ -153,18 +153,18 @@ recognition.addEventListener("end", () => {
     }
 });
 
-function copyToClipboard(text) {
+function copyToClipboard(response, messageId) {
     const tempInput = document.createElement('input');
-    tempInput.value = text;
+    tempInput.value = response;
     document.body.appendChild(tempInput);
     tempInput.select();
     document.execCommand('copy');
     document.body.removeChild(tempInput);
     
-    const copyIcon = document.querySelector('.copy-icon');
+    const copyIcon = document.querySelector(`.copy-icon-${messageId}`);
     copyIcon.setAttribute('name', 'checkmark-outline');  // Change the icon name
 
-    const tooltip = document.querySelector('.tooltip');
+    const tooltip = document.querySelector(`.tooltip-${messageId}`);
     tooltip.innerText = 'copied!';
 
     setTimeout(() => {

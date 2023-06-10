@@ -1,0 +1,93 @@
+{% extends 'base2.html' %}
+
+{% load static %}
+{% block title %}Email Tools | Feather.ai{% endblock  %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'Css/emailTool.css' %} " />
+{% endblock  %}
+
+{% block bootstrap %}
+{% endblock %}
+{% block content %}
+
+    <div class="main-page">
+                    <div class="part-1">
+                        <div class="icon">
+                            <img
+                                src="{% static 'images/Icon email-2.svg' %}"
+                                alt="email icon"
+                            />
+                        </div>
+                        <p>email tools</p>
+                    </div>
+
+                    <div class="part-2">
+                        <div class="generate-email">
+                            <form action="">
+                                <div>
+                                    <div class="in">
+                                        <label for="project-name"
+                                            >project name*</label
+                                        >
+                                        <input
+                                            type="text"
+                                            placeholder="Signing up to a web app"
+                                        />
+                                    </div>
+                                    <div class="in">
+                                        <label for="project-name"
+                                            >What is the email for*</label
+                                        >
+                                        <textarea name="" id=""  rows="5" placeholder="Signing up to a web app"></textarea>
+                                        <div class="tip">
+                                            <img src="{% static 'images/true.svg' %}" alt="">
+                                            <span>seems like a good description</span>
+                                            <p>400/500</p>
+                                        </div>
+                                    </div>
+                                    <div class="in">
+                                        <label for="project-name"
+                                            >tone of voice</label
+                                        >
+                                        <select name="keroo" id="">
+                                            <option value="Professional">💼 Professional</option>
+                                            <option value="Excited">🤩 Excited</option>
+                                            <option value="Encouraging">💪 Encouraging</option>
+                                            <option value="Funny">😂 Funny</option>
+                                            <option value="Dramatic">😱 Dramatic</option>
+                                            <option value="Witty">💡 Witty</option>
+                                            <option value="Sarcastic">🙄 Sarcastic</option>
+                                            <option value="Engaging">💭 Engaging</option>
+                                            <option value="Creative">✨ Creative</option>
+                                        </select>
+                                    </div>
+                                    <div class="in">
+                                        <label for="project-name"
+                                            >language</label
+                                        >
+                                        <select name="" id="">
+                                            <option value="">English</option>
+                                            <option value="">English</option>
+                                            <option value="">English</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="submit">
+                                    <input type="number" name="" id="">
+                                    <button type="submit"> generate 👉</button>
+                                </div>
+                            </form>
+                            
+                        </div>
+                        <div id="all-emails" class="">
+                            
+                        </div>
+    </div>
+        
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'Js/emailTool.js' %}"></script>
+{% endblock  %}

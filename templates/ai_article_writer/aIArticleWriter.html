@@ -1,7 +1,7 @@
 {% extends 'base2.html' %}
 
 {% load static %}
-{% block title %}AI Article Writer{% endblock  %}
+{% block title %}AI Article Writer | Feather.ia{% endblock  %}
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'Css/aIArticleWriter.css' %} " />
@@ -16,7 +16,7 @@
         <div class="part-1">
             <div>
                 <img
-                    src="{% static 'images/aiArticle.svg'%}"
+                    src="{% static 'images/aiArticle.svg' %}"
                     alt="email icon"
                 />
                 <p>ai article writer</p>
@@ -24,54 +24,13 @@
             <div>
                 <a href="#">
                     <img
-                        src="{% static 'images/Icon  video.svg'%}"
+                        src="{% static 'images/Icon  video.svg' %}"
                         alt="icon video"
                     />
                 </a>
-                <img
-                    src="{% static 'images/Icon out.svg'%}"
-                    alt=""
-                    class="iconExport"
-                />
+                
             </div>
-            <div class="optionExport">
-                <p>Shared this article</p>
-                <p>Link Sharing</p>
-                <div class="toggle">
-                    <p>Public link</p>
-                    <label class="switch">
-                        <input type="checkbox" checked />
-                        <span class="slider round"></span>
-                    </label>
-                </div>
-
-                <div>
-                    <p>Download</p>
-                    <ul>
-                        <li>
-                            <img
-                                src="{% static 'images/icon pdf.svg'%}"
-                                alt=""
-                            />
-                            <p>pdf</p>
-                        </li>
-                        <li>
-                            <img
-                                src="{% static 'images/icon word.svg'%}"
-                                alt=""
-                            />
-                            <p>word</p>
-                        </li>
-                        <li>
-                            <img
-                                src="{% static 'images/icon html.svg'%}"
-                                alt=""
-                            />
-                            <p>html</p>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            
         </div>
 
         <div class="part-2">
@@ -79,25 +38,29 @@
                 <div class="steps">
                     <div class="head">
                         <img
-                            src="{% static 'images/task-square.svg'%}"
+                            src="{% static 'images/task-square.svg' %}"
                             alt=""
                         />
                         <p>follow steps</p>
                     </div>
                     <div class="step-by-step">
-                        <div class="one active">
-                            <p class="stepNum">1</p>
-                            <img
-                                src="{% static 'images/step-1.svg'%}"
-                                alt=""
-                            />
-                            <p class="stepText">KEYWORDS</p>
-                        </div>
+                        <a href="{% url 'ai article writer' %}">
+
+                            <div class="one active" >
+                                <p class="stepNum">1</p>
+                                <img
+                                    src="{% static 'images/step-1.svg' %}"
+                                    alt=""
+                                />
+                                <p class="stepText">KEYWORDS</p>
+                            </div>
+                        </a>
+
                         <span></span>
                         <div class="two">
                             <p class="stepNum">2</p>
                             <img
-                                src="{% static 'images/step-2.svg'%}"
+                                src="{% static 'images/step-2.svg' %}"
                                 alt=""
                             />
                             <p class="stepText">IDEAS</p>
@@ -106,7 +69,7 @@
                         <div class="three">
                             <p class="stepNum">3</p>
                             <img
-                                src="{% static 'images/step-3.svg'%}"
+                                src="{% static 'images/step-3.svg' %}"
                                 alt=""
                             />
                             <p class="stepText">OUTLINE</p>
@@ -114,7 +77,7 @@
                         <span></span>
                         <div class="four">
                             <img
-                                src="{% static 'images/step-4.svg'%}"
+                                src="{% static 'images/step-4.svg' %}"
                                 alt=""
                             />
                             <p class="stepNum">4</p>
@@ -126,28 +89,31 @@
                 <div class="complete-the-fields one">
                     <div class="head">
                         <img
-                            src="{% static 'images/Icon ben.svg'%}"
+                            src="{% static 'images/Icon ben.svg' %}"
                             alt=""
                         />
                         <p>complete the fields</p>
                     </div>
-                    <form action="">
+                    <form method="post" action="{% url 'ai article writer' %}" id="formSearchKeywords" >
+                        {% csrf_token %}
                         <label for="">
                             <p>topic</p>
                             <img
-                                src="{% static 'images/Exclamation mark.svg'%}"
+                                src="{% static 'images/Exclamation mark.svg' %}"
                                 alt=""
                             />
                         </label>
 
                         <input
-                            type="text"
-                            placeholder="UX"
-                            class="inputSearchKeywords"
+                        type="text"
+                        placeholder="UX"
+                        class="inputSearchKeywords"
+                        name = "message"
                         />
                         <button
                             type="submit"
                             class="btnSearchKeywords"
+                            onclick="submitForm()"
                         >
                             <ion-icon
                                 name="search-outline"
@@ -178,442 +144,14 @@
                             name="paper-plane-outline"
                         ></ion-icon>
                     </button>
-                </div>
-                <!-- ------------------step 2 ------------>
-                <div class="complete-the-fields step two">
-                    <div class="p1">
-                        <div class="head">
-                            <img
-                                src="{% static 'images/Icon ben.svg'%}"
-                                alt=""
-                            />
-                            <p>complete the fields</p>
-                        </div>
-                        <div>
-                            <label for="inputSearchKeywords">
-                                <p>topic</p>
-                                <img
-                                    src="{% static 'images/Exclamation mark.svg'%}"
-                                    alt=""
-                                />
-                            </label>
-                            <input
-                                type="text"
-                                placeholder="UX"
-                                class="inputSearchKeywords"
-                                id="inputSearchKeywords"
-                            />
-                        </div>
-                        <div>
-                            <label for="inputAddTag">
-                                <p>keywords</p>
-                                <img
-                                    src="{% static 'images/Exclamation mark.svg'%}"
-                                    alt=""
-                                />
-                            </label>
-                            <input
-                                type="text"
-                                placeholder="Add a tag..."
-                                class="inputAddTag"
-                                id="inputAddTag"
-                            />
-                            <div class="someKeyWords">
-                                <div>
-                                    <p>text</p>
-                                    <ion-icon
-                                        name="close-outline"
-                                        class="deleteKey"
-                                    ></ion-icon>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <label>
-                                <p>tone of voice</p>
-                            </label>
-                            <div class="divSelect tone">
-                                <p class="valueSelect">
-                                    Professional
-                                </p>
-                                <ion-icon
-                                    name="caret-down-outline"
-                                ></ion-icon>
-                            </div>
-                        </div>
-                        <div class="ulSelect tone">
-                            <ul>
-                                <li>Professional</li>
-                                <li>excited</li>
-                                <li>encouraging</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <label>
-                                <p>language</p>
-                            </label>
-                            <div class="divSelect language">
-                                <p class="valueSelect">English</p>
-                                <ion-icon
-                                    name="caret-down-outline"
-                                ></ion-icon>
-                            </div>
-                        </div>
-                        <div class="ulSelect language">
-                            <ul>
-                                <li>English</li>
-                                <li>arabic</li>
-                                <li>German</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="btnBack">
-                            <ion-icon
-                                name="caret-back-outline"
-                            ></ion-icon>
-                        </div>
-                        <input type="number" name="" id="" />
-                        <button class="GenerateIdeas">
-                            Generate Ideas
-                        </button>
-                        <div class="btnNext">
-                            <ion-icon
-                                name="caret-forward-outline"
-                            ></ion-icon>
-                        </div>
-                    </div>
-                </div>
-                <!-- ------------------step 3 ------------>
-                <div class="complete-the-fields step three">
-                    <div class="p1">
-                        <div class="head">
-                            <img
-                                src="{% static 'images/Icon ben.svg'%}"
-                                alt=""
-                            />
-                            <p>complete the fields</p>
-                        </div>
-                        <div>
-                            <label for="inputSearchKeywords">
-                                <p>topic</p>
-                                <img
-                                    src="{% static 'images/Exclamation mark.svg'%}"
-                                    alt=""
-                                />
-                            </label>
-                            <input
-                                type="text"
-                                placeholder="The Importance of UI/UX Design in Product Development"
-                                class="inputSearchKeywords"
-                                id="inputSearchKeywords"
-                            />
-                        </div>
-                        <div>
-                            <label for="inputAddTag">
-                                <p>keywords</p>
-                                <img
-                                    src="{% static 'images/Exclamation mark.svg'%}"
-                                    alt=""
-                                />
-                            </label>
-                            <input
-                                type="text"
-                                placeholder="Add a tag..."
-                                class="inputAddTag"
-                                id="inputAddTag"
-                            />
-                            <div class="someKeyWords">
-                                <div>
-                                    <p>text</p>
-                                    <ion-icon
-                                        name="close-outline"
-                                        class="deleteKey"
-                                    ></ion-icon>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <label>
-                                <p>tone of voice</p>
-                            </label>
-                            <div class="divSelect tone">
-                                <p class="valueSelect">
-                                    Professional
-                                </p>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label>
-                                <p>language</p>
-                            </label>
-                            <div class="divSelect language">
-                                <p class="valueSelect">English</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="btnBack">
-                            <ion-icon
-                                name="caret-back-outline"
-                            ></ion-icon>
-                        </div>
-                        <input type="number" name="" id="" />
-                        <button class="GenerateOutline">
-                            Generate Outlines
-                        </button>
-                        <div class="btnNext">
-                            <ion-icon
-                                name="caret-forward-outline"
-                            ></ion-icon>
-                        </div>
-                    </div>
-                </div>
-                <!-- ------------------step 4 ------------>
-                <div class="complete-the-fields step four">
-                    <div class="p1">
-                        <div class="head">
-                            <img
-                                src="{% static 'images/Icon ben.svg'%}"
-                                alt=""
-                            />
-                            <p>complete the fields</p>
-                        </div>
-                        <div>
-                            <label for="inputSearchKeywords">
-                                <p>topic</p>
-                                <img
-                                    src="{% static 'images/Exclamation mark.svg'%}"
-                                    alt=""
-                                />
-                            </label>
-                            <input
-                                type="text"
-                                placeholder="The Importance of UI/UX Design in Product Development"
-                                class="inputSearchKeywords"
-                                id="inputSearchKeywords"
-                            />
-                        </div>
-                        <div class="Article-Outline">
-                            <label for="">
-                                <p>Article Outline</p>
-                                <img
-                                    src="{% static 'images/Exclamation mark.svg'%}"
-                                    alt=""
-                                />
-                            </label>
-                            <span
-                                >You can drag and drop to rearrange
-                                sections</span
-                            >
-                            <div class="up">
-                                <div class="oneArt">
-                                    <img
-                                        src="{% static 'images/enable to darg and drop.svg'%}"
-                                        alt=""
-                                    />
-                                    <div class="img">
-                                        <ion-icon
-                                            name="checkmark-outline"
-                                        ></ion-icon>
-                                    </div>
-                                    <span>
-                                        <p>Introduction</p>
-                                        <ion-icon
-                                            name="remove-outline"
-                                            class="icon-remove"
-                                        ></ion-icon>
-                                    </span>
-                                </div>
-                                <div class="oneArt">
-                                    <img
-                                        src="{% static 'images/enable to darg and drop.svg'%}"
-                                        alt=""
-                                    />
-                                    <div class="img">
-                                        <ion-icon
-                                            name="checkmark-outline"
-                                        ></ion-icon>
-                                    </div>
-                                    <span>
-                                        <p>
-                                            Definition of UI/UX
-                                            design
-                                        </p>
-                                        <ion-icon
-                                            name="remove-outline"
-                                            class="icon-remove"
-                                        ></ion-icon>
-                                    </span>
-                                </div>
-                                <div class="oneArt">
-                                    <img
-                                        src="{% static 'images/enable to darg and drop.svg'%}"
-                                        alt=""
-                                    />
-                                    <div class="img">
-                                        <ion-icon
-                                            name="checkmark-outline"
-                                        ></ion-icon>
-                                    </div>
-                                    <span>
-                                        <p>
-                                            Importance of UI/UX
-                                            design in product
-                                            development
-                                        </p>
-                                        <ion-icon
-                                            name="remove-outline"
-                                            class="icon-remove"
-                                        ></ion-icon>
-                                    </span>
-                                </div>
-                                <input
-                                    type="text"
-                                    placeholder="Add Talking Point"
-                                    class="addTalkingPoint"
-                                />
-                            </div>
-                            <div class="up">
-                                <div class="oneArt">
-                                    <img
-                                        src="{% static 'images/enable to darg and drop.svg'%}"
-                                        alt=""
-                                    />
-                                    <div class="img">
-                                        <ion-icon
-                                            name="checkmark-outline"
-                                        ></ion-icon>
-                                    </div>
-                                    <span>
-                                        <p>
-                                            User Experience (UX)
-                                            Design 1
-                                        </p>
-                                        <ion-icon
-                                            name="remove-outline"
-                                            class="icon-remove"
-                                        ></ion-icon>
-                                    </span>
-                                </div>
-                                <div class="oneArt">
-                                    <img
-                                        src="{% static 'images/enable to darg and drop.svg'%}"
-                                        alt=""
-                                    />
-                                    <div class="img">
-                                        <ion-icon
-                                            name="checkmark-outline"
-                                        ></ion-icon>
-                                    </div>
-                                    <span>
-                                        <p>
-                                            User Experience (UX)
-                                            Design
-                                        </p>
-                                        <ion-icon
-                                            name="remove-outline"
-                                            class="icon-remove"
-                                        ></ion-icon>
-                                    </span>
-                                </div>
-                                <div class="oneArt">
-                                    <img
-                                        src="{% static 'images/enable to darg and drop.svg'%}"
-                                        alt=""
-                                    />
-                                    <div class="img">
-                                        <ion-icon
-                                            name="checkmark-outline"
-                                        ></ion-icon>
-                                    </div>
-                                    <span>
-                                        <p>Elements of UX design</p>
-
-                                        <ion-icon
-                                            name="remove-outline"
-                                            class="icon-remove"
-                                        ></ion-icon>
-                                    </span>
-                                </div>
-                                <input
-                                    type="text"
-                                    placeholder="Add Talking Point"
-                                    class="addTalkingPoint"
-                                />
-                            </div>
-                        </div>
-                        <div>
-                            <label for="inputAddTag">
-                                <p>keywords</p>
-                                <img
-                                    src="{% static 'images/Exclamation mark.svg'%}"
-                                    alt=""
-                                />
-                            </label>
-                            <input
-                                type="text"
-                                placeholder="Add a tag..."
-                                class="inputAddTag"
-                                id="inputAddTag"
-                            />
-                            <div class="someKeyWords">
-                                <div>
-                                    <p>text</p>
-                                    <ion-icon
-                                        name="close-outline"
-                                        class="deleteKey"
-                                    ></ion-icon>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <label>
-                                <p>tone of voice</p>
-                            </label>
-                            <div class="divSelect tone">
-                                <p class="valueSelect">
-                                    Professional
-                                </p>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label>
-                                <p>language</p>
-                            </label>
-                            <div class="divSelect language">
-                                <p class="valueSelect">English</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="btnBack">
-                            <ion-icon
-                                name="caret-back-outline"
-                            ></ion-icon>
-                        </div>
-                        <input type="number" name="" id="" />
-                        <button class="GenerateArticle">
-                            Generate Article
-                        </button>
-                        <div class="btnNext">
-                            <ion-icon
-                                name="caret-forward-outline"
-                            ></ion-icon>
-                        </div>
-                    </div>
+                    <p class="btnBack"></p>
                 </div>
                 <!-- ---------------------------------- -->
             </div>
             <div class="part-2-2">
                 <div class="empty">
                     <img
-                        src="{% static 'images/img empty ai article.svg'%}"
+                        src="{% static 'images/img empty ai article.svg' %}"
                         alt="no article"
                     />
                     <p>
@@ -624,6 +162,9 @@
                 <!-- ------------------- -->
                 <div class="divAllKeyWords">
                     <ul>
+
+                        {% for keyword in keywordslist %}
+
                         <li>
                             <div class="select">
                                 <span>
@@ -632,19 +173,20 @@
                                     ></ion-icon>
                                 </span>
                                 <p class="KeywordsText">
-                                    ux designer
+                                    {{keyword}}
                                 </p>
                             </div>
                             <div class="details">
                                 <p>49 words / 224 character</p>
                                 <!-- <div class="edit">
-                                    <img src="{% static 'images/copy.svg'%}" alt="" class="imgCopy">
-                                    <img src="{% static 'images/Icon  trash.svg'%}" alt="" class="imgDelete">
-                                    <img src="{% static 'images/Icon ben.svg'%}" alt="" class="imgEdit">
+                                    <img src="{% static 'images/copy.svg' %}" alt="" class="imgCopy">
+                                    <img src="{% static 'images/Icon  trash.svg' %}" alt="" class="imgDelete">
+                                    <img src="{% static 'images/Icon ben.svg' %}" alt="" class="imgEdit">
                                 </div> -->
                             </div>
                         </li>
 
+                        {% endfor %}
                         <li>
                             <div class="select">
                                 <span>
@@ -663,163 +205,19 @@
                     </ul>
                 </div>
                 <!-- ------------------- -->
-                <div class="AllIdeas">
-                    <ul>
-                        <li>
-                            <div class="select">
-                                <div>
-                                    <ion-icon
-                                        name="ellipse-sharp"
-                                    ></ion-icon>
-                                </div>
-                                <p class="Text">
-                                    The Importance of UI/UX Design
-                                    in Product Development
-                                </p>
-                            </div>
-                            <div class="details">
-                                <p>49 words / 224 character</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="select">
-                                <div>
-                                    <ion-icon
-                                        name="ellipse-sharp"
-                                    ></ion-icon>
-                                </div>
-                                <p class="Text">
-                                    The Evolution of UI/UX Design in
-                                    the Digital Age
-                                </p>
-                            </div>
-                            <div class="details">
-                                <p>49 words / 224 character</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <!-- -------------------- -->
-                <div class="AllOutline">
-                    <div class="toggle">
-                        <p>select individual outlines</p>
-                        <label class="switch">
-                            <input type="checkbox" checked />
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                    <ul>
-                        <li>
-                            <div class="select">
-                                <div>
-                                    <ion-icon
-                                        name="ellipse-sharp"
-                                    ></ion-icon>
-                                </div>
-                                <ul>
-                                    <li>Introduction</li>
-                                    <li>
-                                        User Experience (UX) Design
-                                    </li>
-                                    <li>
-                                        User Interface (UI) Design
-                                    </li>
-                                    <li>
-                                        Benefits of UI/UX Design in
-                                        Product Development
-                                    </li>
-                                    <li>
-                                        Best Practices in UI/UX
-                                        Design
-                                    </li>
-                                    <li>Conclusion</li>
-                                </ul>
-                            </div>
-                            <div class="details">
-                                <p>49 words / 224 character</p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="select">
-                                <div>
-                                    <ion-icon
-                                        name="ellipse-sharp"
-                                    ></ion-icon>
-                                </div>
-                                <ul>
-                                    <li>Introduction</li>
-                                    <li>
-                                        User Experience (UX) Design
-                                    </li>
-                                    <li>
-                                        User Interface (UI) Design
-                                    </li>
-                                    <li>
-                                        Benefits of UI/UX Design in
-                                        Product Development
-                                    </li>
-                                    <li>
-                                        Best Practices in UI/UX
-                                        Design
-                                    </li>
-                                    <li>Conclusion</li>
-                                </ul>
-                            </div>
-                            <div class="details">
-                                <p>49 words / 224 character</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <!-- --------------------- -->
-                <div class="endArt">
-                    <div class="img">
-                        <img
-                            src="{% static 'images/image 32.svg'%}"
-                            alt=""
-                        />
-                    </div>
-                    <div class="text">
-                        <p class="head-1">Introduction</p>
-                        <p class="head-2">
-                            Definition of UI/UX design
-                        </p>
-                        <p>
-                            uI/UX design is a critical aspect of
-                            product development in today's digital
-                            age. UI/UX design refers to the visual
-                            and interactive elements that shape how
-                            users engage with a product. It
-                            encompasses everything from the layout
-                            and design of a website to the
-                            functionality of an app.
-                        </p>
-                        <p class="head-2">
-                            Importance of UI/UX design in product
-                            development
-                        </p>
-                        <p>
-                            The importance of UI/UX design in
-                            product development cannot be
-                            overstated. It is responsible for
-                            creating a user-centric product that
-                            meets the needs of the end-user. A
-                            product that is easy to use,
-                            aesthetically pleasing, and enjoyable to
-                            engage with is more likely to succeed in
-                            the market. UI/UX design also helps
-                            businesses to differentiate themselves
-                            from their competitors and build a loyal
-                            customer base.
-                        </p>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
-
 {% endblock %}
 {% block scripts %}
 <script src=" {% static 'Js/aIArticleWriter.js' %}"></script>
-
+<script src=" {% static 'Js/js-1.js' %}"></script>
+<script>
+    var staticUrl = "{% static 'images/' %}";
+</script>
+<script>
+    function submitForm() {
+        document.getElementById('formSearchKeywords').submit();
+      }
+</script>
 {% endblock %}

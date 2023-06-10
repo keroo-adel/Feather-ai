@@ -33,7 +33,7 @@
 }
 
 .part-2 div.list-chats {
-    height: 100%;
+    height: 750px;
     padding: 4rem 1rem 0;
     display: flex;
     flex-direction: column;
@@ -132,7 +132,7 @@
 .main-chat-feather {
     padding: 1rem 2rem;
     position: relative;
-    height: 100%;
+    height: 750px;
     overflow: hidden;
 }
 

@@ -1,33 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-        />
-        <!-- Google Fonts -->
-        <link
-            href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
-            rel="stylesheet"
-        />
-        <link rel="stylesheet" href="../../Css/main.css" />
-        <link rel="stylesheet" href="../../Css/navbar.css" />
-        <link rel="stylesheet" href="../../Css/aside.css" />
-        <link rel="stylesheet" href="../Email tools/emailTool.css" />
-        <link rel="stylesheet" href="aIArticleWriter.css" />
-        <title>Social Media Tool</title>
-    </head>
-    <body>
-        <div class="container">
-            <section class="sec-home" id="main-page">
-                <div class="main-page">
+{% extends 'base2.html' %}
+
+{% load static %}
+{% block title %}AI Article Writer | Feather.ia{% endblock  %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'Css/aIArticleWriter.css' %} " />
+<link rel="stylesheet" href="{% static 'Css/emailTool.css' %}" />
+{% endblock  %}
+
+{% block bootstrap %}
+{% endblock %}
+{% block content %}
+
+    <div class="main-page">
                     <div class="part-1">
                         <div>
                             <img
-                                src="../../images/aiArticle.svg"
+                                src="{% static 'images/aiArticle.svg' %}"
                                 alt="email icon"
                             />
                             <p>ai article writer</p>
@@ -35,7 +24,7 @@
                         <div>
                             <a href="#">
                                 <img
-                                    src="../../images/Icon  video.svg"
+                                    src="{% static 'images/Icon  video.svg' %}"
                                     alt="icon video"
                                 />
                             </a>
@@ -49,7 +38,7 @@
                             <div class="steps">
                                 <div class="head">
                                     <img
-                                        src="../../images/task-square.svg"
+                                        src="{% static 'images/task-square.svg' %}"
                                         alt=""
                                     />
                                     <p>follow steps</p>
@@ -58,7 +47,7 @@
                                     <div class="one activeLast">
                                         <p class="stepNum">1</p>
                                         <img
-                                            src="../../images/step-1.svg"
+                                            src="{% static 'images/step-1.svg' %}"
                                             alt=""
                                         />
                                         <p class="stepText">KEYWORDS</p>
@@ -67,7 +56,7 @@
                                     <div class="two active">
                                         <p class="stepNum">2</p>
                                         <img
-                                            src="../../images/step-2.svg"
+                                            src="{% static 'images/step-2.svg' %}"
                                             alt=""
                                         />
                                         <p class="stepText">IDEAS</p>
@@ -76,7 +65,7 @@
                                     <div class="three">
                                         <p class="stepNum">3</p>
                                         <img
-                                            src="../../images/step-3.svg"
+                                            src="{% static 'images/step-3.svg' %}"
                                             alt=""
                                         />
                                         <p class="stepText">OUTLINE</p>
@@ -84,7 +73,7 @@
                                     <span></span>
                                     <div class="four">
                                         <img
-                                            src="../../images/step-4.svg"
+                                            src="{% static 'images/step-4.svg' %}"
                                             alt=""
                                         />
                                         <p class="stepNum">4</p>
@@ -98,7 +87,7 @@
                                 <div class="p1">
                                     <div class="head">
                                         <img
-                                            src="../../images/Icon ben.svg"
+                                            src="{% static 'images/Icon ben.svg' %}"
                                             alt=""
                                         />
                                         <p>complete the fields</p>
@@ -107,7 +96,7 @@
                                         <label for="inputSearchKeywords">
                                             <p>topic</p>
                                             <img
-                                                src="../../images/Exclamation mark.svg"
+                                                src="{% static 'images/Exclamation mark.svg' %}"
                                                 alt=""
                                             />
                                         </label>
@@ -122,7 +111,7 @@
                                         <label for="inputAddTag">
                                             <p>keywords</p>
                                             <img
-                                                src="../../images/Exclamation mark.svg"
+                                                src="{% static 'images/Exclamation mark.svg' %}"
                                                 alt=""
                                             />
                                         </label>
@@ -204,7 +193,7 @@
                         <div class="part-2-2">
                             <div class="empty">
                                 <img
-                                    src="../../images/img empty ai article.svg"
+                                    src="{% static 'images/img empty ai article.svg' %}"
                                     alt="no article"
                                 />
                                 <p>
@@ -253,20 +242,20 @@
                             <!-- --------------------- -->
                         </div>
                     </div>
-                </div>
-            </section>
-        </div>
+    </div>
 
-        <script
-            type="module"
-            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
-        ></script>
-        <script
-            nomodule
-            src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
-        ></script>
-        <script src="../../Js/createMainPage.js"></script>
-        <script src="js-2.js"></script>
-        <script src="aIArticleWriter.js"></script>
-    </body>
-</html>
+
+        
+{% endblock %}
+{% block scripts %}
+<script src=" {% static 'Js/aIArticleWriter.js' %}"></script>
+<script src=" {% static 'Js/js-2.js' %}"></script>
+<script>
+    var staticUrl = "{% static 'images/' %}";
+</script>
+<script>
+    function submitForm() {
+        document.getElementById('formSearchKeywords').submit();
+        }
+</script>
+{% endblock %}

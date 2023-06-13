@@ -329,12 +329,18 @@ class ArticleGenratorView(LoginRequiredMixin,ListView):
             "selected_tone": selected_tone,
             "selected_language": selected_language
         }
+        
         return render(request, self.template_name, context)
     
-class SaveAndGenerateArticleView(View):
-    post = ArticleGenratorView
-    
-
+    def post(self, request):
+        selected_idea = request.session.get('idea')
+        outlines_list = request.session.get('outlines')
+        sub_outlines_list = request.session.get('sub_outlines')
+        keywrods_list = request.session.get('keywords')
+        selected_tone = request.session.get('tone')
+        selected_language = request.session.get('language')
+        
+        combined_outlines = zip(outlines_list, sub_outlines_list)
 
 ############################### 
 # Email Tools template

@@ -305,20 +305,7 @@
             <!-- ---------------------------------- -->
         </div>
         <div class="part-2-2">
-            
-
-            <div class="empty" style="display: ;">
-                <img
-                    src="{% static 'images/img empty ai article.svg' %}"
-                    alt="no article"
-                />
-                <p>
-                    Your copies created by artificial
-                    intelligence will appear here.
-                </p>
-            </div>
-
-            <!-- --------------------- -->
+            {% if articleSections %}
             <div class="endArt">
                 <div class="toolbar">
                     <div class="btn-toolbar">
@@ -426,6 +413,22 @@
                     </p>
                 </div>
             </div>
+            {% else %}
+            <div class="empty" style="display: flex;">
+                <img
+                    src="{% static 'images/img empty ai article.svg' %}"
+                    alt="no article"
+                />
+                <p>
+                    Your copies created by artificial
+                    intelligence will appear here.
+                </p>
+            </div>
+
+            {% endif %}
+
+            <!-- --------------------- -->
+
         </div>
     </div>
 </div>

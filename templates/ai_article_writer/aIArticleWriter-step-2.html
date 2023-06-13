@@ -81,9 +81,14 @@
                                     </div>
                                 </div>
                             </div>
+                            
 
                             <!-- ------------------step 2 ------------>
+                            <form id="generateForm" method="POST" action="{% url 'get ideas' %}">
+                                {% csrf_token %}
+
                             <div class="complete-the-fields step two">
+    
                                 <div class="p1">
                                     <div class="head">
                                         <img
@@ -105,6 +110,7 @@
                                             placeholder="UX"
                                             class="inputSearchKeywords"
                                             id="inputSearchKeywords"
+                                            value = "{{topic_name}}"
                                         />
                                     </div>
                                     <div>
@@ -122,23 +128,24 @@
                                             id="inputAddTag"
                                         />
                                         <div class="someKeyWords">
+                                            {% for keyword in  keywords %}
                                             <div>
-                                                <p>text</p>
+                                                <p>{{keyword}}</p>
                                                 <ion-icon
                                                     name="close-outline"
                                                     class="deleteKey"
                                                 ></ion-icon>
-                                            </div>
+                                            </div>  
+                                            {% endfor %}
                                         </div>
+
                                     </div>
                                     <div>
                                         <label>
                                             <p>tone of voice</p>
                                         </label>
                                         <div class="divSelect tone">
-                                            <p class="valueSelect">
-                                                Professional
-                                            </p>
+                                            <p class="valueSelect" id="selectedTone">{{tone_of_voice }}</p>
                                             <ion-icon
                                                 name="caret-down-outline"
                                             ></ion-icon>
@@ -149,14 +156,23 @@
                                             <li>Professional</li>
                                             <li>excited</li>
                                             <li>encouraging</li>
+                                            <li>Funny</li>
+                                            <li>Dramatic</li>
+                                            <li>Witty</li>
+                                            <li>Sarcastic</li>
+                                            <li>Engaging</li>
+                                            <li>Creative</li>
                                         </ul>
                                     </div>
+
+                                    <input type="hidden" id="selectedToneInput" name="tone_of_voice" value="Professional">
+
                                     <div>
                                         <label>
                                             <p>language</p>
                                         </label>
                                         <div class="divSelect language">
-                                            <p class="valueSelect">English</p>
+                                            <p class="valueSelect" id="selectedLanguage">{{language }}</p>
                                             <ion-icon
                                                 name="caret-down-outline"
                                             ></ion-icon>
@@ -169,6 +185,8 @@
                                             <li>German</li>
                                         </ul>
                                     </div>
+                                    <input type="hidden" id="selectedLanguageInput" name="language" value="English">
+
                                 </div>
 
                                 <div>
@@ -177,8 +195,8 @@
                                             name="caret-back-outline"
                                         ></ion-icon>
                                     </div>
-                                    <input type="number" name="" id="" />
-                                    <button class="GenerateIdeas">
+                                    <input type="number" name="word_count" id="wordCount" />
+                                    <button type="submit" class="GenerateIdeas">
                                         Generate Ideas
                                     </button>
                                     <div class="btnNext">
@@ -188,10 +206,41 @@
                                     </div>
                                 </div>
                             </div>
+                        </form>    
+
                             <!-- ---------------------------------- -->
                         </div>
                         <div class="part-2-2">
-                            <div class="empty">
+                            {% if generated_ideas %}
+                            <div class="AllIdeas" style="display: block;">
+                                <button class="btnNext valid" id="nextButton">
+                                    <p>next</p>
+                                    <ion-icon name="paper-plane-outline" role="img" class="md hydrated"></ion-icon>
+                                </button>
+                                <ul>
+
+                                    {% for idea in generated_ideas %}
+                                    <li onclick="selectIdea(this)">
+                                        <div class="select">
+                                            <div>
+                                                <ion-icon name="ellipse-outline"></ion-icon>
+                                            </div>
+                                            <p class="Text">{{ idea }}</p>
+
+                                        </div>
+                                        <div class="details">
+                                            <p>49 Words / 224 Character</p>
+                                        </div>
+                            
+                                    </li>
+                                    {% endfor %}
+
+
+
+                                </ul>
+                            </div>
+                            {% else %}
+                            <div class="empty" style="display: flex;">
                                 <img
                                     src="{% static 'images/img empty ai article.svg' %}"
                                     alt="no article"
@@ -202,43 +251,10 @@
                                 </p>
                             </div>
 
+                            {% endif %}
+
                             <!-- ------------------- -->
-                            <div class="AllIdeas">
-                                <ul>
-                                    <li>
-                                        <div class="select">
-                                            <div>
-                                                <ion-icon
-                                                    name="ellipse-sharp"
-                                                ></ion-icon>
-                                            </div>
-                                            <p class="Text">
-                                                The Importance of UI/UX Design
-                                                in Product Development
-                                            </p>
-                                        </div>
-                                        <div class="details">
-                                            <p>49 words / 224 character</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="select">
-                                            <div>
-                                                <ion-icon
-                                                    name="ellipse-sharp"
-                                                ></ion-icon>
-                                            </div>
-                                            <p class="Text">
-                                                The Evolution of UI/UX Design in
-                                                the Digital Age
-                                            </p>
-                                        </div>
-                                        <div class="details">
-                                            <p>49 words / 224 character</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
+
                             <!-- --------------------- -->
                         </div>
                     </div>
@@ -252,10 +268,95 @@
 <script src=" {% static 'Js/js-2.js' %}"></script>
 <script>
     var staticUrl = "{% static 'images/' %}";
+    const step1Url = "{% url 'ai article writer' %}";
+    const step2Url = "{% url 'get ideas' %}";
+    const step3Url = "{% url 'get outlines' %}";
+    const step4Url = "{% url 'get article' %}";
 </script>
 <script>
     function submitForm() {
         document.getElementById('formSearchKeywords').submit();
         }
+
 </script>
+
+<script>
+      // Get the necessary elements
+      const selectedTone = document.getElementById('selectedTone');
+      const selectedLanguage = document.getElementById('selectedLanguage');
+      const selectedToneInput = document.getElementById('selectedToneInput');
+      const selectedLanguageInput = document.getElementById('selectedLanguageInput');
+      const toneListItems = document.querySelectorAll('.ulSelect.tone li');
+      const languageListItems = document.querySelectorAll('.ulSelect.language li');
+  
+      // Function to update selected tone
+      function updateSelectedTone(value) {
+          selectedTone.innerText = value;
+          selectedToneInput.value = value;
+      }
+  
+      // Function to update selected language
+      function updateSelectedLanguage(value) {
+          selectedLanguage.innerText = value;
+          selectedLanguageInput.value = value;
+      }
+  
+      // Add click event listeners to the tone list items
+      toneListItems.forEach(function(item) {
+          item.addEventListener('click', function() {
+              const value = this.innerText;
+              updateSelectedTone(value);
+          });
+      });
+  
+      // Add click event listeners to the language list items
+      languageListItems.forEach(function(item) {
+          item.addEventListener('click', function() {
+              const value = this.innerText;
+              updateSelectedLanguage(value);
+          });
+      });
+</script>
+
+<script>
+    document.getElementById('nextButton').addEventListener('click', function() {
+        // Get the selected keywords
+        const selectedIdea = document.querySelectorAll('.AllIdeas li.active .Text');
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+   
+        // Get the topic name
+        const language = "{{ language }}";
+        // Create the data object to send in the AJAX request
+        const data = {
+            selectedTone : document.querySelector('.tone .valueSelect').textContent,
+            selectedLanguage: document.querySelector('.language .valueSelect').textContent,
+            selectedIdea: selectedIdea[0].textContent
+        };
+    
+        // Send the AJAX request
+        fetch('save_ideas/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            // Handle the response from the server if needed
+            if (result.success) {
+                // Store the topic ID in sessionStorage
+                // Redirect to the next step
+                window.location.href = step3Url;
+                console.log(result)
+            }
+        })
+        .catch(error => {
+            // Handle any errors that occurred during the AJAX request
+            console.error(error);
+        });
+    });
+    </script>
 {% endblock %}

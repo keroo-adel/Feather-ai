@@ -18,7 +18,7 @@
                 <img
                     src="{% static 'images/aiArticle.svg' %}"
                     alt="email icon"
-                />
+                />  
                 <p>ai article writer</p>
             </div>
             <div>
@@ -44,20 +44,15 @@
                         <p>follow steps</p>
                     </div>
                     <div class="step-by-step">
-                        <a href="{% url 'ai article writer' %}">
-
-                            <div class="one active" >
-                                <p class="stepNum">1</p>
-                                <img
-                                    src="{% static 'images/step-1.svg' %}"
-                                    alt=""
-                                />
-                                <p class="stepText">KEYWORDS</p>
-                            </div>
-                        </a>
-
+                        <div class="one active">
+                            <p class="stepNum">1</p>
+                            <img
+                                src="{% static 'images/step-1.svg' %}"
+                                alt=""
+                            />
+                            <p class="stepText">KEYWORDS</p>
+                        </div>
                         <span></span>
-                        <a href="{% url 'get ideas' %}">
                         <div class="two">
                             <p class="stepNum">2</p>
                             <img
@@ -66,7 +61,6 @@
                             />
                             <p class="stepText">IDEAS</p>
                         </div>
-                    </a>
                         <span></span>
                         <div class="three">
                             <p class="stepNum">3</p>
@@ -111,10 +105,11 @@
                         placeholder="UX"
                         class="inputSearchKeywords"
                         name = "message"
+                        value="{% if request.session.topic_name %}{{request.session.topic_name}}{% else %}{{message}}{% endif %}"
                         />
                         <button
                             type="submit"
-                            class="btnSearchKeywords"
+                            class="btnSearchKeywords valid"
                             onclick="submitForm()"
                         >
                             <ion-icon
@@ -151,18 +146,12 @@
                 <!-- ---------------------------------- -->
             </div>
             <div class="part-2-2">
-                <div class="empty">
-                    <img
-                        src="{% static 'images/img empty ai article.svg' %}"
-                        alt="no article"
-                    />
-                    <p>
-                        Your copies created by artificial
-                        intelligence will appear here.
-                    </p>
-                </div>
-                <!-- ------------------- -->
-                <div class="divAllKeyWords">
+                {% if keywordslist %}
+                <div class="divAllKeyWords" style="display: block;">
+                    <button class="btnNext valid" id="nextButton">
+                        <p>next</p>
+                        <ion-icon name="paper-plane-outline" role="img" class="md hydrated"></ion-icon>
+                    </button>
                     <ul>
 
                         {% for keyword in keywordslist %}
@@ -189,23 +178,23 @@
                         </li>
 
                         {% endfor %}
-                        <li>
-                            <div class="select">
-                                <span>
-                                    <ion-icon
-                                        name="checkmark-outline"
-                                    ></ion-icon>
-                                </span>
-                                <p class="KeywordsText">
-                                    ux designer
-                                </p>
-                            </div>
-                            <div class="details">
-                                <p>49 words / 224 character</p>
-                            </div>
-                        </li>
+
                     </ul>
                 </div>
+                {% else %}
+                <div class="empty" style="display: flex;">
+                    <img
+                        src="{% static 'images/img empty ai article.svg' %}"
+                        alt="no article"
+                    />
+                    <p>
+                        Your copies created by artificial
+                        intelligence will appear here.
+                    </p>
+                </div>
+                {% endif %}
+                <!-- ------------------- -->
+
                 <!-- ------------------- -->
             </div>
         </div>
@@ -216,10 +205,72 @@
 <script src=" {% static 'Js/js-1.js' %}"></script>
 <script>
     var staticUrl = "{% static 'images/' %}";
+    const step1Url = "{% url 'ai article writer' %}";
+    const step2Url = "{% url 'get ideas' %}";
+    const step3Url = "{% url 'get outlines' %}";
+    const step4Url = "{% url 'get article' %}";
 </script>
 <script>
     function submitForm() {
         document.getElementById('formSearchKeywords').submit();
       }
+
+
+      const activeKeywords = document.querySelectorAll('.divAllKeyWords li.active .KeywordsText');
+      const nextButton = document.querySelector('.btnNext');
+
+    // Check if there is at least one active keyword
+    if (activeKeywords.length > 0) {
+    // Add the "valid" class to make the button active
+    nextButton.classList.add('valid');
+    } else {
+    // Remove the "valid" class to make the button inactive
+    nextButton.classList.remove('valid');
+    }
+
 </script>
+<script>
+    document.getElementById('nextButton').addEventListener('click', function() {
+        // Get the selected keywords
+        const activeKeywords = document.querySelectorAll('.divAllKeyWords li.active .KeywordsText');
+        const selectedKeywords = Array.from(activeKeywords).map(keyword => keyword.textContent.trim());
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+   
+        // Get the topic name
+        const topicName = "{{message}}";
+    
+        // Create the data object to send in the AJAX request
+        const data = {
+            topicName: topicName,
+            keywords: selectedKeywords
+        };
+    
+        // Send the AJAX request
+        fetch('save_topic_keywords/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(result => {
+            // Handle the response from the server if needed
+            if (result.success) {
+                // Store the topic ID in sessionStorage
+                sessionStorage.setItem('topic_id', result.topic_id);
+                sessionStorage.setItem('keywords', JSON.stringify(result.keywords));
+
+                // Redirect to the next step
+                window.location.href = step2Url;
+            }
+        })
+        .catch(error => {
+            // Handle any errors that occurred during the AJAX request
+            console.error(error);
+        });
+    });
+    </script>
 {% endblock %}

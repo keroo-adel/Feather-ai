@@ -47,7 +47,7 @@
 // // --------------------
 
 const divEmpty = document.querySelector(".part-2-2 .empty");
-divEmpty.style.display = "flex";
+// divEmpty.style.display = "flex";
 // const divAllKeyWords = document.querySelector(".divAllKeyWords");
 // btnSearchKeywords.addEventListener("click", (e) => {
 //     e.preventDefault();
@@ -111,17 +111,13 @@ function showDivStep() {
     // hideAllDivOfSteps();
 
     if (numDiv === 1) {
-        window.location.href =
-            "/Page/AI article writer/aIArticleWriter-step-1.html";
+        window.location.href =step1Url;
     } else if (numDiv === 2) {
-        window.location.href =
-            "/Page/AI article writer/aIArticleWriter-step-2.html";
+        window.location.href =step2Url;
     } else if (numDiv === 3) {
-        window.location.href =
-            "/Page/AI article writer/aIArticleWriter-step-3.html";
+        window.location.href =step3Url;
     } else if (numDiv === 4) {
-        window.location.href =
-            "/Page/AI article writer/aIArticleWriter-step-4.html";
+        window.location.href =step4Url;
     }
     // divEmpty.style.display = "flex";
 

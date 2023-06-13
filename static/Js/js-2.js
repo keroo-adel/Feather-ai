@@ -322,3 +322,17 @@ liSelectTone.forEach((li) => {
 //         showDivStep();
 //     });
 // });
+
+function selectIdea(liElement) {
+    const allLiElements = document.querySelectorAll('.AllIdeas li');
+  
+    // Set all li elements to unselected
+    allLiElements.forEach(li => {
+      li.classList.remove('active');
+      li.querySelector('ion-icon').setAttribute('name', 'ellipse-outline');
+    });
+  
+    // Set the clicked li element to selected
+    divSelectedLanguage.classList.add('active');
+    liElement.querySelector('ion-icon').setAttribute('name', 'ellipse-sharp');
+  }

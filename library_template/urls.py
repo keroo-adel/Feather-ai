@@ -3,8 +3,16 @@ from . import views
 
 urlpatterns = [
     path('ai-article-writer/keywords/', views.AiArticleWriterView.as_view() , name='ai article writer'),
+    path('ai-article-writer/keywords/save_topic_keywords/', views.SaveTopicKeywordsView.as_view(), name='save_topic_keywords'),
+
+    
     path('ai-article-writer/ideas/', views.IdeasGenratorView.as_view() , name='get ideas'),
+    path('ai-article-writer/ideas/save_ideas/', views.SaveIdeasView.as_view() , name='save_ideas'),
+
     path('ai-article-writer/outlines/', views.OutlinesGenratorView.as_view() , name='get outlines'),
+    path('ai-article-writer/outlines/save_outlines/', views.SaveOutlinesView.as_view() , name='save_outlines'),
+
+    
     path('ai-article-writer/article/', views.ArticleGenratorView.as_view() , name='get article'),
     
     

@@ -481,14 +481,14 @@ div.ulSelect.active ul {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    max-height: 550px;
-    overflow: auto;
 }
 
 .complete-the-fields.step .p1 {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    max-height: 440px;
+    overflow: auto;
 }
 
 .complete-the-fields.step .p1>div:not(:first-of-type) {
@@ -703,6 +703,7 @@ input:checked+.slider:before {
     font-weight: 700;
     padding: 1rem 0 2.5rem;
     text-transform: uppercase;
+    
 }
 
 .endArt .text .head-2 {
@@ -717,8 +718,76 @@ input:checked+.slider:before {
     font-size: 1.8rem;
     line-height: 2.5rem;
     font-weight: 300;
+    margin-inline: 5%;
 }
 
 .endArt .text p {
     padding: 0.5rem 0;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: var(--color-dark);
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+
+.toolbar .head {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    color: var(--color-white);
+    padding: 1rem;
+}
+
+.toolbar .head select {
+    background-color: var(--color-dark-3);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    width: 16rem;
+    color: var(--color-white-2);
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.toolbar .head .color input {
+    border: none;
+    outline: none;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+}
+
+.toolbar .btn-toolbar {
+    display: flex;
+    align-items: center;
+}
+
+.toolbar .btn-toolbar button {
+    background: transparent;
+    color: var(--color-white-2);
+    border: none;
+    cursor: pointer;
+    width: 4rem;
+    height: 4rem;
+    font-size: 2.2rem;
+}
+
+#btn-save {
+    outline: none;
+    border: none;
+    color: var(--color-white-2);
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    background-color: var(--color-dark-3);
+    width: 7rem;
+    height: 3.9rem;
 }

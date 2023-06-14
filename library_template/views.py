@@ -296,15 +296,21 @@ class SaveOutlinesView(View):
         if len (genrated_sub_outlines_list)< len(outlines_id_list):
             genrated_sub_outlines_list.append([""]*(len(outlines_id_list)-len(genrated_sub_outlines_list)))
 
+        suboutlines_id_list = []
+        
         for i in range(len(outlines_id_list)):
-            Suboutline.objects.create(
-                outline = Outline.objects.get(id=outlines_id_list[i]), 
-                suboutlines = genrated_sub_outlines_list[i]
-            )
+            suboutlines_id_list.append([])
+            for j in range(len(genrated_sub_outlines_list[i])):
+                subOutline = Suboutline.objects.create(
+                    outline = Outline.objects.get(id=outlines_id_list[i]), 
+                    suboutlines = genrated_sub_outlines_list[i][j],
+                )
+                suboutlines_id_list[i].append(subOutline.id)
                 
                 
         request.session['outlines'] = selected_outlines
         request.session['sub_outlines'] = genrated_sub_outlines_list
+        request.session['suboutlines_id_list'] = suboutlines_id_list
         
         return JsonResponse({'success': True,"outlines": outlines_string, "select_individual_outlines": slecet_individual_outlines})
         
@@ -320,7 +326,7 @@ class ArticleGenratorView(LoginRequiredMixin,ListView):
         selected_language = request.session.get('language')
         
         combined_outlines = zip(outlines_list, sub_outlines_list)
-
+        
             
         context = {
             "selected_idea": selected_idea,
@@ -339,8 +345,56 @@ class ArticleGenratorView(LoginRequiredMixin,ListView):
         keywrods_list = request.session.get('keywords')
         selected_tone = request.session.get('tone')
         selected_language = request.session.get('language')
-        
+        suboutlines_id_list = request.session.get('suboutlines_id_list')
         combined_outlines = zip(outlines_list, sub_outlines_list)
+
+        SuboutlineBody = [
+            [
+                """The game of football has witnessed many extraordinary talents over the years, but few have left as indelible a mark on a single club as Lionel Messi did during his time at Barcelona. As one of the greatest footballers of all time, Messi's arrival at Barcelona marked the beginning of an era of greatness, setting in motion a series of accomplishments and records that will forever be associated with his name.""",
+                """Lionel Messi's journey to Barcelona is a captivating tale of talent, determination, and destiny. Born on June 24, 1987, in Rosario, Argentina, Messi showcased extraordinary football skills from a young age. His innate ability to control the ball and navigate the field with exceptional agility caught the attention of numerous football scouts. At the age of 13, Messi seized the opportunity to join FC Barcelona's esteemed youth academy, La Masia, where he would undergo his transformation from a promising talent to a global superstar.""",
+                
+                """Messi's arrival at Barcelona marked a turning point for both the player and the club. With his unique skill set, Messi injected a new dimension of creativity, flair, and goal-scoring prowess into Barcelona's playing style. His mesmerizing dribbles, extraordinary vision, and deadly precision in front of goal revolutionized the team's approach to the game. Messi's ability to effortlessly weave through defenses and create opportunities for his teammates raised the overall level of play and propelled Barcelona to new heights of success.
+                Furthermore, Messi's impact extended beyond the field. His humble demeanor, dedication to the sport, and unwavering loyalty to the Barcelona badge endeared him to fans around the world. He became a symbol of excellence and inspiration, showcasing the values and ethos that Barcelona stood for. The arrival of Messi not only brought immense sporting success to the club but also helped shape its identity and create a lasting legacy.
+                In the following sections, we will delve deeper into the Barcelona legacy of Lionel Messi, exploring the unparalleled accomplishments, the trophies won, the records broken, and the unforgettable moments that defined this remarkable era of greatness.""",
+            ],
+                [
+                """keroo""",
+                """adel""",
+                
+                """azmy""",
+            ]
+        ]
+        
+        if len(SuboutlineBody) < len(outlines_list):
+            remaining = len(outlines_list) - len(SuboutlineBody)
+            SuboutlineBody.extend([[""]] * remaining)
+            
+        for i in range(len(sub_outlines_list)):
+            for j in range(len(SuboutlineBody[i])):
+                suboutline = Suboutline.objects.get(id=suboutlines_id_list[i][j])
+                suboutline.body = SuboutlineBody[i][j]
+                suboutline.save()
+        
+
+        articleSections = zip(outlines_list, sub_outlines_list,SuboutlineBody)
+        article_sections = []
+        for outline, sub_outline, body in articleSections:
+            section = {
+                'outline': outline,
+                'sub_outline_body': zip(sub_outline, body)
+            }   
+            article_sections.append(section)
+            
+        context = {
+            "selected_idea": selected_idea,
+            "combined_outlines": combined_outlines,
+            "keywrods_list": keywrods_list,
+            "selected_tone": selected_tone,
+            "selected_language": selected_language,
+            "articleSections": article_sections         
+        }
+
+        return render(request, self.template_name, context)
 
 ############################### 
 # Email Tools template

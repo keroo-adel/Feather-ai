@@ -19,8 +19,8 @@ class Outline(models.Model):
 
 class Suboutline(models.Model):
     outline = models.ForeignKey(Outline, on_delete=models.CASCADE)
-    suboutlines = models.TextField()
-    body  = models.TextField()
+    suboutlines = models.TextField( null=True, blank=True)
+    body  = models.TextField(null=True, blank=True)
 
     
 class OutlineOrder(models.Model):
@@ -32,11 +32,11 @@ class OutlineOrder(models.Model):
         ordering = ['order']
         
 class Article(models.Model):
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=100, blank=True)
     outlines = models.ManyToManyField('Outline', through='OutlineOrder')
     article_text = models.TextField()
     image = models.ImageField(upload_to='images/', blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
 
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)

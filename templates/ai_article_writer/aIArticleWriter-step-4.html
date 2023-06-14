@@ -1,4 +1,5 @@
 {% extends 'base2.html' %}
+{% load custom_filters %}
 
 {% load static %}
 {% block title %}AI Article Writer | Feather.ia{% endblock  %}
@@ -111,7 +112,11 @@
                         <p class="stepText">OUTLINE</p>
                     </div>
                     <span></span>
-                    <div class="four active">
+                    <div class="four {% if articleSections %}
+                    activeLast
+                    {% else %}
+                    active
+                    {% endif %}">
                         <img
                             src="{% static 'images/step-4.svg' %}"
                             alt=""
@@ -123,6 +128,8 @@
             </div>
 
             <!-- ------------------step 4 ------------>
+            <form id="generateForm" method="POST" action="{% url 'get article' %}">
+                {% csrf_token %}
             <div class="complete-the-fields step four">
                 <div class="p1">
                     <div class="head">
@@ -292,9 +299,11 @@
                             name="caret-back-outline"
                         ></ion-icon>
                     </div>
-                    <button class="GenerateArticle">
+
+                    <button type="submit" class="GenerateArticle">
                         Generate Article
                     </button>
+
                     <div class="btnNext">
                         <ion-icon
                             name="caret-forward-outline"
@@ -302,11 +311,13 @@
                     </div>
                 </div>
             </div>
+            </form>
             <!-- ---------------------------------- -->
         </div>
         <div class="part-2-2">
             {% if articleSections %}
-            <div class="endArt">
+
+            <div class="endArt" style="display:block;">
                 <div class="toolbar">
                     <div class="btn-toolbar">
                         <button onclick="formatDoc('undo')">
@@ -371,6 +382,10 @@
                         </button>
                     </div>
                 </div>
+
+                <br>
+                <div class="py-4 text-sm lg:text-base text-gray-5 font-medium w-full mx-auto max-w-700">969 words / 5681 characters</div>
+                <h1>{{selected_idea}}</h1>
                 <div class="img">
                     <img
                         src="{% static 'images/image 32.svg' %}"
@@ -378,20 +393,20 @@
                     />
                 </div>
                 <div class="text">
-                    <p class="head-1">Introduction</p>
+                    {% for article_section in articleSections  %}
+                    <p class="head-1">{{article_section.outline}}</p>
+                    {% for sub_outline, body in article_section.sub_outline_body %}
                     <p class="head-2">
-                        Definition of UI/UX design
+                    {{ sub_outline }} 
                     </p>
                     <p>
-                        uI/UX design is a critical aspect of
-                        product development in today's digital
-                        age. UI/UX design refers to the visual
-                        and interactive elements that shape how
-                        users engage with a product. It
-                        encompasses everything from the layout
-                        and design of a website to the
-                        functionality of an app.
+                    {{ body }} 
                     </p>
+                    {% endfor %}
+                    {% endfor %}
+                    
+
+                
                     
                     <p class="head-2">
                         Importance of UI/UX design in product

@@ -34,6 +34,7 @@
 .dates ul li {
     list-style-type: none;
     width: 12rem;
+    cursor: pointer;
 }
 .dates li.active {
     color: var(--color-main);

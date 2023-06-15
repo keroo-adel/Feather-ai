@@ -36,7 +36,7 @@ class SavedCopiesView(LoginRequiredMixin, ListView):
         first_article_date = Article.objects.filter(user=self.request.user).first().created_at
         num_date_ranges = int(self.request.GET.get('num_date_ranges', 250))  # Number of date ranges to retrieve
         date_range_group = self.request.GET.get('date_range')  # Get the date_range parameter from the URL
-
+        context['active_date_range'] = self.request.GET.get('date_range')
         date_ranges = []
         day_data = []
 

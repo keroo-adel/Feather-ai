@@ -163,14 +163,14 @@ function hideAllDivOfMainContent() {
 //     divAllOutline.style.display = "block";
 // });
 // // ----------------------
-const btnGenerateArticle = document.querySelector(".GenerateArticle");
-btnGenerateArticle.addEventListener("click", () => {
-    hideAllDivOfMainContent();
-    const DivEndArt = document.querySelector(".endArt");
-    DivEndArt.style.display = "block";
-    const endStepLastActive = document.querySelector(".step-by-step .four");
-    endStepLastActive.classList.add("activeLast");
-});
+// const btnGenerateArticle = document.querySelector(".GenerateArticle");
+// btnGenerateArticle.addEventListener("click", () => {
+//     hideAllDivOfMainContent();
+//     const DivEndArt = document.querySelector(".endArt");
+//     DivEndArt.style.display = "block";
+//     const endStepLastActive = document.querySelector(".step-by-step .four");
+//     endStepLastActive.classList.add("activeLast");
+// });
 // // ----------------------
 
 // const iconDeleteKeyInIdeas = document.querySelectorAll(

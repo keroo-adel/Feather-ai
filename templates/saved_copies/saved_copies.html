@@ -23,7 +23,7 @@
             <div class="dates">
                 <ul>
                   {% for range in date_ranges  %}
-                  <li onclick="handleDateClick(this, '{{ range.start_day }}-{{ range.end_day }}-{{ range.month }}-{{ range.year }}')">
+                  <li class="{% if active_date_range == range.start_day|add:'-'|add:range.end_day|add:'-'|add:range.month|add:'-'|add:range.year %}active{% endif %}" id="date-range-{{ forloop.counter }}" onclick="handleDateClick(this, '{{ range.start_day }}-{{ range.end_day }}-{{ range.month }}-{{ range.year }}')">
                     {{ range.start_day }}-{{ range.end_day }} {{ range.month }}
                 </li>
                   {% endfor %}
@@ -92,23 +92,17 @@
 <script src="{% static 'js/savedCopies.js' %}"></script>
 
 <script>
- 
-    function handleDateClick(element, date) {
-        // Remove the "active" class from all list items
-        var listItems = document.querySelectorAll('.btn-li');
-        var form = document.getElementById('date-range-form');
-        listItems.forEach(function(item) {
-          item.classList.remove('active');
-        });
-    
-        // Add the "active" class to the clicked list item
-        element.classList.add('active');
-    
+    function handleDateClick(element, date) {    
         // Set the selected date value to the hidden input
         var hiddenInput = document.getElementById('selected-date');
         hiddenInput.value = date;
+        
+        // Submit the form
+        var form = document.getElementById('date-range-form');
         form.submit();
-
       }
+      
+
+
   </script>
 {% endblock  %}

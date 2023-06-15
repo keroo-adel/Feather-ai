@@ -35,53 +35,69 @@
               </div>
         </div>
         </form>
-        <div class="part-2">
-        {% for day in day_data %}
+        <div class="part-2" {% if day_data %} style="display:grid"
+        {% else %}
+        style="display:block"
+        {% endif %}>
+        {% if  day_data%}
+            {% for day in day_data %}
 
-            <div class="day">
-                <div class="head">
-                    <div class="num"><p>{{ day.day_number }}</p></div>
-                    <p>{{ day.day_name }}</p>
-                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-                </div>
-                {% for article in saved_articles %}
+                <div class="day">
+                    <div class="head">
+                        <div class="num"><p>{{ day.day_number }}</p></div>
+                        <p>{{ day.day_name }}</p>
+                        <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+                    </div>
+                    {% for article in saved_articles %}
 
-                {% if article.created_at.date.day == day.day_number %}
-                    <div class="saved-page">
-                        <p>{{ article.title}} </p>
-                        <div class="keys">
-                            {% for tag in article.tags|split_string:"," %}
-                            <span>{{ tag }}</span>
+                    {% if article.created_at.date.day == day.day_number %}
+                        <div class="saved-page">
+                            <p>{{ article.title}} </p>
+                            <div class="keys">
+                                {% for tag in article.tags|split_string:"," %}
+                                <span>{{ tag }}</span>
 
-                            {% endfor %}
-                        </div>
-                        {% with outline=article.outlines.first %}
-                        {% with suboutline=outline.suboutline_set.first %}
+                                {% endfor %}
+                            </div>
+                            {% with outline=article.outlines.first %}
+                            {% with suboutline=outline.suboutline_set.first %}
 
-                        <p>
-                            {{ suboutline.body|truncatechars_html:100 }}
-                        </p>
-                        {% endwith %}
+                            <p>
+                                {{ suboutline.body|truncatechars_html:100 }}
+                            </p>
+                            {% endwith %}
 
-                        {% endwith %}
-                        <img src="{{ article.image.url}}" alt="">
-                        <div class="footer">
-                            <p>{{article.created_at|time:"H:i A"}}</p>
-                            <div class="social">
-                                <a href="">
-                                    <img src="{% static 'images/facebook.svg' %}" alt="">
-                                </a>
-                                <div class="plus">
-                                    <ion-icon name="add-outline"></ion-icon>
+                            {% endwith %}
+                            <img src="{{ article.image.url}}" alt="">
+                            <div class="footer">
+                                <p>{{article.created_at|time:"H:i A"}}</p>
+                                <div class="social">
+                                    <a href="">
+                                        <img src="{% static 'images/facebook.svg' %}" alt="">
+                                    </a>
+                                    <div class="plus">
+                                        <ion-icon name="add-outline"></ion-icon>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    {% endif %}
-                {% endfor %}
+                        {% endif %}
+                    {% endfor %}
 
-            </div>
-        {% endfor %}
+                </div>
+            {% endfor %}
+        {% else %}
+        <div class="empty" style="display: flex;">
+            <img
+                src="{% static 'images/addon-i_2%201.svg' %}"
+                alt="no article"
+            />
+            <p>
+                No articles found selct a date range to view.
+            </p>
+        </div>
+        {% endif %}
+
 
         </div>
     </div>

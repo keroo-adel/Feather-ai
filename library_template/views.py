@@ -6,7 +6,7 @@ from .models import *
 import json
 from django.http import HttpResponse
 from django.shortcuts import redirect
-
+from .utils import *
 ############################### 
 # AiArticleWriter template
 ############################### 
@@ -310,8 +310,8 @@ class SaveOutlinesView(View):
                 
         request.session['outlines'] = selected_outlines
         request.session['sub_outlines'] = genrated_sub_outlines_list
+        request.session['outlines_id_list'] = outlines_id_list
         request.session['suboutlines_id_list'] = suboutlines_id_list
-        
         return JsonResponse({'success': True,"outlines": outlines_string, "select_individual_outlines": slecet_individual_outlines})
         
 class ArticleGenratorView(LoginRequiredMixin,ListView):
@@ -345,6 +345,7 @@ class ArticleGenratorView(LoginRequiredMixin,ListView):
         keywrods_list = request.session.get('keywords')
         selected_tone = request.session.get('tone')
         selected_language = request.session.get('language')
+        outlines_id_list = request.session.get('outlines_id_list')
         suboutlines_id_list = request.session.get('suboutlines_id_list')
         combined_outlines = zip(outlines_list, sub_outlines_list)
 
@@ -354,7 +355,10 @@ class ArticleGenratorView(LoginRequiredMixin,ListView):
                 """Lionel Messi's journey to Barcelona is a captivating tale of talent, determination, and destiny. Born on June 24, 1987, in Rosario, Argentina, Messi showcased extraordinary football skills from a young age. His innate ability to control the ball and navigate the field with exceptional agility caught the attention of numerous football scouts. At the age of 13, Messi seized the opportunity to join FC Barcelona's esteemed youth academy, La Masia, where he would undergo his transformation from a promising talent to a global superstar.""",
                 
                 """Messi's arrival at Barcelona marked a turning point for both the player and the club. With his unique skill set, Messi injected a new dimension of creativity, flair, and goal-scoring prowess into Barcelona's playing style. His mesmerizing dribbles, extraordinary vision, and deadly precision in front of goal revolutionized the team's approach to the game. Messi's ability to effortlessly weave through defenses and create opportunities for his teammates raised the overall level of play and propelled Barcelona to new heights of success.
-                Furthermore, Messi's impact extended beyond the field. His humble demeanor, dedication to the sport, and unwavering loyalty to the Barcelona badge endeared him to fans around the world. He became a symbol of excellence and inspiration, showcasing the values and ethos that Barcelona stood for. The arrival of Messi not only brought immense sporting success to the club but also helped shape its identity and create a lasting legacy.
+                Furthermore, Messi's impact extended beyond the field. 
+                \n
+                His humble demeanor, dedication to the sport, and unwavering loyalty to the Barcelona badge endeared him to fans around the world. He became a symbol of excellence and inspiration, showcasing the values and ethos that Barcelona stood for. The arrival of Messi not only brought immense sporting success to the club but also helped shape its identity and create a lasting legacy.
+                
                 In the following sections, we will delve deeper into the Barcelona legacy of Lionel Messi, exploring the unparalleled accomplishments, the trophies won, the records broken, and the unforgettable moments that defined this remarkable era of greatness.""",
             ],
                 [
@@ -374,7 +378,28 @@ class ArticleGenratorView(LoginRequiredMixin,ListView):
                 suboutline = Suboutline.objects.get(id=suboutlines_id_list[i][j])
                 suboutline.body = SuboutlineBody[i][j]
                 suboutline.save()
-        
+                
+        random_image_path = fetch_random_image(selected_idea)
+
+
+        if random_image_path :
+            article = Article.objects.create(
+                title=Idea.objects.get(id=request.session['idea_id']).idea_text,
+                tags=request.session.get('keywords'),
+                user= request.user,
+            )
+            article.image = random_image_path
+            article.save()
+            for outline in outlines_id_list:
+                article.outlines.add(Outline.objects.get(id=outline))
+
+            outlines=article.outlines.all()
+            for outline in outlines:
+                print(outline.Outlines)
+                suboutlines = outline.suboutline_set.all()
+                for suboutline in suboutlines:
+                    print(suboutline.suboutlines)
+                    print(suboutline.body)
 
         articleSections = zip(outlines_list, sub_outlines_list,SuboutlineBody)
         article_sections = []
@@ -391,7 +416,8 @@ class ArticleGenratorView(LoginRequiredMixin,ListView):
             "keywrods_list": keywrods_list,
             "selected_tone": selected_tone,
             "selected_language": selected_language,
-            "articleSections": article_sections         
+            "articleSections": article_sections,
+            "article": article      
         }
 
         return render(request, self.template_name, context)

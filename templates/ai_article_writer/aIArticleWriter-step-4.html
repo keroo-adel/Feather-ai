@@ -388,8 +388,8 @@
                 <h1>{{selected_idea}}</h1>
                 <div class="img">
                     <img
-                        src="{% static 'images/image 32.svg' %}"
-                        alt=""
+                        src="{{article.image.url}}"
+                        alt="Article Image"
                     />
                 </div>
                 <div class="text">
@@ -400,32 +400,10 @@
                     {{ sub_outline }} 
                     </p>
                     <p>
-                    {{ body }} 
+                    {{ body|linebreaksbr }} 
                     </p>
                     {% endfor %}
                     {% endfor %}
-                    
-
-                
-                    
-                    <p class="head-2">
-                        Importance of UI/UX design in product
-                        development
-                    </p>
-                    <p>
-                        The importance of UI/UX design in
-                        product development cannot be
-                        overstated. It is responsible for
-                        creating a user-centric product that
-                        meets the needs of the end-user. A
-                        product that is easy to use,
-                        aesthetically pleasing, and enjoyable to
-                        engage with is more likely to succeed in
-                        the market. UI/UX design also helps
-                        businesses to differentiate themselves
-                        from their competitors and build a loyal
-                        customer base.
-                    </p>
                 </div>
             </div>
             {% else %}

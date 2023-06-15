@@ -15,42 +15,38 @@
 {% block content %}
 
     <div class="main-page">
+        <form method="GET" action="{% url 'saved-copies' %}" id="date-range-form">
         <div class="part-1">
             <div class="btn left disabled">
                 <ion-icon name="caret-back-outline"></ion-icon>
             </div>
             <div class="dates">
                 <ul>
-                    <li>12-20 feb</li>
-                    <li>12-20 feb</li>
-                    <li>12-20 feb</li>
-                    <li class="active">12-20 feb</li>
-                    <li>12-20 feb</li>
-                    <li>12-20 feb</li>
-                    <li>12-20 feb</li>
-                    <li>12-20 feb</li>
-                    <li>12-20 feb</li>
-                    <li>12-20 feb</li>
-                    <li>12-20 feb</li>
-                    <li>12-20 feb</li>
-                    <li>12-20 feb</li>
-                    <li>12-20 feb</li>
+                  {% for range in date_ranges  %}
+                  <li onclick="handleDateClick(this, '{{ range.start_day }}-{{ range.end_day }}-{{ range.month }}-{{ range.year }}')">
+                    {{ range.start_day }}-{{ range.end_day }} {{ range.month }}
+                </li>
+                  {% endfor %}
                 </ul>
-            </div>
-            <div class="btn right">
-                <ion-icon
-                    name="caret-forward-outline"
-                ></ion-icon>
-            </div>
+                <input type="hidden" id="selected-date" name="date_range">
+              </div>
+              <div class="btn right">
+                <ion-icon name="caret-forward-outline"></ion-icon>
+              </div>
         </div>
+        </form>
         <div class="part-2">
+        {% for day in day_data %}
+
             <div class="day">
                 <div class="head">
-                    <div class="num"><p>01</p></div>
-                    <p>wednesday</p>
+                    <div class="num"><p>{{ day.day_number }}</p></div>
+                    <p>{{ day.day_name }}</p>
                     <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
                 </div>
                 {% for article in saved_articles %}
+
+                {% if article.created_at.date.day == day.day_number %}
                     <div class="saved-page">
                         <p>{{ article.title}} </p>
                         <div class="keys">
@@ -81,382 +77,12 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                 {% endfor %}
 
-                <div class="saved-page">
-                    <p>The Importance of UI/UX Design</p>
-                    <div class="keys">
-                        <span>ui/ux design</span>
-                        <span>ui design</span>
-                        <span>UX</span>
-                    </div>
-                    <p>
-                        UI/UX design is a critical aspect of product development in today's digital age. UI/UX design refers to ...
-                    </p>
-                    <img src="{% static 'images/image saved page.svg' %}" alt="">
-                    <div class="footer">
-                        <p>12:00 PM</p>
-                        <div class="social">
-                            <a href="">
-                                <img src="{% static 'images/facebook.svg' %}" alt="">
-                            </a>
-                            <div class="plus">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="saved-page">
-                    <p>The Importance of UI/UX Design</p>
-                    <div class="keys">
-                        <span>ui/ux design</span>
-                        <span>ui design</span>
-                        <span>UX</span>
-                    </div>
-                    <p>
-                        UI/UX design is a critical aspect of product development in today's digital age. UI/UX design refers to ...
-                    </p>
-                    <img src="{% static 'images/image saved page.svg' %}" alt="">
-                    <div class="footer">
-                        <p>12:00 PM</p>
-                        <div class="social">
-                            <a href="">
-                                <img src="{% static 'images/facebook.svg' %}" alt="">
-                            </a>
-                            <div class="plus">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="saved-page">
-                    <p>The Importance of UI/UX Design</p>
-                    <div class="keys">
-                        <span>ui/ux design</span>
-                        <span>ui design</span>
-                        <span>UX</span>
-                    </div>
-                    <p>
-                        UI/UX design is a critical aspect of product development in today's digital age. UI/UX design refers to ...
-                    </p>
-                    <img src="{% static 'images/image saved page.svg' %}" alt="">
-                    <div class="footer">
-                        <p>12:00 PM</p>
-                        <div class="social">
-                            <a href="">
-                                <img src="{% static 'images/facebook.svg' %}" alt="">
-                            </a>
-                            <div class="plus">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-            <div class="day">
-                <div class="head">
-                    <div class="num"><p>01</p></div>
-                    <p>wednesday</p>
-                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-                </div>
-                <div class="saved-page">
-                    <p>The Importance of UI/UX Design</p>
-                    <div class="keys">
-                        <span>ui/ux design</span>
-                        <span>ui design</span>
-                        <span>UX</span>
-                    </div>
-                    <p>
-                        UI/UX design is a critical aspect of product development in today's digital age. UI/UX design refers to ...
-                    </p>
-                    <img src="{% static 'images/image saved page.svg' %}" alt="">
-                    <div class="footer">
-                        <p>12:00 PM</p>
-                        <div class="social">
-                            <a href="">
-                                <img src="{% static 'images/facebook.svg' %}" alt="">
-                            </a>
-                            <div class="plus">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="saved-page">
-                    <p>The Importance of UI/UX Design</p>
-                    <div class="keys">
-                        <span>ui/ux design</span>
-                        <span>ui design</span>
-                        <span>UX</span>
-                    </div>
-                    <p>
-                        UI/UX design is a critical aspect of product development in today's digital age. UI/UX design refers to ...
-                    </p>
-                    <img src="{% static 'images/image saved page.svg' %}" alt="">
-                    <div class="footer">
-                        <p>12:00 PM</p>
-                        <div class="social">
-                            <a href="">
-                                <img src="{% static 'images/facebook.svg' %}" alt="">
-                            </a>
-                            <div class="plus">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="saved-page">
-                    <p>The Importance of UI/UX Design</p>
-                    <div class="keys">
-                        <span>ui/ux design</span>
-                        <span>ui design</span>
-                        <span>UX</span>
-                    </div>
-                    <p>
-                        UI/UX design is a critical aspect of product development in today's digital age. UI/UX design refers to ...
-                    </p>
-                    <img src="{% static 'images/image saved page.svg' %}" alt="">
-                    <div class="footer">
-                        <p>12:00 PM</p>
-                        <div class="social">
-                            <a href="">
-                                <img src="{% static 'images/facebook.svg' %}" alt="">
-                            </a>
-                            <div class="plus">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="day">
-                <div class="head">
-                    <div class="num"><p>01</p></div>
-                    <p>wednesday</p>
-                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-                </div>
-                <div class="saved-page">
-                    <p>The Importance of UI/UX Design</p>
-                    <div class="keys">
-                        <span>ui/ux design</span>
-                        <span>ui design</span>
-                        <span>UX</span>
-                    </div>
-                    <p>
-                        UI/UX design is a critical aspect of product development in today's digital age. UI/UX design refers to ...
-                    </p>
-                    <img src="{% static 'images/image saved page.svg' %}" alt="">
-                    <div class="footer">
-                        <p>12:00 PM</p>
-                        <div class="social">
-                            <a href="">
-                                <img src="{% static 'images/facebook.svg' %}" alt="">
-                            </a>
-                            <div class="plus">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="saved-page">
-                    <p>The Importance of UI/UX Design</p>
-                    <div class="keys">
-                        <span>ui/ux design</span>
-                        <span>ui design</span>
-                        <span>UX</span>
-                    </div>
-                    <p>
-                        UI/UX design is a critical aspect of product development in today's digital age. UI/UX design refers to ...
-                    </p>
-                    <img src="{% static 'images/image saved page.svg' %}" alt="">
-                    <div class="footer">
-                        <p>12:00 PM</p>
-                        <div class="social">
-                            <a href="">
-                                <img src="{% static 'images/facebook.svg' %}" alt="">
-                            </a>
-                            <div class="plus">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="saved-page">
-                    <p>The Importance of UI/UX Design</p>
-                    <div class="keys">
-                        <span>ui/ux design</span>
-                        <span>ui design</span>
-                        <span>UX</span>
-                    </div>
-                    <p>
-                        UI/UX design is a critical aspect of product development in today's digital age. UI/UX design refers to ...
-                    </p>
-                    <img src="{% static 'images/image saved page.svg' %}" alt="">
-                    <div class="footer">
-                        <p>12:00 PM</p>
-                        <div class="social">
-                            <a href="">
-                                <img src="{% static 'images/facebook.svg' %}" alt="">
-                            </a>
-                            <div class="plus">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="day">
-                <div class="head">
-                    <div class="num"><p>01</p></div>
-                    <p>wednesday</p>
-                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-                </div>
-                <div class="saved-page">
-                    <p>The Importance of UI/UX Design</p>
-                    <div class="keys">
-                        <span>ui/ux design</span>
-                        <span>ui design</span>
-                        <span>UX</span>
-                    </div>
-                    <p>
-                        UI/UX design is a critical aspect of product development in today's digital age. UI/UX design refers to ...
-                    </p>
-                    <img src="{% static 'images/image saved page.svg' %}" alt="">
-                    <div class="footer">
-                        <p>12:00 PM</p>
-                        <div class="social">
-                            <a href="">
-                                <img src="{% static 'images/facebook.svg' %}" alt="">
-                            </a>
-                            <div class="plus">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="saved-page">
-                    <p>The Importance of UI/UX Design</p>
-                    <div class="keys">
-                        <span>ui/ux design</span>
-                        <span>ui design</span>
-                        <span>UX</span>
-                    </div>
-                    <p>
-                        UI/UX design is a critical aspect of product development in today's digital age. UI/UX design refers to ...
-                    </p>
-                    <img src="{% static 'images/image saved page.svg' %}" alt="">
-                    <div class="footer">
-                        <p>12:00 PM</p>
-                        <div class="social">
-                            <a href="">
-                                <img src="{% static 'images/facebook.svg' %}" alt="">
-                            </a>
-                            <div class="plus">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="saved-page">
-                    <p>The Importance of UI/UX Design</p>
-                    <div class="keys">
-                        <span>ui/ux design</span>
-                        <span>ui design</span>
-                        <span>UX</span>
-                    </div>
-                    <p>
-                        UI/UX design is a critical aspect of product development in today's digital age. UI/UX design refers to ...
-                    </p>
-                    <img src="{% static 'images/image saved page.svg' %}" alt="">
-                    <div class="footer">
-                        <p>12:00 PM</p>
-                        <div class="social">
-                            <a href="">
-                                <img src="{% static 'images/facebook.svg' %}" alt="">
-                            </a>
-                            <div class="plus">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="day">
-                <div class="head">
-                    <div class="num"><p>01</p></div>
-                    <p>wednesday</p>
-                    <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
-                </div>
-                <div class="saved-page">
-                    <p>The Importance of UI/UX Design</p>
-                    <div class="keys">
-                        <span>ui/ux design</span>
-                        <span>ui design</span>
-                        <span>UX</span>
-                    </div>
-                    <p>
-                        UI/UX design is a critical aspect of product development in today's digital age. UI/UX design refers to ...
-                    </p>
-                    <img src="{% static 'images/image saved page.svg' %}" alt="">
-                    <div class="footer">
-                        <p>12:00 PM</p>
-                        <div class="social">
-                            <a href="">
-                                <img src="{% static 'images/facebook.svg' %}" alt="">
-                            </a>
-                            <div class="plus">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="saved-page">
-                    <p>The Importance of UI/UX Design</p>
-                    <div class="keys">
-                        <span>ui/ux design</span>
-                        <span>ui design</span>
-                        <span>UX</span>
-                    </div>
-                    <p>
-                        UI/UX design is a critical aspect of product development in today's digital age. UI/UX design refers to ...
-                    </p>
-                    <img src="{% static 'images/image saved page.svg' %}" alt="">
-                    <div class="footer">
-                        <p>12:00 PM</p>
-                        <div class="social">
-                            <a href="">
-                                <img src="{% static 'images/facebook.svg' %}" alt="">
-                            </a>
-                            <div class="plus">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="saved-page">
-                    <p>The Importance of UI/UX Design</p>
-                    <div class="keys">
-                        <span>ui/ux design</span>
-                        <span>ui design</span>
-                        <span>UX</span>
-                    </div>
-                    <p>
-                        UI/UX design is a critical aspect of product development in today's digital age. UI/UX design refers to ...
-                    </p>
-                    <img src="{% static 'images/image saved page.svg' %}" alt="">
-                    <div class="footer">
-                        <p>12:00 PM</p>
-                        <div class="social">
-                            <a href="">
-                                <img src="{% static 'images/facebook.svg' %}" alt="">
-                            </a>
-                            <div class="plus">
-                                <ion-icon name="add-outline"></ion-icon>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        {% endfor %}
+
         </div>
     </div>
 
@@ -464,4 +90,25 @@
 {% endblock %}
 {% block scripts %}
 <script src="{% static 'js/savedCopies.js' %}"></script>
+
+<script>
+ 
+    function handleDateClick(element, date) {
+        // Remove the "active" class from all list items
+        var listItems = document.querySelectorAll('.btn-li');
+        var form = document.getElementById('date-range-form');
+        listItems.forEach(function(item) {
+          item.classList.remove('active');
+        });
+    
+        // Add the "active" class to the clicked list item
+        element.classList.add('active');
+    
+        // Set the selected date value to the hidden input
+        var hiddenInput = document.getElementById('selected-date');
+        hiddenInput.value = date;
+        form.submit();
+
+      }
+  </script>
 {% endblock  %}

@@ -51,8 +51,12 @@
                 <p>social media tools</p>
             </a>
         </li>
-        <li>
-            <a href="{% url 'saved-copies' %}">
+        <li class="
+            {% if 'saved-copies' in request.path %}
+                active
+            {% endif %}
+        ">
+            <a href="{% url 'saved-copies'  %}">
                 <img src="{% static 'images/Icon saved.svg '%}" alt="saved">
                 <p>saved copies</p>
             </a>

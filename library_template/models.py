@@ -57,3 +57,11 @@ class Article(models.Model):
         Topic.objects.filter(idea__outline__article=self).delete()
         Idea.objects.filter(outline__article=self).delete()
         super().delete(*args, **kwargs)
+        
+class SavedArticle(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE)
+    saved_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username}'s Saved Article: {self.article.title}"

@@ -9,3 +9,7 @@ def split_string(value, delimiter):
 @register.filter
 def has_any(value, items):
     return any(item in value for item in items)
+
+@register.filter
+def split_tags(tags):
+    return tags.split(',')

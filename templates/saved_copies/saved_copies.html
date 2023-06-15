@@ -1,6 +1,8 @@
 {% extends 'base2.html' %}
 
 {% load static %}
+{% load custom_filters %}
+
 {% block title %}AI Article Writer | Feather.ai{% endblock  %}
 
 {% block styles %}
@@ -48,29 +50,39 @@
                     <p>wednesday</p>
                     <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
                 </div>
-                <div class="saved-page">
-                    <p>The Importance of UI/UX Design</p>
-                    <div class="keys">
-                        <span>ui/ux design</span>
-                        <span>ui design</span>
-                        <span>UX</span>
-                    </div>
-                    <p>
-                        UI/UX design is a critical aspect of product development in today's digital age. UI/UX design refers to ...
-                    </p>
-                    <img src="{% static 'images/image saved page.svg' %}" alt="">
-                    <div class="footer">
-                        <p>12:00 PM</p>
-                        <div class="social">
-                            <a href="">
-                                <img src="{% static 'images/facebook.svg' %}" alt="">
-                            </a>
-                            <div class="plus">
-                                <ion-icon name="add-outline"></ion-icon>
+                {% for article in saved_articles %}
+                    <div class="saved-page">
+                        <p>{{ article.title}} </p>
+                        <div class="keys">
+                            {% for tag in article.tags|split_string:"," %}
+                            <span>{{ tag }}</span>
+
+                            {% endfor %}
+                        </div>
+                        {% with outline=article.outlines.first %}
+                        {% with suboutline=outline.suboutline_set.first %}
+
+                        <p>
+                            {{ suboutline.body|truncatechars_html:100 }}
+                        </p>
+                        {% endwith %}
+
+                        {% endwith %}
+                        <img src="{{ article.image.url}}" alt="">
+                        <div class="footer">
+                            <p>{{article.created_at|time:"H:i A"}}</p>
+                            <div class="social">
+                                <a href="">
+                                    <img src="{% static 'images/facebook.svg' %}" alt="">
+                                </a>
+                                <div class="plus">
+                                    <ion-icon name="add-outline"></ion-icon>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                {% endfor %}
+
                 <div class="saved-page">
                     <p>The Importance of UI/UX Design</p>
                     <div class="keys">

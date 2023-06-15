@@ -381,11 +381,11 @@ class ArticleGenratorView(LoginRequiredMixin,ListView):
                 
         random_image_path = fetch_random_image(selected_idea)
 
-
+        keywrod_string = ', '.join(keywrods_list)
         if random_image_path :
             article = Article.objects.create(
                 title=Idea.objects.get(id=request.session['idea_id']).idea_text,
-                tags=request.session.get('keywords'),
+                tags=keywrod_string,
                 user= request.user,
             )
             article.image = random_image_path

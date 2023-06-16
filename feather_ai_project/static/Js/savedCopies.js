@@ -25,3 +25,10 @@ divDates.addEventListener("scroll", () => {
         btnScrollDivDatesLeft.classList.remove("disabled");
     }
 })
+
+const iconToShowPop = document.querySelectorAll(".showPop");
+iconToShowPop.forEach((btn) => {
+    btn.addEventListener("click", () => {
+        btn.parentElement.classList.toggle("active");
+    });
+});

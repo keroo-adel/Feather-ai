@@ -1,0 +1,435 @@
+{% extends 'base2.html' %}
+{% load custom_filters %}
+
+{% load static %}
+{% block title %}AI Article Writer | Feather.ia{% endblock  %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'Css/aIArticleWriter.css' %} " />
+<link rel="stylesheet" href="{% static 'Css/emailTool.css' %}" />
+{% endblock  %}
+
+{% block bootstrap %}
+{% endblock %}
+{% block content %}
+<div class="main-page">
+    <div class="part-1">
+        <div>
+            <img
+                src="{% static 'images/aiArticle.svg' %}"
+                alt="email icon"
+            />
+            <p>ai article writer</p>
+        </div>
+        <div>
+            <a href="#">
+                <img
+                    src="{% static 'images/Icon  video.svg' %}"
+                    alt="icon video"
+                />
+            </a>
+            <img
+                src="{% static 'images/Icon out.svg' %}"
+                alt=""
+                class="iconExport"
+            />
+        </div>
+        <div class="optionExport">
+            <p>Shared this article</p>
+            <p>Link Sharing</p>
+            <div class="toggle">
+                <p>Public link</p>
+                <label class="switch">
+                    <input type="checkbox" checked />
+                    <span class="slider round"></span>
+                </label>
+            </div>
+
+            <div>
+                <p>Download</p>
+                <ul>
+                    <li>
+                        <img
+                            src="{% static 'images/icon pdf.svg' %}"
+                            alt=""
+                        />
+                        <p>pdf</p>
+                    </li>
+                    <li>
+                        <img
+                            src="{% static 'images/icon word.svg' %}"
+                            alt=""
+                        />
+                        <p>word</p>
+                    </li>
+                    <li>
+                        <img
+                            src="{% static 'images/icon html.svg' %}"
+                            alt=""
+                        />
+                        <p>html</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="part-2">
+        <div class="part-2-1">
+            <div class="steps">
+                <div class="head">
+                    <img
+                        src="{% static 'images/task-square.svg' %}"
+                        alt=""
+                    />
+                    <p>follow steps</p>
+                </div>
+                <div class="step-by-step">
+                    <div class="one activeLast">
+                        <p class="stepNum">1</p>
+                        <img
+                            src="{% static 'images/step-1.svg' %}"
+                            alt=""
+                        />
+                        <p class="stepText">KEYWORDS</p>
+                    </div>
+                    <span></span>
+                    <div class="two activeLast">
+                        <p class="stepNum">2</p>
+                        <img
+                            src="{% static 'images/step-2.svg' %}"
+                            alt=""
+                        />
+                        <p class="stepText">IDEAS</p>
+                    </div>
+                    <span></span>
+                    <a href="{% url 'article-step3' pk=article.pk %}">
+                    <div class="three activeLast">
+                        <p class="stepNum">3</p>
+                        <img
+                            src="{% static 'images/step-3.svg' %}"
+                            alt=""
+                        />
+                        <p class="stepText">OUTLINE</p>
+                    </div>
+                </a>
+                    <span></span>
+                    <div class="four {% if article %}
+                    activeLast
+                    {% else %}
+                    active
+                    {% endif %}">
+                        <img
+                            src="{% static 'images/step-4.svg' %}"
+                            alt=""
+                        />
+                        <p class="stepNum ">4</p>
+                        <p class="stepText">ARTICLE</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ------------------step 4 ------------>
+            <form id="generateForm" method="POST" action="{% url 'get article' %}">
+                {% csrf_token %}
+            <div class="complete-the-fields step four">
+                <div class="p1">
+                    <div class="head">
+                        <img
+                            src="{% static 'images/Icon ben.svg' %}"
+                            alt=""
+                        />
+                        <p>complete the fields</p>
+                    </div>
+                    <div>
+                        <label for="inputSearchKeywords">
+                            <p>topic</p>
+                            <img
+                                src="{% static 'images/Exclamation mark.svg' %}"
+                                alt=""
+                            />
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="The Importance of UI/UX Design in Product Development"
+                            class="inputSearchKeywords"
+                            id="inputSearchKeywords"
+                            value="{{ article.title }}"
+                        />
+                    </div>
+                    <div class="Article-Outline">
+                        <label for="">
+                            <p>Article Outline</p>
+                            <img
+                                src="{% static 'images/Exclamation mark.svg' %}"
+                                alt=""
+                            />
+                        </label>
+                        <span
+                            >You can drag and drop to rearrange
+                            sections</span
+                        >
+                        
+                        {% for pair in combined_outlines %}
+                        <div class="up">
+                            <div class="oneArt">
+                                <img
+                                    src="{% static 'images/enable to darg and drop.svg' %}"
+                                    alt=""
+                                />
+                                <div class="img">
+                                    <ion-icon
+                                        name="checkmark-outline"
+                                    ></ion-icon>
+                                </div>
+                                <span>
+                                    <p>{{pair.0}}</p>
+                                    <ion-icon
+                                        name="remove-outline"
+                                        class="icon-remove"
+                                    ></ion-icon>
+                                </span>
+                            </div>
+                            
+                            {% for sub_outline in pair.1 %}
+                            {% if sub_outline != "" %}
+                            <div class="oneArt">
+                                <img
+                                    src="{% static 'images/enable to darg and drop.svg' %}"
+                                    alt=""
+                                />
+                                <div class="img">
+                                    <ion-icon
+                                        name="checkmark-outline"
+                                    ></ion-icon>
+                                </div>
+                                <span>
+                                    <p>
+                                        {{sub_outline}}
+                                    </p>
+                                    <ion-icon
+                                        name="remove-outline"
+                                        class="icon-remove"
+                                    ></ion-icon>
+                                </span>
+                            </div>
+                            {% endif %}
+
+                            {% endfor %}
+
+
+                            
+                            <input
+                                type="text"
+                                placeholder="Add Talking Point"
+                                class="addTalkingPoint"
+                            />
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <label for="inputAddTag">
+                            <p>keywords</p>
+                            <img
+                                src="{% static 'images/Exclamation mark.svg' %}"
+                                alt=""
+                            />
+                        </label>
+                        <input
+                            type="text"
+                            placeholder="Add a tag..."
+                            class="inputAddTag"
+                            id="inputAddTag"
+                        />
+                        <div class="someKeyWords">
+
+                            {% for keyword in article.tags|split_string:","  %}
+                            <div>
+                                <p>{{ keyword }}</p>
+                                <ion-icon
+                                    name="close-outline"
+                                    class="deleteKey"
+                                ></ion-icon>
+                            </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div>
+                        <label>
+                            <p>tone of voice</p>
+                        </label>
+                        <div class="divSelect tone">
+                            <p class="valueSelect">
+                                {{ article.outlines.first.idea.tone_of_voice}}
+                            </p>
+                            <ion-icon
+                                name="caret-down-outline"
+                            ></ion-icon>
+                        </div>
+                    </div>
+                    <div class="ulSelect tone">
+                        <ul>
+                            <li>Professional</li>
+                            <li>excited</li>
+                            <li>encouraging</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <label>
+                            <p>language</p>
+                        </label>
+                        <div class="divSelect language">
+                            <p class="valueSelect">{{ article.outlines.first.idea.language }}</p>
+                            <ion-icon
+                                name="caret-down-outline"
+                            ></ion-icon>
+                        </div>
+                    </div>
+                    <div class="ulSelect language">
+                        <ul>
+                            <li>English</li>
+                            <li>arabic</li>
+                            <li>German</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="btnBack">
+                        <ion-icon
+                            name="caret-back-outline"
+                        ></ion-icon>
+                    </div>
+
+                    <button type="submit" class="GenerateArticle">
+                        Regenerate Article 
+                    </button>
+
+                    <div class="btnNext">
+                        <ion-icon
+                            name="caret-forward-outline"
+                        ></ion-icon>
+                    </div>
+                </div>
+            </div>
+            </form>
+            <!-- ---------------------------------- -->
+        </div>
+        <div class="part-2-2">
+            {% if article %}
+
+            <div class="endArt" style="display:block;">
+                <div class="toolbar">
+                    <div class="btn-toolbar">
+                        <button onclick="formatDoc('undo')">
+                            <i class="bx bx-undo"></i>
+                        </button>
+                        <button onclick="formatDoc('redo')">
+                            <i class="bx bx-redo"></i>
+                        </button>
+                        <button onclick="formatDoc('bold')">
+                            <i class="bx bx-bold"></i>
+                        </button>
+                        <button onclick="formatDoc('underline')">
+                            <i class="bx bx-underline"></i>
+                        </button>
+                        <button onclick="formatDoc('italic')">
+                            <i class="bx bx-italic"></i>
+                        </button>
+                        <button onclick="formatDoc('strikeThrough')">
+                            <i class="bx bx-strikethrough"></i>
+                        </button>
+                        <button onclick="formatDoc('justifyLeft')">
+                            <i class="bx bx-align-left"></i>
+                        </button>
+                        <button onclick="formatDoc('justifyCenter')">
+                            <i class="bx bx-align-middle"></i>
+                        </button>
+                        <button onclick="formatDoc('justifyRight')">
+                            <i class="bx bx-align-right"></i>
+                        </button>
+                        <button onclick="formatDoc('justifyFull')">
+                            <i class="bx bx-align-justify"></i>
+                        </button>
+                        <button onclick="formatDoc('insertOrderedList')">
+                            <i class="bx bx-list-ol"></i>
+                        </button>
+                        <button onclick="formatDoc('insertUnorderedList')">
+                            <i class="bx bx-list-ul"></i>
+                        </button>
+                        <button onclick="addLink()">
+                            <i class="bx bx-link"></i>
+                        </button>
+                        <button onclick="formatDoc('unlink')">
+                            <i class="bx bx-unlink"></i>
+                        </button>
+                    </div>
+                    <div class="head">
+                        <select onchange="formatDoc('fontSize', this.value); this.selectedIndex=0;">
+                            <option value="" selected="" hidden="" disabled="">
+                                Font size
+                            </option>
+                            <option value="1">Extra small</option>
+                            <option value="2">Small</option>
+                            <option value="3">Regular</option>
+                            <option value="4">Medium</option>
+                            <option value="5">Large</option>
+                            <option value="6">Extra Large</option>
+                            <option value="7">Big</option>
+                        </select>
+                        <button id="btn-save">
+                            <i class="fa-solid fa-bookmark"></i>
+                            save
+                        </button>
+                    </div>
+                </div>
+
+                <br>
+                <div class="py-4 text-sm lg:text-base text-gray-5 font-medium w-full mx-auto max-w-700">969 words / 5681 characters</div>
+                <h1>{{article.title}}</h1>
+                <div class="img">
+                    <img
+                        src="{{article.image.url}}"
+                        alt="Article Image"
+                    />
+                </div>
+                <div class="text">
+                    {% for outline in  article.outlines.all  %}
+                    <p class="head-1">{{outline.Outlines}}</p>
+                    {% for sub_outline in  outline.suboutline_set.all %}
+                    <p class="head-2">
+                    {{ sub_outline.suboutlines }} 
+                    </p>
+                    <p>
+                    {{ sub_outline.body|linebreaksbr }} 
+                    </p>
+                    {% endfor %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            {% endif %}
+
+            <!-- --------------------- -->
+
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+{% block scripts %}
+<script src=" {% static 'Js/aIArticleWriter.js' %}"></script>
+<script src=" {% static 'Js/js-4.js' %}"></script>
+<script>
+    var staticUrl = "{% static 'images/' %}";
+
+</script>
+<script>
+    function submitForm() {
+        document.getElementById('formSearchKeywords').submit();
+        }
+</script>
+{% endblock %}

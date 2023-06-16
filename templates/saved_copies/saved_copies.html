@@ -50,9 +50,45 @@
                     </div>
                     {% for article in saved_articles %}
 
-                    {% if article.created_at.date.day == day.day_number %}
-                        <div class="saved-page">
+                    {% if article.created_at.date.day == day.day_number  %}
+
+                        <div class="saved-page" onclick="redirectToArticle('{{ article.pk }}')">
+                            <div>
+                                <div class="pop" onclick="event.stopPropagation()">
+                                    <ion-icon
+                                    class="showPop"
+                                        name="ellipsis-horizontal-outline"
+                                    ></ion-icon>
+                                    <div class="icon">
+                                    <form action="{% url 'delete_article' pk=article.pk %}" method="POST" onsubmit="return confirm('Are you sure you want to delete this article?')">
+                                        {% csrf_token %}
+                                        <ul>
+                                            <li> 
+    
+                                                <p>edit</p>
+                                                <img
+                                                    src="{% static 'images/Icon ben.svg' %}"
+                                                    alt=""
+                                                />
+                                            </li>
+
+                                            <li>
+                                                <button type="submit" class="submit_btn">
+                                                    <p >delete</p>
+                                                <img src="{% static 'images/Icon  trash.svg' %}" alt="">
+                                            </button>
+                                            </li>
+                                        </ul>
+                                        <input type="hidden" name="date_range" id="date-range-input">
+
+                                        </form>
+                                    </div>
+                                </div>
+    
+                            </div>
+
                             <p>{{ article.title}} </p>
+
                             <div class="keys">
                                 {% for tag in article.tags|split_string:"," %}
                                 <span>{{ tag }}</span>
@@ -64,6 +100,7 @@
 
                             <p>
                                 {{ suboutline.body|truncatechars_html:100 }}
+
                             </p>
                             {% endwith %}
 
@@ -71,6 +108,7 @@
                             <img src="{{ article.image.url}}" alt="">
                             <div class="footer">
                                 <p>{{article.created_at|time:"H:i A"}}</p>
+
                                 <div class="social">
                                     <a href="">
                                         <img src="{% static 'images/facebook.svg' %}" alt="">
@@ -80,6 +118,7 @@
                                     </div>
                                 </div>
                             </div>
+                        
                         </div>
                         {% endif %}
                     {% endfor %}
@@ -93,7 +132,8 @@
                 alt="no article"
             />
             <p>
-                No articles found selct a date range to view.
+                oops there is no articles<br>
+                selct a date range to view.
             </p>
         </div>
         {% endif %}
@@ -112,13 +152,16 @@
         // Set the selected date value to the hidden input
         var hiddenInput = document.getElementById('selected-date');
         hiddenInput.value = date;
-        
+
         // Submit the form
         var form = document.getElementById('date-range-form');
         form.submit();
       }
       
 
-
+      function redirectToArticle(pk) {
+        var url = 'http://127.0.0.1:8000/saved-copies/article/' + pk + '/';
+        window.location.href = url;
+      }
   </script>
 {% endblock  %}

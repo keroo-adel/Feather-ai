@@ -1,9 +1,11 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView,View,DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from library_template.models import Article
 from datetime import date, timedelta,datetime
 import calendar
+from django.shortcuts import redirect
+from django.urls import reverse
 
 class SavedCopiesView(LoginRequiredMixin, ListView):
     model = Article
@@ -28,7 +30,7 @@ class SavedCopiesView(LoginRequiredMixin, ListView):
             end_date = datetime.strptime(f'{year}-{month}-{end_day}', '%Y-%m-%d').date()
 
             queryset = queryset.filter(created_at__date__gte=start_date, created_at__date__lte=end_date)
-
+            self.request.session['active_date_range'] = date_range
         return queryset
     
     def get_context_data(self, **kwargs):
@@ -56,7 +58,6 @@ class SavedCopiesView(LoginRequiredMixin, ListView):
             }
             date_ranges.append(date_range)
             current_date = end_date + timedelta(days=1)  # Move to the next range
-
         if date_range_group:
             date_parts = date_range_group.split('-')
             start_day = int(date_parts[0])
@@ -101,3 +102,33 @@ class SavedCopiesView(LoginRequiredMixin, ListView):
         context['date_ranges'] = date_ranges
         context['day_data'] = day_data
         return context
+    
+class DeleteArticleView(LoginRequiredMixin,View):
+    
+    def post(self, request, pk):
+        article = Article.objects.get(pk=pk)
+        article.delete()
+        
+        url = reverse('saved-copies') + f'?date_range={request.session["active_date_range"]}'
+
+        return redirect(url)
+    
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = 'saved_copies/article_detail.html'
+    context_object_name = 'article'
+    
+class ArticleDetailPrev1View(DetailView):
+    model = Article
+    template_name = 'saved_copies/article_detail-1.html'
+    context_object_name = 'article'
+    
+class ArticleDetailPrev2View(DetailView):
+    model = Article
+    template_name = 'saved_copies/article_detail-2.html'
+    context_object_name = 'article'
+    
+class ArticleDetailPrev3View(DetailView):
+    model = Article
+    template_name = 'saved_copies/article_detail-3.html'
+    context_object_name = 'article'

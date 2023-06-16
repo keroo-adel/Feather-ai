@@ -23,7 +23,8 @@
 
         <div class="part-2">
             <div class="generate-email">
-                <form action="">
+                <form action="{% url 'email tools' %}" method="POST">
+                    {% csrf_token %}
                     <div>
                         <div class="in">
                             <label for="project-name"
@@ -32,13 +33,15 @@
                             <input
                                 type="text"
                                 placeholder="Signing up to a web app"
+                                name="project_name_step2"
+                                value={{project_name}}
                             />
                         </div>
                         <div class="in">
                             <label for="project-name"
                                 >What is the email for*</label
                             >
-                            <textarea name="" id=""  rows="5" placeholder="Signing up to a web app"></textarea>
+                            <textarea name="Email_for_step2" id=""  rows="5" placeholder="Signing up to a web app" >{{Email_for}}</textarea>
                             <div class="tip">
                                 <img src="{% static 'images/true.svg' %}" alt="">
                                 <span>seems like a good description</span>
@@ -46,36 +49,54 @@
                             </div>
                         </div>
                         <div class="in">
-                            <label for="project-name"
+                            <label for="Tone_Of_Voice"
                                 >tone of voice</label
                             >
-                            <select name="" id="">
-                                <option value="Professional">Professional</option>
-                                <option value="Excited">Excited</option>
-                                <option value="Encouraging">Encouraging</option>
-                            </select>
+                            <select name="Tone_Of_Voice_step2" id="Tone_Of_Voice">
+                                <option value="Professional" {% if Tone_Of_Voice == 'Professional'%} selected{% endif %}>💼 Professional</option>
+                                <option value="Excited" {% if Tone_Of_Voice == 'Excited'%} selected{% endif %}>🤩 Excited</option>
+                                <option value="Encouraging" {% if Tone_Of_Voice == 'Encourage'%} selected{% endif %}>💪 Encouraging</option>
+                                <option value="Funny" {% if Tone_Of_Voice == 'Funny'%} selected{% endif %}>😂 Funny</option>
+                                <option value="Dramatic" {% if Tone_Of_Voice == 'Dramatic'%} selected{% endif %}>😱 Dramatic</option>
+                                <option value="Witty" {% if Tone_Of_Voice == 'Witty'%} selected{% endif %}>💡 Witty</option>
+                                <option value="Sarcastic" {% if Tone_Of_Voice == 'Sarcastic'%} selected{% endif %}>🙄 Sarcastic</option>
+                                <option value="Engaging" {% if Tone_Of_Voice == 'Engaging'%} selected{% endif %}>💭 Engaging</option>
+                                <option value="Creative" {% if Tone_Of_Voice == 'Creative'%} selected{% endif %}>✨ Creative</option>
+                        </select>
                         </div>
                         <div class="in">
                             <label for="project-name"
                                 >language</label
                             >
-                            <select name="" id="">
-                                <option value="">English</option>
-                                <option value="">English</option>
-                                <option value="">English</option>
+                            <select name="selected_Language_step2" id="">
+                                <option value="English" {% if selected_Language == 'English'%} selected{% endif %}>English</option>
+                                <option value="Arabic" {% if selected_Language == 'Arabic'%} selected{% endif %}>Arabic</option>
+                                <option value="French" {% if selected_Language == 'French'%} selected{% endif %}>French</option>
+                                <option value="German" {% if selected_Language == 'German'%} selected{% endif %}>German</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="submit">
-                        <input type="number" name="" id="">
+                        <input type="number" name="Number_of_generated_step2" id="" value="{{Number_of_generated}}"" min="1" max="100">
                         <button type="submit"> Regenerate Email subject lines</button>
                     </div>
                 </form>
                 
             </div>
             <div id="all-emails">
-                
+                {% for email in list_generated_emails_subject  %}
+                <div class="email">
+                    <p id="email-text">
+                        {{email}}
+                    </p>
+                    <div class="icon">
+                        <img src="/static/images//copy.svg" alt="icon copy" class="copy">
+                        <img src="/static/images///Icon  trash.svg" alt=" icon trash ">
+                        <img src="/static/images//Icon ben.svg" alt="icon ben">
+                    </div>
+                </div>
+            {% endfor %}
             </div>
         </div>
     </div>

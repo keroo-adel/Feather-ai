@@ -9,6 +9,8 @@ from django.shortcuts import redirect
 from .utils import *
 from django.contrib.auth.models import User
 from recent_activity.models import RecentActivity
+from django.contrib import messages
+
 ############################### 
 # AiArticleWriter template
 ############################### 
@@ -446,13 +448,53 @@ class EmailToolsView(LoginRequiredMixin,ListView):
         selected_Language = request.POST.get('selected_Language', '')
         Number_of_generated = request.POST.get('Number_of_generated', '')
         
-        request.session['project_name'] = project_name
-        request.session['Email_for'] = Email_for
-        request.session['Tone_Of_Voice'] = Tone_Of_Voice
-        request.session['selected_Language'] = selected_Language
-        request.session['selected_Language'] = selected_Language
-
-        return render(request, 'email_tools/emailToolStep2.html',)
+        project_name_step2 = request.POST.get('project_name_step2', '')
+        Email_for_step2 = request.POST.get('Email_for_step2', '')
+        Tone_Of_Voice_step2 = request.POST.get('Tone_Of_Voice_step2', '')
+        selected_Language_step2 = request.POST.get('selected_Language_step2', '')
+        Number_of_generated_step2 = request.POST.get('Number_of_generated_step2', '')
+        
+            
+        list_generated_emails_subject = [
+            "Introducing Feathe.ai: Unleash the power of AI content generation!",
+            "Discover Feathe.ai: Your secret weapon for AI-powered content creation.",
+            "Create captivating content effortlessly with Feathe.ai.",
+            "Revolutionize your content strategy with Feathe.ai's AI generator.",
+            "Unleash the writer within: Feathe.ai is here!",
+            "Say hello to smarter content creation with Feathe.ai.",
+            "Boost your productivity with Feathe.ai's AI content generator.",
+            "Welcome to Feathe.ai: Your AI writing companion.",
+            "Transform your content creation process with Feathe.ai.",
+            "Experience the future of content generation with Feathe.ai.",
+        ]
+        
+        if project_name_step2 :
+            project_name = project_name_step2
+        if Email_for_step2 :
+            Email_for = Email_for_step2
+        if Tone_Of_Voice_step2 :
+            Tone_Of_Voice = Tone_Of_Voice_step2
+        if selected_Language_step2 :
+            selected_Language = selected_Language_step2
+        if Number_of_generated_step2 :
+            Number_of_generated = Number_of_generated_step2
+        
+        if project_name_step2 and Email_for_step2 and Tone_Of_Voice_step2 and selected_Language_step2 and Number_of_generated_step2 :
+             list_generated_emails_subject = [
+            "Introducing Feathe.ai: Unleash the power of AI content generation! 2",
+            "Discover Feathe.ai: Your secret weapon for AI-powered content creation. 2",
+            "Create captivating content effortlessly with Feathe.ai. 2",
+             ]
+             
+        context = {
+            "project_name": project_name,
+            "Email_for": Email_for,
+            "Tone_Of_Voice": Tone_Of_Voice,
+            "selected_Language": selected_Language,
+            "Number_of_generated": Number_of_generated,
+            "list_generated_emails_subject": list_generated_emails_subject
+        }
+        return render(request, 'email_tools/emailToolStep2.html',context)
         
 
 ############################### 

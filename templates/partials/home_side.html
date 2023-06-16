@@ -46,7 +46,9 @@
                 <p>email tools</p>
             </a>
         </li>
-        <li>
+        <li
+        class = "{% if 'SocialMedia-tools/' in request.path %} active{% endif %}"
+        >
             <a href="{% url 'social media tools' %}">
                 <img src="{% static 'images/Icon social.svg '%}" alt="email">
                 <p>social media tools</p>
@@ -62,7 +64,12 @@
                 <p>saved copies</p>
             </a>
         </li>
-        <li>
+        <li class="
+        {% if 'recent-activity' in request.path %}
+            active
+        {% endif %}
+        "
+        >
             <a href="{% url 'recent-activity' %}">
                 <img src="{% static 'images/Icon clock.svg '%}" alt="activity">
                 <p>recent activity</p>

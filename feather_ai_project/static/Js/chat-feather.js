@@ -75,30 +75,45 @@ function writeMessage() {
 }
 
 function autoReply(responseText) {
-    let message = `
-    <div class="message ai">
-        <div class="img">
-            <img
-                src= ${staticUrl}/robot.svg
-                alt=""
-            />
-        </div>
-        <div class="text">
-            <p id="ai-text">
-                ${responseText}
-            </p>
-            <div class="copy" onclick="copyToClipboard('${responseText}')">
-                <ion-icon
-                    name="copy-outline"
-                ></ion-icon>
+    let lastMessage = divChatWithAi.lastElementChild;
+    let aiText = null;
+
+    if (lastMessage && lastMessage.classList.contains('ai')) {
+        aiText = lastMessage.querySelector('.text #ai-text');
+    } else {
+        let message = `
+        <div class="message ai">
+            <div class="img">
+                <img src="${staticUrl}/robot.svg" alt="" />
+            </div>
+            <div class="text">
+                <p id="ai-text"></p>
+                <div class="copy" onclick="copyToClipboard('${responseText}')">
+                    <ion-icon name="copy-outline"></ion-icon>
+                </div>
             </div>
         </div>
-    </div>
-	`;
-    divChatWithAi.insertAdjacentHTML("beforeend", message);
-    scrollBottom();
+        `;
+        divChatWithAi.insertAdjacentHTML('beforeend', message);
+        lastMessage = divChatWithAi.lastElementChild;
+        aiText = lastMessage.querySelector('.text #ai-text');
+    }
 
+    const textLength = responseText.length;
+    let index = 0;
+
+    const typeText = () => {
+        aiText.textContent += responseText[index];
+        index++;
+        if (index < textLength) {
+            setTimeout(typeText, 50); // Adjust the delay between each letter appearance (in milliseconds)
+        }
+    };
+
+    typeText();
+    scrollBottom();
 }
+
 
 function scrollBottom() {
     divChatWithAi.scrollTo(0, divChatWithAi.scrollHeight);

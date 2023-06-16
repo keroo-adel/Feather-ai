@@ -22,6 +22,6 @@ urlpatterns = [
 
 
     path('SocialMedia-tools/', views.SocialMediaToolsView.as_view() , name='social media tools'),
-    path('social-media-tools/<int:project_id>/', views.SocialMediaCaptionView.as_view(), name='social_media_captions'),
-    path('social-media-tools/<int:social_media_caption_id>/delete/', views.DeleteSocialMediaCaptionView.as_view(), name='delete_social_media_caption'),
+    path('SocialMedia-tools/<int:project_id>/', views.SocialMediaCaptionView.as_view(), name='social_media_captions'),
+    path('SocialMedia-tools/<int:social_media_caption_id>/delete/', views.DeleteSocialMediaCaptionView.as_view(), name='delete_social_media_caption'),
 ]

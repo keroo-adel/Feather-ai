@@ -439,6 +439,21 @@ class EmailToolsView(LoginRequiredMixin,ListView):
     def get(self, request):
         return render(request, self.template_name)
 
+    def post(self, request):
+        project_name = request.POST.get('project-name', '')
+        Email_for = request.POST.get('Email_for', '')
+        Tone_Of_Voice = request.POST.get('Tone_Of_Voice', '')
+        selected_Language = request.POST.get('selected_Language', '')
+        Number_of_generated = request.POST.get('Number_of_generated', '')
+        
+        request.session['project_name'] = project_name
+        request.session['Email_for'] = Email_for
+        request.session['Tone_Of_Voice'] = Tone_Of_Voice
+        request.session['selected_Language'] = selected_Language
+        request.session['selected_Language'] = selected_Language
+
+        return render(request, 'email_tools/emailToolStep2.html',)
+        
 
 ############################### 
 # Social Media Tools template

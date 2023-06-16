@@ -84,6 +84,11 @@
     color: var(--color-white);
     resize: vertical; 
 }
+.generate-email form input:focus,
+.generate-email form textarea:focus,
+.generate-email form select:focus{
+    border : 1px solid var(--color-main);
+}
 
 .generate-email form select{
     background-color:var(--color-dark-3);

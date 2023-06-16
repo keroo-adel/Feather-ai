@@ -505,14 +505,9 @@ class EmailToolsView(LoginRequiredMixin, ListView):
             idOfActivity = project.id
             )
         activity.save()
-            
-        context = {
-            'projects': self.get_queryset(),
-            'selected_project': project,
-        }
-        
-        return render(request, 'email_tools/emailToolStep2.html', context)
-
+ 
+        url = reverse('email_subjects', args=(project.id,))
+        return redirect(url)
 class EmailSubjectView(LoginRequiredMixin, View):
     template_name = 'email_tools/emailToolStep2.html'
     def get_queryset(self):
@@ -527,8 +522,6 @@ class EmailSubjectView(LoginRequiredMixin, View):
         }
         
         return render(request, self.template_name, context)        
-
-
 class DeleteEmailSubjectView(LoginRequiredMixin, View):
     def get(self, request, email_subject_id):
         email_subject = get_object_or_404(EmailSubject, id=email_subject_id)
@@ -536,11 +529,98 @@ class DeleteEmailSubjectView(LoginRequiredMixin, View):
         email_subject.delete()
         url = reverse('email_subjects', args=(project_id,))
         return redirect(url)
+
 ############################### 
 # Social Media Tools template
 ############################### 
 class SocialMediaToolsView(LoginRequiredMixin,ListView):
     template_name = 'social_media_tools/socialMediaTool.html'
+    context_object_name = 'projects'
+
+    def get_queryset(self):
+        return Project.objects.filter(user=self.request.user)
+
+    def post(self, request):
+        project_name = request.POST.get('project-name', '')
+        project_description = request.POST.get('project-description', '')
+        Tone_Of_Voice = request.POST.get('Tone_Of_Voice', '')
+        selected_Language = request.POST.get('selected_Language', '')
+        Number_of_generated = request.POST.get('Number_of_generated', '')
+        # Create the Project
+        
+        project_name_step2 = request.POST.get('project-name_step2', '')
+        project_description_step2 = request.POST.get('project-description_step2', '')
+        Tone_Of_Voice_step2 = request.POST.get('Tone_Of_Voice_step2', '')
+        selected_Language_step2 = request.POST.get('selected_Language_step2', '')
+        Number_of_generated_step2 = request.POST.get('Number_of_generated_step2', '')
+        
+        list_generated_social_media_captions = [
+            "Boost engagement with our new product!",
+            "Discover the ultimate solution for your needs.",
+            "Unlock your potential with our innovative technology.",
+            "Experience a new level of convenience.",
+            "Don't miss out on our limited-time offer!",
+            "Transform your business with our cutting-edge tools.",
+            "Get ready for a revolution in your industry.",
+            "Maximize your productivity with our platform.",
+            "Upgrade your workflow with our intuitive software.",
+            "Achieve success with our proven strategies.",
+        ]
+        
+        if project_name_step2 and project_description_step2 and Tone_Of_Voice_step2 and selected_Language_step2 and Number_of_generated_step2:
+            project_name = project_name_step2
+            project_description = project_description_step2
+            Tone_Of_Voice = Tone_Of_Voice_step2
+            selected_Language = selected_Language_step2
+            Number_of_generated = Number_of_generated_step2
+            list_generated_social_media_captions = [
+                "Boost engagement with our new product! 2",
+                "Discover the ultimate solution for your needs. 2",
+                "Unlock your potential with our innovative technology. 2",
+            ]
+
+        project = Project.objects.create(name=project_name, user=request.user)
+
+        for i in range(len(list_generated_social_media_captions)):
+            social_media_caption = SocialMediaPost.objects.create(
+                project=project,
+                product_description=project_description,
+                tone_of_voice=Tone_Of_Voice,
+                language=selected_Language,
+                num_captions=Number_of_generated,
+                generated_caption=list_generated_social_media_captions[i]
+            )
+            
+        activity = RecentActivity.objects.create(
+            user=User.objects.get(id=request.user.id),  
+            activity_type='Social Media Captions Created',
+            details=project_name,
+            idOfActivity=project.id
+        )
+
+ 
+        url = reverse('social_media_captions', args=(project.id,))
+        return redirect(url) 
     
-    def get(self, request):
-        return render(request, self.template_name)
+class SocialMediaCaptionView(LoginRequiredMixin, View):
+    template_name = 'social_media_tools/socialMediaToolstep2.html'
+    
+    def get_queryset(self):
+        return Project.objects.filter(user=self.request.user)
+    
+    def get(self, request, project_id):
+        project = get_object_or_404(Project, id=project_id, user=request.user)
+        context = {
+            'projects': self.get_queryset(),
+            'selected_project': project,
+        }
+        
+        return render(request, self.template_name, context)
+
+class DeleteSocialMediaCaptionView(LoginRequiredMixin, View):
+    def get(self, request, social_media_caption_id):
+        social_media_caption = get_object_or_404(SocialMediaPost, id=social_media_caption_id)
+        project_id = social_media_caption.project_id
+        social_media_caption.delete()
+        url = reverse('social_media_captions', args=(project_id,))
+        return redirect(url)

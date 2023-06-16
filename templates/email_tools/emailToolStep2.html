@@ -35,7 +35,7 @@
                                 type="text"
                                 placeholder="Signing up to a web app"
                                 name="project_name_step2"
-                                value={{selected_project.name}}
+                                value="{{selected_project.name}}"
                             />
                         </div>
                         <div class="in">
@@ -79,7 +79,7 @@
                     </div>
 
                     <div class="submit">
-                        <input type="number" name="Number_of_generated_step2" id="" value="{{selected_project.emailsubject_set.first.num_generated_emails}}" min="1" max="100">
+                        <input type="number" name="Number_of_generated_step2" id="" value="{{selected_project.emailsubject_set.first.num_generated_emails}}" min="1" max="10">
                         <button type="submit"> Regenerate Email subject lines</button>
                     </div>
                 </form>

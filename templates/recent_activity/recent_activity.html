@@ -63,35 +63,132 @@
                             </div>
                         </div>
                     </a>
-                {% endif %}
-            {% endif %}
-            <div>
-                <div class="requests">
+
+                {% else %}
+                    {% if activity.activity_type == 'Email Subject Lines Created' %}
+                    <a href="{% url 'email_subjects' activity.idOfActivity %}" >
+                            <div>
+                                <div class="requests">
+                                    <div>
+                                        {% if activity.activity_type == 'Article Created' %}
+                                        <img src="{% static '/images/aiArticle.svg' %}" alt="article icon">
+                                        {% else %}
+                                            {% if activity.activity_type == 'Chat Feather' %}
+                                            <img src="{% static '/images/Vector-1.svg' %}" alt="chat icon">
+                
+                                            {% else %}
+                                                <img src="{% static '/images/timer-2.svg' %}" alt="timer icon">
+                                            {% endif %}
+                                        {% endif %}
+                
+                                    </div>
+                                    <div>
+                                        <h1 style="text-transform: uppercase;">{{activity.activity_type}}</h1>
+                                        <p >{{ activity.details }}</p>
+                                        <div class="details">
+                                            <img src="{% static '/images/timer.svg' %}" alt="clock icon">
+                                            <p>{{activity.timestamp|time_since_minutes}}</p>
+                                            <img src="{% static 'images/location.svg' %}" alt="language:">
+                                            <p>english</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    
+                    </a>
+                    {% else %}
+                    {% if activity.activity_type == 'Social Media Captions Created' %}
+                    <a href="{% url 'social_media_captions' activity.idOfActivity %}" >
+                        <div>
+                            <div class="requests">
+                                <div>
+                                    {% if activity.activity_type == 'Article Created' %}
+                                    <img src="{% static '/images/aiArticle.svg' %}" alt="article icon">
+                                    {% else %}
+                                        {% if activity.activity_type == 'Chat Feather' %}
+                                        <img src="{% static '/images/Vector-1.svg' %}" alt="chat icon">
+            
+                                        {% else %}
+                                            <img src="{% static '/images/timer-2.svg' %}" alt="timer icon">
+                                        {% endif %}
+                                    {% endif %}
+            
+                                </div>
+                                <div>
+                                    <h1 style="text-transform: uppercase;">{{activity.activity_type}}</h1>
+                                    <p >{{ activity.details }}</p>
+                                    <div class="details">
+                                        <img src="{% static '/images/timer.svg' %}" alt="clock icon">
+                                        <p>{{activity.timestamp|time_since_minutes}}</p>
+                                        <img src="{% static 'images/location.svg' %}" alt="language:">
+                                        <p>english</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    {% else %}
                     <div>
-                        {% if activity.activity_type == 'Article Created' %}
-                        <img src="{% static '/images/aiArticle.svg' %}" alt="article icon">
-                        {% else %}
-                            {% if activity.activity_type == 'Chat Feather' %}
-                            <img src="{% static '/images/Vector-1.svg' %}" alt="chat icon">
-
-                            {% else %}
-                                <img src="{% static '/images/timer-2.svg' %}" alt="timer icon">
-                            {% endif %}
-                        {% endif %}
-
+                        <div class="requests">
+                            <div>
+                                {% if activity.activity_type == 'Article Created' %}
+                                <img src="{% static '/images/aiArticle.svg' %}" alt="article icon">
+                                {% else %}
+                                    {% if activity.activity_type == 'Chat Feather' %}
+                                    <img src="{% static '/images/Vector-1.svg' %}" alt="chat icon">
+        
+                                    {% else %}
+                                        <img src="{% static '/images/timer-2.svg' %}" alt="timer icon">
+                                    {% endif %}
+                                {% endif %}
+        
+                            </div>
+                            <div>
+                                <h1 style="text-transform: uppercase;">{{activity.activity_type}}</h1>
+                                <p >{{ activity.details }}</p>
+                                <div class="details">
+                                    <img src="{% static '/images/timer.svg' %}" alt="clock icon">
+                                    <p>{{activity.timestamp|time_since_minutes}}</p>
+                                    <img src="{% static 'images/location.svg' %}" alt="language:">
+                                    <p>english</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <h1 style="text-transform: uppercase;">{{activity.activity_type}}</h1>
-                        <p >{{ activity.details }}</p>
-                        <div class="details">
-                            <img src="{% static '/images/timer.svg' %}" alt="clock icon">
-                            <p>{{activity.timestamp|time_since_minutes}}</p>
-                            <img src="{% static 'images/location.svg' %}" alt="language:">
-                            <p>english</p>
+                    {% endif %}
+                    {% endif %}
+                {% endif %}
+                {% else %}
+                <div>
+                    <div class="requests">
+                        <div>
+                            {% if activity.activity_type == 'Article Created' %}
+                            <img src="{% static '/images/aiArticle.svg' %}" alt="article icon">
+                            {% else %}
+                                {% if activity.activity_type == 'Chat Feather' %}
+                                <img src="{% static '/images/Vector-1.svg' %}" alt="chat icon">
+    
+                                {% else %}
+                                    <img src="{% static '/images/timer-2.svg' %}" alt="timer icon">
+                                {% endif %}
+                            {% endif %}
+    
+                        </div>
+                        <div>
+                            <h1 style="text-transform: uppercase;">{{activity.activity_type}}</h1>
+                            <p >{{ activity.details }}</p>
+                            <div class="details">
+                                <img src="{% static '/images/timer.svg' %}" alt="clock icon">
+                                <p>{{activity.timestamp|time_since_minutes}}</p>
+                                <img src="{% static 'images/location.svg' %}" alt="language:">
+                                <p>english</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
+
         {% endfor %}
 
         </div>

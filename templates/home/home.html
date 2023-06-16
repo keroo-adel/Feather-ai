@@ -183,7 +183,14 @@
                     {% if card_template.title == 'ai article writer' %}
                     {% url 'ai article writer' %}
                     {% else %}
-                    #
+                        {% if card_template.title == 'Email Subject Lines' %}
+                        {% url 'email tools' %}
+                        
+                        {% else %}
+                            {% if card_template.title == 'Social media post' %}
+                            {% url 'social media tools' %}
+                            {% endif %}
+                        {% endif %}
                     {% endif %}
                 ">
                 {% if card_template.icon %}

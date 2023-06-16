@@ -39,7 +39,8 @@
                 <p>chat feather</p>
             </a>
         </li>
-        <li>
+        <li         class = "{% if 'email-tools/' in request.path or '/email-subjects/' in request.path %} active{% endif %}"
+        >
             <a href="{% url 'email tools' %}">
                 <img src="{% static 'images/Icon email.svg '%}" alt="email">
                 <p>email tools</p>

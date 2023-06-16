@@ -87,3 +87,15 @@ class EmailSubject(models.Model):
     
     def __str__(self):
         return f"{self.email_purpose} - {self.project.name}"
+    
+
+class SocialMediaPost(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    product_description = models.TextField()
+    tone_of_voice = models.CharField(max_length=100)
+    language = models.CharField(max_length=100)
+    num_captions = models.PositiveIntegerField(default=0)
+    generated_caption = models.TextField(blank=True)
+    
+    def __str__(self):
+        return f"{self.product_name} - {self.project.name}" 

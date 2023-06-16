@@ -79,10 +79,12 @@
     background-color: transparent;
     border-radius: 1rem;
     border:1px solid var(--color-white-3);
-    padding: 1rem;
+    padding: 2rem;
     outline: none;
     color: var(--color-white);
     resize: vertical; 
+    min-width: 100px;
+
 }
 .generate-email form input:focus,
 .generate-email form textarea:focus,

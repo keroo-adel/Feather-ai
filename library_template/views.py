@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from .models import *
 import json
 from django.http import HttpResponse
-from django.shortcuts import redirect
+from django.shortcuts import redirect,get_object_or_404
 from .utils import *
 from django.contrib.auth.models import User
 from recent_activity.models import RecentActivity
@@ -401,8 +401,10 @@ class ArticleGenratorView(LoginRequiredMixin,ListView):
             user=User.objects.get(id=request.user.id),  
             activity_type='Article Created',
             details=selected_idea,
+            idOfActivity = article.id
             )
             activity.save()
+            
             outlines=article.outlines.all()
             for outline in outlines:
                 print(outline.Outlines)
@@ -435,11 +437,12 @@ class ArticleGenratorView(LoginRequiredMixin,ListView):
 ############################### 
 # Email Tools template
 ############################### 
-class EmailToolsView(LoginRequiredMixin,ListView):
+class EmailToolsView(LoginRequiredMixin, ListView):
     template_name = 'email_tools/emailTool.html'
-    
-    def get(self, request):
-        return render(request, self.template_name)
+    context_object_name = 'projects'
+
+    def get_queryset(self):
+        return Project.objects.filter(user=self.request.user)
 
     def post(self, request):
         project_name = request.POST.get('project-name', '')
@@ -447,6 +450,7 @@ class EmailToolsView(LoginRequiredMixin,ListView):
         Tone_Of_Voice = request.POST.get('Tone_Of_Voice', '')
         selected_Language = request.POST.get('selected_Language', '')
         Number_of_generated = request.POST.get('Number_of_generated', '')
+        # Create the Project
         
         project_name_step2 = request.POST.get('project_name_step2', '')
         Email_for_step2 = request.POST.get('Email_for_step2', '')
@@ -454,7 +458,6 @@ class EmailToolsView(LoginRequiredMixin,ListView):
         selected_Language_step2 = request.POST.get('selected_Language_step2', '')
         Number_of_generated_step2 = request.POST.get('Number_of_generated_step2', '')
         
-            
         list_generated_emails_subject = [
             "Introducing Feathe.ai: Unleash the power of AI content generation!",
             "Discover Feathe.ai: Your secret weapon for AI-powered content creation.",
@@ -468,35 +471,51 @@ class EmailToolsView(LoginRequiredMixin,ListView):
             "Experience the future of content generation with Feathe.ai.",
         ]
         
-        if project_name_step2 :
-            project_name = project_name_step2
-        if Email_for_step2 :
-            Email_for = Email_for_step2
-        if Tone_Of_Voice_step2 :
-            Tone_Of_Voice = Tone_Of_Voice_step2
-        if selected_Language_step2 :
-            selected_Language = selected_Language_step2
-        if Number_of_generated_step2 :
-            Number_of_generated = Number_of_generated_step2
-        
         if project_name_step2 and Email_for_step2 and Tone_Of_Voice_step2 and selected_Language_step2 and Number_of_generated_step2 :
-             list_generated_emails_subject = [
+            project_name = project_name_step2
+            Email_for = Email_for_step2
+            Tone_Of_Voice = Tone_Of_Voice_step2
+            selected_Language = selected_Language_step2
+            Number_of_generated = Number_of_generated_step2
+            list_generated_emails_subject = [
             "Introducing Feathe.ai: Unleash the power of AI content generation! 2",
             "Discover Feathe.ai: Your secret weapon for AI-powered content creation. 2",
             "Create captivating content effortlessly with Feathe.ai. 2",
-             ]
-             
-        context = {
-            "project_name": project_name,
-            "Email_for": Email_for,
-            "Tone_Of_Voice": Tone_Of_Voice,
-            "selected_Language": selected_Language,
-            "Number_of_generated": Number_of_generated,
-            "list_generated_emails_subject": list_generated_emails_subject
-        }
-        return render(request, 'email_tools/emailToolStep2.html',context)
-        
+            ]
 
+        project = Project.objects.create(name=project_name, user=request.user)
+
+        for i in range(len(list_generated_emails_subject)):
+            emailsubject = EmailSubject.objects.create(
+                project=project,
+                email_purpose=Email_for,
+                tone_of_voice=Tone_Of_Voice,
+                language=selected_Language,
+                num_generated_emails=Number_of_generated,
+                generated_subject=list_generated_emails_subject[i]
+            )
+            
+        activity = RecentActivity(
+            user=User.objects.get(id=request.user.id),  
+            activity_type='Email Subject Lines Created',
+            details= project_name,
+            idOfActivity = project.id
+            )
+        activity.save()
+            
+        context = {
+            'projects': self.get_queryset(),
+            'selected_project': project,
+        }
+        
+        return render(request, 'email_tools/emailToolStep2.html', context)
+        
+class DeleteEmailSubjectView(LoginRequiredMixin, View):
+    def get(self, request, email_subject_id):
+        email_subject = get_object_or_404(EmailSubject, id=email_subject_id)
+        project_id = email_subject.project_id
+        email_subject.delete()
+        return redirect('email tools')
 ############################### 
 # Social Media Tools template
 ############################### 

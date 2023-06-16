@@ -66,3 +66,24 @@ class SavedArticle(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Saved Article: {self.article.title}"
+    
+    
+class Project(models.Model):
+    name = models.CharField(max_length=255)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    def __str__(self):
+        return self.name
+
+
+class EmailSubject(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    email_purpose = models.CharField(max_length=255)
+    tone_of_voice = models.CharField(max_length=100)
+    language = models.CharField(max_length=100)
+    num_generated_emails = models.PositiveIntegerField(default=0)
+    generated_subject = models.TextField( null=True, blank=True)
+    generated_at = models.DateTimeField(auto_now_add=True, null=True)
+    
+    def __str__(self):
+        return f"{self.email_purpose} - {self.project.name}"

@@ -1,6 +1,7 @@
 {% extends 'base2.html' %}
 
 {% load static %}
+{% load custom_filters %}
 {% block title %}emailTool | Feather.ai{% endblock  %}
 
 {% block styles %}
@@ -34,14 +35,14 @@
                                 type="text"
                                 placeholder="Signing up to a web app"
                                 name="project_name_step2"
-                                value={{project_name}}
+                                value={{selected_project.name}}
                             />
                         </div>
                         <div class="in">
                             <label for="project-name"
                                 >What is the email for*</label
                             >
-                            <textarea name="Email_for_step2" id=""  rows="5" placeholder="Signing up to a web app" >{{Email_for}}</textarea>
+                            <textarea name="Email_for_step2" id=""  rows="5" placeholder="Signing up to a web app" >{{selected_project.emailsubject_set.first.email_purpose}}</textarea>
                             <div class="tip">
                                 <img src="{% static 'images/true.svg' %}" alt="">
                                 <span>seems like a good description</span>
@@ -53,15 +54,15 @@
                                 >tone of voice</label
                             >
                             <select name="Tone_Of_Voice_step2" id="Tone_Of_Voice">
-                                <option value="Professional" {% if Tone_Of_Voice == 'Professional'%} selected{% endif %}>💼 Professional</option>
-                                <option value="Excited" {% if Tone_Of_Voice == 'Excited'%} selected{% endif %}>🤩 Excited</option>
-                                <option value="Encouraging" {% if Tone_Of_Voice == 'Encourage'%} selected{% endif %}>💪 Encouraging</option>
-                                <option value="Funny" {% if Tone_Of_Voice == 'Funny'%} selected{% endif %}>😂 Funny</option>
-                                <option value="Dramatic" {% if Tone_Of_Voice == 'Dramatic'%} selected{% endif %}>😱 Dramatic</option>
-                                <option value="Witty" {% if Tone_Of_Voice == 'Witty'%} selected{% endif %}>💡 Witty</option>
-                                <option value="Sarcastic" {% if Tone_Of_Voice == 'Sarcastic'%} selected{% endif %}>🙄 Sarcastic</option>
-                                <option value="Engaging" {% if Tone_Of_Voice == 'Engaging'%} selected{% endif %}>💭 Engaging</option>
-                                <option value="Creative" {% if Tone_Of_Voice == 'Creative'%} selected{% endif %}>✨ Creative</option>
+                                <option value="Professional" {% if selected_project.emailsubject_set.first.tone_of_voice  == 'Professional'%} selected{% endif %}>💼 Professional</option>
+                                <option value="Excited" {% if selected_project.emailsubject_set.first.tone_of_voice  == 'Excited'%} selected{% endif %}>🤩 Excited</option>
+                                <option value="Encouraging" {% if selected_project.emailsubject_set.first.tone_of_voice == 'Encourage'%} selected{% endif %}>💪 Encouraging</option>
+                                <option value="Funny" {% if selected_project.emailsubject_set.first.tone_of_voice  == 'Funny'%} selected{% endif %}>😂 Funny</option>
+                                <option value="Dramatic" {% if selected_project.emailsubject_set.first.tone_of_voice  == 'Dramatic'%} selected{% endif %}>😱 Dramatic</option>
+                                <option value="Witty" {% if selected_project.emailsubject_set.first.tone_of_voice == 'Witty'%} selected{% endif %}>💡 Witty</option>
+                                <option value="Sarcastic" {% if selected_project.emailsubject_set.first.tone_of_voice  == 'Sarcastic'%} selected{% endif %}>🙄 Sarcastic</option>
+                                <option value="Engaging" {% if selected_project.emailsubject_set.first.tone_of_voice  == 'Engaging'%} selected{% endif %}>💭 Engaging</option>
+                                <option value="Creative" {% if selected_project.emailsubject_set.first.tone_of_voice  == 'Creative'%} selected{% endif %}>✨ Creative</option>
                         </select>
                         </div>
                         <div class="in">
@@ -69,30 +70,37 @@
                                 >language</label
                             >
                             <select name="selected_Language_step2" id="">
-                                <option value="English" {% if selected_Language == 'English'%} selected{% endif %}>English</option>
-                                <option value="Arabic" {% if selected_Language == 'Arabic'%} selected{% endif %}>Arabic</option>
-                                <option value="French" {% if selected_Language == 'French'%} selected{% endif %}>French</option>
-                                <option value="German" {% if selected_Language == 'German'%} selected{% endif %}>German</option>
+                                <option value="English" {% if selected_project.emailsubject_set.first.language == 'English'%} selected{% endif %}>English</option>
+                                <option value="Arabic" {% if selected_project.emailsubject_set.first.language == 'Arabic'%} selected{% endif %}>Arabic</option>
+                                <option value="French" {% if selected_project.emailsubject_set.first.language == 'French'%} selected{% endif %}>French</option>
+                                <option value="German" {% if selected_project.emailsubject_set.first.language == 'German'%} selected{% endif %}>German</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="submit">
-                        <input type="number" name="Number_of_generated_step2" id="" value="{{Number_of_generated}}"" min="1" max="100">
+                        <input type="number" name="Number_of_generated_step2" id="" value="{{selected_project.emailsubject_set.first.num_generated_emails}}" min="1" max="100">
                         <button type="submit"> Regenerate Email subject lines</button>
                     </div>
                 </form>
                 
             </div>
             <div id="all-emails">
-                {% for email in list_generated_emails_subject  %}
+                {% for email_subject  in selected_project.emailsubject_set.all %}
                 <div class="email">
                     <p id="email-text">
-                        {{email}}
+                        {{email_subject.generated_subject}}
                     </p>
                     <div class="icon">
-                        <img src="/static/images//copy.svg" alt="icon copy" class="copy">
+                        <span class="copy-text" data-text="{{ email_subject.generated_subject }}">
+                            <img src="/static/images//copy.svg" alt="icon copy" class="copy">
+                        </span>
+
+                        <a href="{% url 'delete_email_subject' email_subject.id %}">
+
                         <img src="/static/images///Icon  trash.svg" alt=" icon trash ">
+                    </a>
+
                         <img src="/static/images//Icon ben.svg" alt="icon ben">
                     </div>
                 </div>
@@ -109,5 +117,28 @@
         var staticUrl = "{% static 'images/' %}";
     </script>
     <script src="{% static 'Js/socialMediaTool.js' %}"></script>
-
+    <script>
+        // Add event listener to copy-text spans
+        var copyTexts = document.getElementsByClassName('copy-text');
+        for (var i = 0; i < copyTexts.length; i++) {
+          copyTexts[i].addEventListener('click', function() {
+            var text = this.dataset.text;
+            
+            // Create a temporary textarea element
+            var textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            
+            // Select and copy the text
+            textarea.select();
+            document.execCommand('copy');
+            
+            // Remove the temporary textarea
+            document.body.removeChild(textarea);
+            
+            // Display a notification or perform any other desired action
+            alert('Text copied: ' + text);
+          });
+        }
+      </script>
     {% endblock  %}

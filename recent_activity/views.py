@@ -9,7 +9,7 @@ class RecentActivityView(LoginRequiredMixin,ListView):
     context_object_name = 'activities'
     ordering = ['-timestamp']
     paginate_by = 10  # Set the number of activities to display per page
-
+    
     def get_queryset(self):
         queryset = super().get_queryset()
         # Apply any additional filtering or custom logic to the queryset if needed

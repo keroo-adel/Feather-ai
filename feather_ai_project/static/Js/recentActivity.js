@@ -26,25 +26,25 @@ let arrAllRequests = [
     },
 ];
 
-arrAllRequests.forEach((element) => {
-    let divRequest = `
-    <div class="requests">
-        <div>
-            <img
-                src="${staticUrl}/timer-2.svg"
-                alt="chat logo"
-            />
-        </div>
-        <div>
-            <p>${element.name}</p>
-            <div class="details">
-                <img src="${staticUrl}/timer.svg" alt="clock icon">
-                <p>created ${element.time}</p>
-                <img src="${staticUrl}/location.svg" alt="language:">
-                <p>${element.lang}</p>
-            </div>
-        </div>
-    </div>
-    `;
-    divPreviousRequests.insertAdjacentHTML("beforeend", divRequest);
-});
+// arrAllRequests.forEach((element) => {
+//     let divRequest = `
+//     <div class="requests">
+//         <div>
+//             <img
+//                 src="${staticUrl}/timer-2.svg"
+//                 alt="chat logo"
+//             />
+//         </div>
+//         <div>
+//             <p>${element.name}</p>
+//             <div class="details">
+//                 <img src="${staticUrl}/timer.svg" alt="clock icon">
+//                 <p>created ${element.time}</p>
+//                 <img src="${staticUrl}/location.svg" alt="language:">
+//                 <p>${element.lang}</p>
+//             </div>
+//         </div>
+//     </div>
+//     `;
+//     divPreviousRequests.insertAdjacentHTML("beforeend", divRequest);
+// });

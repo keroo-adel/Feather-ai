@@ -6,7 +6,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from urllib.parse import unquote
 import json
-    
+from recent_activity.models import RecentActivity
+from django.contrib.auth.models import User
 class ChatFeatherView(LoginRequiredMixin,ListView):
     template_name = 'chat_feather/chat-feather.html'
 
@@ -78,6 +79,15 @@ class SendMessageView(LoginRequiredMixin, View):
         ai_response = "ai model response"
 
         response = Response.objects.create(message=message, content=ai_response)
+        
+        # Check if RecentActivity already exists for the user
+        recent_activity = RecentActivity.objects.filter(user=request.user, activity_type='Chat Feather').first()
+
+        if recent_activity:
+            recent_activity.details = ""
+            recent_activity.save()
+        else:
+            recent_activity = RecentActivity.objects.create(user=request.user, activity_type='Chat Feather', details=message_content)
 
         return HttpResponse(ai_response, content_type="text/plain")
     

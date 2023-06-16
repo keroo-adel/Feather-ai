@@ -7,6 +7,8 @@ import json
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from .utils import *
+from django.contrib.auth.models import User
+from recent_activity.models import RecentActivity
 ############################### 
 # AiArticleWriter template
 ############################### 
@@ -392,7 +394,13 @@ class ArticleGenratorView(LoginRequiredMixin,ListView):
             article.save()
             for outline in outlines_id_list:
                 article.outlines.add(Outline.objects.get(id=outline))
-
+                
+            activity = RecentActivity(
+            user=User.objects.get(id=request.user.id),  
+            activity_type='Article Created',
+            details=selected_idea,
+            )
+            activity.save()
             outlines=article.outlines.all()
             for outline in outlines:
                 print(outline.Outlines)

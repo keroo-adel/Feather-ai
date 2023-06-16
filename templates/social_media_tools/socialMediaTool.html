@@ -84,5 +84,9 @@
     {% endblock %}
 
     {% block scripts %}
+    <script>
+        var staticUrl = "{% static 'images/' %}";
+    </script>
     <script src="{% static 'Js/socialMediaTool.js' %}"></script>
+
     {% endblock  %}

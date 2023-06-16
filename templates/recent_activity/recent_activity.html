@@ -1,6 +1,8 @@
 {% extends 'base2.html' %}
 
 {% load static %}
+{% load custom_filters %}
+
 {% block title %}Recent Activity | Feather.ai{% endblock  %}
 
 {% block styles %}
@@ -29,6 +31,26 @@
         </p>
         <div class="previous-requests">
             <p>refer to all your recent requests :</p>
+            {% for activity in activities %}
+            <div>
+                <div class="requests">
+                    <div>
+                        <img src="{% static '/images/timer-2.svg' %}" alt="chat logo">
+                    </div>
+                    <div>
+                        <h1 style="text-transform: uppercase;">{{activity.activity_type}}</h1>
+                        <p >{{ activity.details }}</p>
+                        <div class="details">
+                            <img src="{% static '/images/timer.svg' %}" alt="clock icon">
+                            <p>{{activity.timestamp|time_since_minutes}}</p>
+                            <img src="{% static 'images/location.svg' %}" alt="language:">
+                            <p>english</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
         </div>
     </div>
 </div>

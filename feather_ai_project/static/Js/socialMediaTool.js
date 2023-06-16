@@ -73,9 +73,9 @@ emailsSaved.forEach(element => {
     <div class="email">
         <p id="email-text">${emailContent}</p>
         <div class="icon">
-            <img src="../../images/copy.svg" alt="icon copy" class="copy">
-            <img src="../../images/Icon  trash.svg" alt=" icon trash ">
-            <img src="../../images/Icon ben.svg" alt="icon ben">
+            <img src="${staticUrl}/copy.svg" alt="icon copy" class="copy">
+            <img src="${staticUrl}//Icon  trash.svg" alt=" icon trash ">
+            <img src="${staticUrl}/Icon ben.svg" alt="icon ben">
         </div>
     </div>
     `

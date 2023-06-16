@@ -17,7 +17,9 @@ urlpatterns = [
     
     
     path('email-tools/', views.EmailToolsView.as_view() , name='email tools'),
+    path('email-subjects/<int:project_id>/', views.EmailSubjectView.as_view(), name='email_subjects'),
     path('email-tools/delete/<int:email_subject_id>/', views.DeleteEmailSubjectView.as_view(), name='delete_email_subject'),
+
 
     path('SocialMedia-tools/', views.SocialMediaToolsView.as_view() , name='social media tools'),
     

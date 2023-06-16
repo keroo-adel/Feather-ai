@@ -10,6 +10,9 @@ from .utils import *
 from django.contrib.auth.models import User
 from recent_activity.models import RecentActivity
 from django.contrib import messages
+from django.urls import reverse
+
+
 
 ############################### 
 # AiArticleWriter template
@@ -509,13 +512,30 @@ class EmailToolsView(LoginRequiredMixin, ListView):
         }
         
         return render(request, 'email_tools/emailToolStep2.html', context)
+
+class EmailSubjectView(LoginRequiredMixin, View):
+    template_name = 'email_tools/emailToolStep2.html'
+    def get_queryset(self):
+        return Project.objects.filter(user=self.request.user)
+    
+    def get(self, request, project_id):
+        project = get_object_or_404(Project, id=project_id, user=request.user)
+        email_subjects = project.emailsubject_set.all()
+        context = {
+            'projects': self.get_queryset(),
+            'selected_project': project,
+        }
         
+        return render(request, self.template_name, context)        
+
+
 class DeleteEmailSubjectView(LoginRequiredMixin, View):
     def get(self, request, email_subject_id):
         email_subject = get_object_or_404(EmailSubject, id=email_subject_id)
         project_id = email_subject.project_id
         email_subject.delete()
-        return redirect('email tools')
+        url = reverse('email_subjects', args=(project_id,))
+        return redirect(url)
 ############################### 
 # Social Media Tools template
 ############################### 

@@ -197,11 +197,14 @@
                                     src="{% static 'images/Icon  mic-2.svg'%}"
                                     alt=""
                                 />
-                                <input
-                                    type="text"
-                                    placeholder="write a message"
-                                    id="inputChat"
-                                />
+                                <textarea
+                                type="text"
+                                placeholder="write a message"
+                                id="inputChat"
+                                rows="1"
+                                
+                            >
+                        </textarea>
                                 <div class="sent">
                                     <img
                                         src="{% static 'images/Icon  sent.svg'%}"
@@ -419,8 +422,9 @@
         activeChatId = 0;
       }
       
-  
-  
+
     </script>
+
+
 
 {% endblock %}

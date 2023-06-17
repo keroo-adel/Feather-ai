@@ -253,10 +253,12 @@
     cursor: pointer;
 }
 
-.input-chat input {
+.input-chat #inputChat {
     all: unset;
     width: 80%;
     font-size: 1.8rem;
+    height: 2rem;
+    max-height: 10rem;
 }
 
 .input-chat .sent {

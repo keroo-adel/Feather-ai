@@ -1,26 +1,26 @@
-
 const divWelcome = document.querySelector(".welcome");
 const divSomePrompts = document.querySelector(".some-prompts");
-const InputChat = document.querySelector(".input-chat input");
+const inputChat = document.querySelector(".input-chat #inputChat");
 const divChatWithAi = document.querySelector(".chat-with-ai");
 const sentMessage = document.querySelector(".sent");
-const inputChat = document.getElementById("inputChat");
-InputChat.focus();
 
-InputChat.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
+inputChat.focus();
+
+inputChat.addEventListener("keydown", function (event) {
+    if (event.shiftKey && key === 13) {
+        inputChat.value += "\n";
+        event.preventDefault();
+    } else if (event.key === "Enter") {
         createChatAi();
     }
 });
-
 sentMessage.addEventListener("click", function () {
     createChatAi();
 });
 
 function createChatAi() {
-    const valueInputChat = inputChat.value;
     
-    if (isValid(valueInputChat)) {
+    if (inputChat.value.trim() !=="") {
         divWelcome.style.display = "none";
         divSomePrompts.style.display = "none";
         divChatWithAi.style.display = "flex";
@@ -28,9 +28,7 @@ function createChatAi() {
     }
 }
 
-function isValid(value) {
-    return value.length > 0;
-}
+
 
 function writeMessage() {
     const messageText = document.createElement('p');
@@ -168,6 +166,29 @@ recognition.addEventListener("end", () => {
     }
 });
 
+// ------------------
+
+inputChat.addEventListener("input", () => {
+    const numberOfLines = inputChat.value.split("\n").length;
+    if (numberOfLines > 1) {
+        inputChat.style.height = "auto";
+        inputChat.style.height = inputChat.scrollHeight + "px";
+        divSomePrompts.style.display = "none";
+    } else {
+        inputChat.style.height = "2rem";
+    }
+});
+
+inputChat.addEventListener("input", () => {
+    const numberOfLines = inputChat.value.split("\n").length;
+    if (numberOfLines > 1) {
+        inputChat.style.height = "auto";
+        inputChat.style.height = inputChat.scrollHeight + "px";
+        divSomePrompts.style.display = "none";
+    } else {
+        inputChat.style.height = "2rem";
+    }
+});
 function copyToClipboard(response, messageId) {
     const tempInput = document.createElement('input');
     tempInput.value = response;

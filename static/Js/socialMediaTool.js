@@ -61,30 +61,31 @@ to work, but first, I'll need a little caffeine. #coffee
     }
 ];
 
-if(emailsSaved.length==0){
-    divAppearAllEmails.classList.add("hide");
-    divPart2.classList.add("onePage");
-}else{
-    divAppearAllEmails.classList.remove("hide");
-    divPart2.classList.remove("onePage");
-emailsSaved.forEach(element => {
-    let emailContent=element.content;
-    let divEmail=`
-    <div class="email">
-        <p id="email-text">${emailContent}</p>
-        <div class="icon">
-            <img src="../../images/copy.svg" alt="icon copy" class="copy">
-            <img src="../../images/Icon  trash.svg" alt=" icon trash ">
-            <img src="../../images/Icon ben.svg" alt="icon ben">
-        </div>
-    </div>
-    `
-    divAppearAllEmails.insertAdjacentHTML("beforeend", divEmail);
-    const btnCopy = document.querySelector(".copy");
-    btnCopy.addEventListener("click", (e) => {
-        let text = document.querySelector("#email-text").innerText;
-        navigator.clipboard.writeText(text);
-        alert("Text copied to clipboard!");
-    });
-});
-}
+// if(emailsSaved.length==0){
+//     divAppearAllEmails.classList.add("hide");
+//     divPart2.classList.add("onePage");
+// }else{
+//     divAppearAllEmails.classList.remove("hide");
+//     divPart2.classList.remove("onePage");
+
+// emailsSaved.forEach(element => {
+//     let emailContent=element.content;
+//     let divEmail=`
+//     <div class="email">
+//         <p id="email-text">${emailContent}</p>
+//         <div class="icon">
+//             <img src="${staticUrl}/copy.svg" alt="icon copy" class="copy">
+//             <img src="${staticUrl}//Icon  trash.svg" alt=" icon trash ">
+//             <img src="${staticUrl}/Icon ben.svg" alt="icon ben">
+//         </div>
+//     </div>
+//     `
+//     divAppearAllEmails.insertAdjacentHTML("beforeend", divEmail);
+//     const btnCopy = document.querySelector(".copy");
+//     btnCopy.addEventListener("click", (e) => {
+//         let text = document.querySelector("#email-text").innerText;
+//         navigator.clipboard.writeText(text);
+//         alert("Text copied to clipboard!");
+//     });
+// });
+// }

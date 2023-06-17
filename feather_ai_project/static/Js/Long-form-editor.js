@@ -43,6 +43,7 @@ inputField.addEventListener("click", () => {
 
 inputField.addEventListener("keydown", (event) => {
     if (isEditing && event.key === "Enter") {
+        saveArticleTitle();
         inputField.setAttribute("readonly", true);
         isEditing = false;
     }
@@ -50,10 +51,41 @@ inputField.addEventListener("keydown", (event) => {
 
 inputField.addEventListener("blur", () => {
     if (isEditing) {
+        saveArticleTitle();
         inputField.setAttribute("readonly", true);
         isEditing = false;
     }
 });
+
+function saveArticleTitle() {
+    const title = inputField.value.trim(); // Trim whitespace from the title
+
+    // Check if the title is empty
+    if (title === "") {
+        return; // Don't save if the title is empty
+    }
+
+    // Save the article title to the database via an API endpoint
+    const formData = new FormData();
+    formData.append('article_title', title);
+    const csrftoken = getCookie('csrftoken'); // Replace with your method of retrieving the CSRF token
+
+    fetch('api/save-article-title/', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrftoken,
+        },
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data); // Optional: Handle the response from the server
+    })
+    .catch(error => {
+        console.error(error); // Optional: Handle any errors that occur during the request
+    });
+}
+
 // -------------------------------------
 const divAskFeather = document.querySelector(".askFeather");
 const mainInput = document.querySelector("#mainInput");
@@ -71,13 +103,44 @@ selectOptions.forEach((option) => {
     });
 });
 
+
 inputDraftWithAi.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
-        createBlock(inputDraftWithAi.value, blockClassType);
-        inputDraftWithAi.placeholder = "Tell Al what to do next...";
-        divStepOne.style.display = "none";
-        divStepTwo.style.display = "flex";
-        inputDraftWithAi.value = "";
+        const question_value = inputDraftWithAi.value.trim();
+       
+        if (question_value !== "") {
+            // Send the question to the server
+            fetch('api/ask-feather/', {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': getCookie('csrftoken'),
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ question: question_value }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response from the server
+                console.log(data);
+
+                // Check if the response contains the necessary data for creating a block
+                if (data.answer) {
+                    const content = data.answer;
+                    const block_type = "paragraphStyle";
+                    
+                    // Create a block using the response data
+                    createBlock(content, block_type);
+                }
+            })
+            .catch(error => {
+                console.error(error); // Optional: Handle any errors that occur during the request
+            });
+
+            inputDraftWithAi.placeholder = "Tell Al what to do next...";
+            divStepOne.style.display = "none";
+            divStepTwo.style.display = "flex";
+            inputDraftWithAi.value = "";
+        }
     }
 });
 
@@ -184,7 +247,34 @@ function createBlock(value, classType) {
     `;
 
     content.appendChild(block);
+
+    // Save the block to the database via an API endpoint
+    const formData = new FormData();
+    formData.append('content', value);
+    formData.append('block_type', classType);
+    formData.append('position', content.children.length);
+    const csrftoken = getCookie('csrftoken'); // Replace with your method of retrieving the CSRF token
+
+    fetch('api/create-block/', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrftoken,
+        },
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data); // Optional: Handle the response from the server
+    })
+    .catch(error => {
+        console.error(error); // Optional: Handle any errors that occur during the request
+    });
+
     dragAndDrop();
+}
+function getCookie(name) {
+    const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return cookieValue ? cookieValue.pop() : '';
 }
 
 // ---------------

@@ -126,10 +126,8 @@ inputDraftWithAi.addEventListener("keydown", function (event) {
                 // Check if the response contains the necessary data for creating a block
                 if (data.answer) {
                     const content = data.answer;
-                    const block_type = "paragraphStyle";
-                    
                     // Create a block using the response data
-                    createBlock(content, block_type);
+                    createBlock(content, blockClassType);
                 }
             })
             .catch(error => {

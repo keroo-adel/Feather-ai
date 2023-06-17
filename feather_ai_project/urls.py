@@ -16,5 +16,6 @@ urlpatterns = [
     path('template/', include('library_template.urls')),
     path('saved-copies/', include('saved_copies.urls')),
     path('recent-activity/', include('recent_activity.urls')),
+    path('settings/', include('settings.urls')),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

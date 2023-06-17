@@ -1,0 +1,145 @@
+{% extends 'base2.html' %}
+
+{% load static %}
+{% block title %}Settings| Feather.ai{% endblock  %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'Css/changeLanguage.css' %} " />
+{% endblock  %}
+
+{% block bootstrap %}
+{% endblock %}
+{% block content %}
+<div class="main-page">
+    <div class="part-1">
+        <div>
+            <img
+                src="{% static 'images/Icon  edit.svg' %}"
+                alt="chat logo"
+            />
+        </div>
+        <p>Settings</p>
+    </div>
+
+    <div class="part-2">
+        <ul>
+            <a href="{% url 'change_language' %}">
+                <li style="color:var(--color-main)">Languages</li>
+            </a>
+            <a href="{% url 'Profile_Details' %}">
+            <li>Profile Details</li>
+        </a>
+            <li>Team</li>
+            <li>Ask the community</li>
+            <li>Help Center</li>
+        </ul>
+        <div class="all-div">
+            <div class="language" >
+                <div>
+                    <img
+                        src="{% static 'images/vector-3.svg' %}"
+                        alt=""
+                    />
+                    <label>
+                        <p>System Language</p>
+                    </label>
+
+                    <div class="divSelect system">
+                        <div class="details">
+                            <img
+                            src="{% static 'images/En.svg' %}"
+                            alt=""
+                        />
+                        <p>English</p>
+                        </div>
+
+                        <ion-icon
+                            name="caret-down-outline"
+                        ></ion-icon>
+                    </div>
+
+                    <div class="ulSelect system">
+                        <ul>
+                            <li>
+                                <img
+                                    src="{% static 'images/EG.svg' %}"
+                                    alt=""
+                                />
+                                <p>arabic</p>
+                            </li>
+                            <li>
+                                <img
+                                    src="{% static 'images/FR.svg' %}"
+                                    alt=""
+                                />
+                                <p>French</p>
+                            </li>
+                            <li>
+                                <img
+                                    src="{% static 'images/En.svg' %}"
+                                    alt=""
+                                />
+                                <p>English</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                    <img
+                        src="{% static 'images/vector-4.svg' %}"
+                        alt=""
+                    />
+                    <label>
+                        <p>Generation Language</p>
+                    </label>
+
+                    <div class="divSelect Generation">
+                        <div class="details">
+                            <img
+                            src="{% static 'images/En.svg' %}"
+                            alt=""
+                        />
+                        <p>English</p>
+                        </div>
+
+                        <ion-icon
+                            name="caret-down-outline"
+                        ></ion-icon>
+                    </div>
+
+                    <div class="ulSelect Generation">
+                        <ul>
+                            <li>
+                                <img
+                                    src="{% static 'images/EG.svg' %}"
+                                    alt=""
+                                />
+                                <p>arabic</p>
+                            </li>
+                            <li>
+                                <img
+                                    src="{% static 'images/FR.svg' %}"
+                                    alt=""
+                                />
+                                <p>French</p>
+                            </li>
+                            <li>
+                                <img
+                                    src="{% static 'images/En.svg' %}"
+                                    alt=""
+                                />
+                                <p>English</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'Js/changeLanguage.js' %}"></script>
+{% endblock  %}

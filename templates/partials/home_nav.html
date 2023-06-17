@@ -41,14 +41,18 @@
                 </p>
             </div>
             <ul>
+                <a href="{% url 'change_language' %}">
                 <li>
                     <img src="{% static 'images/Icon language-2.svg' %}" alt="language icon">
                     <p>languages</p>
                 </li>
+            </a>
+            <a href="{% url 'Profile_Details' %}">
                 <li>
                     <img src="{% static 'images/Icon person.svg' %}" alt="person icon">
                     <p>profile details</p>
                 </li>
+            </a>
                 <li>
                     <img src="{% static 'images/Icon people.svg' %}" alt="people icon">
                     <p>team</p>

@@ -1,0 +1,116 @@
+{% extends 'base2.html' %}
+
+{% load static %}
+{% block title %}Settings| Feather.ai{% endblock  %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'Css/changeLanguage.css' %} " />
+{% endblock  %}
+
+{% block bootstrap %}
+{% endblock %}
+{% block content %}
+<div class="main-page">
+    <div class="part-1">
+        <div>
+            <img
+                src="{% static 'images/Icon  edit.svg' %}"
+                alt="chat logo"
+            />
+        </div>
+        <p>Settings</p>
+    </div>
+
+    <div class="part-2">
+        <ul>
+            <a href="{% url 'change_language' %}">
+            <li>Languages</li>
+        </a>
+        <a href="{% url 'Profile_Details' %}">
+            <li style="color:var(--color-main)">Profile Details</li>
+        </a>
+            <li>Team</li>
+            <li>Ask the community</li>
+            <li>Help Center</li>
+        </ul>
+        <div class="all-div">
+            <div class="profile-details" style="display: block">
+                <form action="">
+                    <section>
+                        <img src="{% static 'images/MyPersonalPhoto.svg' %}" alt="">
+
+                        <p class="one">Personal Information</p>
+
+                        <div>
+                            <div>
+                                <label for="First-name"
+                                    >First name</label
+                                >
+                                <input
+                                    type="text"
+                                    id="First-name"
+                                    value ="{{request.user.first_name}}"
+                                    
+                                />
+                            </div>
+                            <div>
+                                <label for="Last-name"
+                                    >Last name</label
+                                >
+                                <input
+                                    type="text"
+                                    id="Last-name"
+                                    value ="{{request.user.last_name}}"
+                                    
+                                />
+                            </div>
+                        </div>
+                    </section>
+                    <button>Update name</button>
+                    <hr style="margin-top: 10px;margin-bottom: 10px;" />
+                    <section>
+                        <p>Email Address</p>
+                        <button class="my-button-class">change</button>
+
+                        <p>
+                            Your email address is
+                            <span>{{request.user.email}}</span>
+                        </p>
+                    </section>
+
+                    <section>
+                        <p>Password</p>
+                        <div>
+                            <div class="div1">
+                                <label for=""
+                                    >Old Password</label
+                                >
+                                <input type="password" />
+                            </div>
+                            <div class="div2">
+                                <label for=""
+                                    >New Password</label
+                                >
+                                <input type="password" />
+                            </div>
+                            <div class="div3">
+                                <label for=""
+                                    >Confirm Password</label
+                                >
+                                <input type="password" />
+                            </div>
+                        </div>
+                    </section>
+
+                    <button>Update Password</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'Js/changeLanguage.js' %}"></script>
+{% endblock  %}

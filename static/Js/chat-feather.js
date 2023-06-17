@@ -7,11 +7,13 @@ const sentMessage = document.querySelector(".sent");
 inputChat.focus();
 
 inputChat.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
+    if (event.shiftKey && key === 13) {
+        inputChat.value += "\n";
+        event.preventDefault();
+    } else if (event.key === "Enter") {
         createChatAi();
     }
 });
-
 sentMessage.addEventListener("click", function () {
     createChatAi();
 });
@@ -164,6 +166,29 @@ recognition.addEventListener("end", () => {
     }
 });
 
+// ------------------
+
+inputChat.addEventListener("input", () => {
+    const numberOfLines = inputChat.value.split("\n").length;
+    if (numberOfLines > 1) {
+        inputChat.style.height = "auto";
+        inputChat.style.height = inputChat.scrollHeight + "px";
+        divSomePrompts.style.display = "none";
+    } else {
+        inputChat.style.height = "2rem";
+    }
+});
+
+inputChat.addEventListener("input", () => {
+    const numberOfLines = inputChat.value.split("\n").length;
+    if (numberOfLines > 1) {
+        inputChat.style.height = "auto";
+        inputChat.style.height = inputChat.scrollHeight + "px";
+        divSomePrompts.style.display = "none";
+    } else {
+        inputChat.style.height = "2rem";
+    }
+});
 function copyToClipboard(response, messageId) {
     const tempInput = document.createElement('input');
     tempInput.value = response;

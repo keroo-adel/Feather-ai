@@ -31,27 +31,27 @@ liSelectSystem.forEach((li) => {
     });
 });
 
-// ------------------
-const allDiv=document.querySelectorAll(".all-div>div");
-function hideAllDiv(){
-    allDiv.forEach(div=>{
-        div.style.display="none"
-    })
-}
+// // ------------------
+// const allDiv=document.querySelectorAll(".all-div>div");
+// function hideAllDiv(){
+//     allDiv.forEach(div=>{
+//         div.style.display="none"
+//     })
+// }
 
-const liNav=document.querySelectorAll(".part-2 ul li");
+// const liNav=document.querySelectorAll(".part-2 ul li");
 
-liNav.forEach(li=>{
-    li.addEventListener("click",function(){
-        hideAllDiv();
-        if(li.innerHTML==="Languages"){
-            allDiv[0].style.display="flex";
-        }
-        else if(li.innerHTML==="Profile Details"){
-            allDiv[1].style.display="block";
-        }else{
-            hideAllDiv();
-        }
-    })
+// liNav.forEach(li=>{
+//     li.addEventListener("click",function(){
+//         hideAllDiv();
+//         if(li.innerHTML==="Languages"){
+//             allDiv[0].style.display="flex";
+//         }
+//         else if(li.innerHTML==="Profile Details"){
+//             allDiv[1].style.display="block";
+//         }else{
+//             hideAllDiv();
+//         }
+//     })
     
-})
+// })

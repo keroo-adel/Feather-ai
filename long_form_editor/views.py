@@ -1,11 +1,11 @@
 from django.views.generic import ListView, CreateView,View
-from .models import Block
 import uuid
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from .models import Block2 as Block , Article
+from library_template.models import Article as editor_articles
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 import json
@@ -22,9 +22,17 @@ class SaveArticleTitleView(View):
     def post(self, request, *args, **kwargs):
         title = request.POST.get('article_title')
         
-        # Create a new article with the provided title
-        article = Article(title=title)
+        # Get the current article ID from the request
+        article = editor_articles.objects.create(
+            title=title,
+            user=request.user)
         article.save()
+        
+        
+        # Create a new article with the provided title
+        article = Article(library_article=article, title=title)
+        article.save()
+
 
         self.request.session['article_id'] = article.id
         return JsonResponse({'success': True})
@@ -38,6 +46,7 @@ class CreateBlockView(View):
         content = request.POST.get('content')
         block_type = request.POST.get('block_type')
         position = int(request.POST.get('position'))
+        unique_id = request.POST.get('unique_id')
 
         # Get the current article ID from the request
         article_id = self.request.session.get('article_id')
@@ -47,7 +56,7 @@ class CreateBlockView(View):
             article = Article.objects.get(id=article_id)
 
             # Create a new block associated with the article
-            block = Block(article=article, content=content, block_type=block_type, position=position)
+            block = Block(article=article, content=content, block_type=block_type, position=position, unique_id=unique_id)
             block.save()
 
             return JsonResponse({'success': True})
@@ -74,3 +83,24 @@ class AskFeatherView(View):
 
     def get(self, request, *args, **kwargs):
         return JsonResponse({'error': 'Invalid request method'})
+    
+def UpdateBlockPositionsView(request):
+    if request.method == 'POST':
+        positions = json.loads(request.body)
+        print(positions)
+        # Update block positions in the database
+        for position in positions:
+            block_id = position['id']
+            new_position = position['position']
+        
+            try:
+                block = Block.objects.get(unique_id=block_id)
+                block.position = new_position
+                block.save()
+            except Block.DoesNotExist:
+                # Handle block not found error
+                pass
+
+        return JsonResponse({'success': True})
+    
+    return JsonResponse({'success': False, 'error': 'Invalid request method'})

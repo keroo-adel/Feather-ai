@@ -86,7 +86,7 @@ function autoReply(responseText) {
             </div>
             <div class="text">
                 <p id="ai-text"></p>
-                <div class="copy" onclick="copyToClipboard('${responseText}')">
+                <div class="copy" onclick="copyToClipboard('${responseText}', '${activeChatId}')">
                     <ion-icon name="copy-outline"></ion-icon>
                 </div>
             </div>
@@ -104,12 +104,21 @@ function autoReply(responseText) {
         aiText.textContent += responseText[index];
         index++;
         if (index < textLength) {
-            setTimeout(typeText, 50); // Adjust the delay between each letter appearance (in milliseconds)
+            setTimeout(typeText, 20); // Adjust the typing speed here
+        } else {
+            scrollChatBoxToBottom();
         }
     };
 
+    const scrollChatBoxToBottom = () => {
+        divChatWithAi.scrollTop = divChatWithAi.scrollHeight;
+    };
+
     typeText();
-    scrollBottom();
+
+    // Create a MutationObserver to listen for changes in the chat box size
+    const observer = new MutationObserver(scrollChatBoxToBottom);
+    observer.observe(divChatWithAi, { attributes: true, childList: true, subtree: true });
 }
 
 
@@ -196,11 +205,13 @@ function copyToClipboard(response, messageId) {
     tempInput.select();
     document.execCommand('copy');
     document.body.removeChild(tempInput);
-    
+
     const copyIcon = document.querySelector(`.copy-icon-${messageId}`);
+    if (!copyIcon) return;
     copyIcon.setAttribute('name', 'checkmark-outline');  // Change the icon name
 
     const tooltip = document.querySelector(`.tooltip-${messageId}`);
+    if (!tooltip) return;
     tooltip.innerText = 'copied!';
 
     setTimeout(() => {

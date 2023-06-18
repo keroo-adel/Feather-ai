@@ -40,14 +40,14 @@ class Suboutline(models.Model):
         
 class Article(models.Model):
     title = models.CharField(max_length=200, blank=True)
-    outlines = models.ManyToManyField('Outline')
+    outlines = models.ManyToManyField('Outline', blank=True)
     article_text = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='articles_images/', blank=True, max_length=255)
     created_at = models.DateTimeField(default=timezone.now, null=True)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     # Additional fields for content and tags
-    tags = models.CharField(max_length=100)
+    tags = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
         return self.title

@@ -279,6 +279,9 @@
 {% endblock %}
 
 {% block scripts %}
+<script >
+    var staticUrl = "{% static 'images/' %}"
+</script>
 <script src="{% static 'js/long-form-editor.js' %}"></script>
 {% endblock  %}
 

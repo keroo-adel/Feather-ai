@@ -105,7 +105,11 @@
                             {% endwith %}
 
                             {% endwith %}
+                            {% if article.image %}
                             <img src="{{ article.image.url}}" alt="">
+                            {% else %}
+                            <img src="{% static 'images/image saved page.svg' %}" alt="">
+                            {% endif %}
                             <div class="footer">
                                 <p>{{article.created_at|time:"H:i A"}}</p>
 

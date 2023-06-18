@@ -235,41 +235,49 @@ function deleteSlash() {
     mainInput.value = modifiedValue;
 }
 
-function createBlock(value, classType) {
+function generateBlockId() {
+    // Generate a UUID (Universally Unique Identifier)
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+  }
+  
+  function createBlock(value, classType) {
     const block = document.createElement("div");
+    const blockId = generateBlockId();
     block.setAttribute("class", `newBlock ${classType}`);
+    block.setAttribute("data-block-id", blockId);
     block.innerHTML = `
-    <img src="${window.location.origin}/static/images/enable to darg and drop.svg"/>
-    <ion-icon name="radio-button-on-outline"></ion-icon>
-    <p>${value}</p>
+      <img src="${window.location.origin}/static/images/enable to darg and drop.svg"/>
+      <ion-icon name="radio-button-on-outline"></ion-icon>
+      <p>${value}</p>
     `;
-
+  
     content.appendChild(block);
-
+  
     // Save the block to the database via an API endpoint
     const formData = new FormData();
     formData.append('content', value);
     formData.append('block_type', classType);
     formData.append('position', content.children.length);
+    formData.append('unique_id', blockId);
     const csrftoken = getCookie('csrftoken'); // Replace with your method of retrieving the CSRF token
-
+  
     fetch('api/create-block/', {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': csrftoken,
-        },
-        body: formData,
+      method: 'POST',
+      headers: {
+        'X-CSRFToken': csrftoken,
+      },
+      body: formData,
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data); // Optional: Handle the response from the server
+      console.log(data); // Optional: Handle the response from the server
     })
     .catch(error => {
-        console.error(error); // Optional: Handle any errors that occur during the request
+      console.error(error); // Optional: Handle any errors that occur during the request
     });
-
+  
     dragAndDrop();
-}
+  }
 function getCookie(name) {
     const cookieValue = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
     return cookieValue ? cookieValue.pop() : '';
@@ -326,45 +334,81 @@ function dragAndDrop() {
     const allCols = document.querySelector("#content");
     let items = document.querySelectorAll(".newBlock");
     items.forEach(function (element) {
-        element.draggable = true;
+      element.draggable = true;
     });
-
+  
     let drag = null;
     items.forEach((column) => {
-        column.addEventListener("dragstart", (e) => {
-            e.dataTransfer.setData("text/plain", e.target.id);
-            drag = column;
-            column.style.opacity = 0.5;
-        });
-
-        column.addEventListener("dragend", () => {
-            drag = null;
-            column.style.opacity = 1;
-        });
-
-        allCols.addEventListener("dragover", function (e) {
-            if (
-                drag &&
-                !drag.classList.contains("upContent") &&
-                this.classList.contains(drag.closest(".upContent").classList)
-            ) {
-                e.preventDefault();
-            }
-        });
-        allCols.addEventListener("dragleave", function () {
-            this.style.background = "none";
-        });
-        allCols.addEventListener("drop", function (e) {
-            if (
-                drag &&
-                !drag.classList.contains("upContent") &&
-                this.classList.contains(drag.closest(".upContent").classList)
-            ) {
-                e.preventDefault();
-                this.insertBefore(drag, e.target);
-                this.style.background = "none";
-            }
-        });
+      column.addEventListener("dragstart", (e) => {
+        e.dataTransfer.setData("text/plain", e.target.id);
+        drag = column;
+        column.style.opacity = 0.5;
+      });
+  
+      column.addEventListener("dragend", () => {
+        drag = null;
+        column.style.opacity = 1;
+  
+        // Call the function to update block positions
+        updateBlockPositions();
+      });
+  
+      allCols.addEventListener("dragover", function (e) {
+        if (
+          drag &&
+          !drag.classList.contains("upContent") &&
+          this.classList.contains(drag.closest(".upContent").classList)
+        ) {
+          e.preventDefault();
+        }
+      });
+      allCols.addEventListener("dragleave", function () {
+        this.style.background = "none";
+      });
+      allCols.addEventListener("drop", function (e) {
+        if (
+          drag &&
+          !drag.classList.contains("upContent") &&
+          this.classList.contains(drag.closest(".upContent").classList)
+        ) {
+          e.preventDefault();
+          this.insertBefore(drag, e.target);
+          this.style.background = "none";
+  
+          // Call the function to update block positions
+          updateBlockPositions();
+        }
+      });
     });
-}
-
+  }
+  
+  function updateBlockPositions() {
+    const blocks = document.querySelectorAll('.newBlock');
+    const positions = [];
+  
+    blocks.forEach((block, index) => {
+      const blockId = block.dataset.blockId;
+      positions.push({ id: blockId, position: index });
+    });
+  
+    // Send the positions data to the API endpoint
+    fetch('api/update-block-positions/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken'),
+      },
+      body: JSON.stringify(positions),
+    })
+    .then((response) => {
+      if (response.ok) {
+        console.log('Block positions updated successfully');
+      } else {
+        console.log('Error updating block positions');
+      }
+    })
+    .catch((error) => {
+      console.log('Error:', error);
+    });
+  }
+  

@@ -16,8 +16,8 @@ class ChatFeatherView(LoginRequiredMixin,ListView):
     def get(self, request):
 
         chats = Chat.objects.filter(user=request.user).order_by('-timestamp')
-        messages = Message.objects.filter(chat__in=Chat.objects.filter(user=request.user, active=True))
-        responses = Response.objects.filter(message__in=messages)
+        messages = Message.objects.filter(chat__in=Chat.objects.filter(user=request.user, active=True)).order_by('timestamp')
+        responses = Response.objects.filter(message__in=messages).order_by('timestamp')
         message_response_pairs = list(zip(messages, responses))
         active_chat_id  = Chat.objects.filter(user=request.user, active=True)
         has_message_response_pairs = len(message_response_pairs) > 0

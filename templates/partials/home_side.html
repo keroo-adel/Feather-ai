@@ -27,7 +27,10 @@
                 <p>Home page</p>
             </a>
         </li>
-        <li >
+        <li 
+        class="
+        {% if '/long_form_editor/' in request.path %}active{% endif %}"
+        >
             <a href="{% url 'long_form_editor' %}" title="long form editor">
                 <img src="{% static 'images/Icon edit.svg '%}" alt="long form editor">
                 <p>long form editor</p>

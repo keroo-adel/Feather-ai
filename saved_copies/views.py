@@ -6,6 +6,8 @@ from datetime import date, timedelta,datetime
 import calendar
 from django.shortcuts import redirect
 from django.urls import reverse
+from django.template.loader import render_to_string
+from django.shortcuts import get_object_or_404
 
 class SavedCopiesView(LoginRequiredMixin, ListView):
     model = Article
@@ -132,3 +134,21 @@ class ArticleDetailPrev3View(DetailView):
     model = Article
     template_name = 'saved_copies/article_detail-3.html'
     context_object_name = 'article'
+    
+class ExportPDFView(View):
+    def get(self, request, article_id, *args, **kwargs):
+        # Retrieve the article based on its ID
+        article = get_object_or_404(Article, id=article_id)
+
+        # Render the HTML template with the desired section
+        html_string = render_to_string('saved_copies/article_detail.html', {'article': article, 'export_mode': True})
+
+        # Create a PDF object from the HTML string
+        pdf = HTML(string=html_string).write_pdf()
+
+        # Create an HTTP response with the PDF file
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="article_{article_id}.pdf"'
+        response.write(pdf)
+
+        return response

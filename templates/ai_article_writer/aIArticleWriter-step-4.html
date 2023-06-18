@@ -48,7 +48,7 @@
             <div>
                 <p>Download</p>
                 <ul>
-                    <li>
+                    <li id="exportPdfBtn">
                         <img
                             src="{% static 'images/icon pdf.svg' %}"
                             alt=""
@@ -314,7 +314,7 @@
             </form>
             <!-- ---------------------------------- -->
         </div>
-        <div class="part-2-2">
+        <div class="part-2-2" id="contentToExport">
             {% if articleSections %}
 
             <div class="endArt" style="display:block;">
@@ -429,6 +429,7 @@
 
 {% endblock %}
 {% block scripts %}
+
 <script src=" {% static 'Js/aIArticleWriter.js' %}"></script>
 <script src=" {% static 'Js/js-4.js' %}"></script>
 <script>
@@ -438,9 +439,28 @@
     const step3Url = "{% url 'get outlines' %}";
     const step4Url = "{% url 'get article' %}";
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 <script>
     function submitForm() {
         document.getElementById('formSearchKeywords').submit();
         }
+
+        const exportPdfBtn = document.getElementById('exportPdfBtn');
+        const contentToExport = document.getElementById('contentToExport');
+        
+        exportPdfBtn.addEventListener('click', () => {
+            const element = contentToExport;
+            
+            const opt = {
+                margin: 0,
+                filename: 'Feather.ia_Article.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait', backgroundColor: '#ff0000' }
+            };
+        
+            html2pdf().set(opt).from(element).save();
+        });
 </script>
 {% endblock %}

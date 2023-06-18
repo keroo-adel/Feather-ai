@@ -52,7 +52,14 @@
 
                     {% if article.created_at.date.day == day.day_number  %}
 
-                        <div class="saved-page" onclick="redirectToArticle('{{ article.pk }}')">
+                        <div class="saved-page" onclick="
+                        {% if article.editor_articles.all.count > 0 %}
+                        redirectToLongFormView('{{ article.editor_articles.first.pk }}')
+
+                            {% else %}
+                            redirectToArticle('{{ article.pk }}')
+                            {% endif %}
+                        ">
                             <div>
                                 <div class="pop" onclick="event.stopPropagation()">
                                     <ion-icon
@@ -165,6 +172,11 @@
 
       function redirectToArticle(pk) {
         var url = 'http://127.0.0.1:8000/saved-copies/article/' + pk + '/';
+        window.location.href = url;
+      }
+
+      function redirectToLongFormView(pk) {
+        var url = 'http://127.0.0.1:8000/long_form_editor/article/' + pk + '/';
         window.location.href = url;
       }
   </script>

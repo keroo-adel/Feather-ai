@@ -1,0 +1,297 @@
+{% extends 'base2.html' %}
+{% load static %}
+{% block title %}Form Editor | Feather.ai{% endblock %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'Css/Long-form-editor.css' %} " />
+{% endblock  %}
+{% block bootstrap %}{% endblock bootstrap %}
+{% block content %}
+<div class="main-page">
+    <div class="part-1">
+        <div>
+            <img
+                src="{% static 'images/Icon edit-2.svg' %}"
+                alt="logo edit"
+            />
+            <p>long-form editor</p>
+        </div>
+        <div>
+            <a href="#">
+                <img
+                src="{% static 'images/Icon  video.svg' %}"
+                alt="icon video"
+            />
+            </a>
+            <img src="{% static 'images/Icon out.svg' %}" alt="" class="exportInFile"/>
+        </div>
+    </div>
+
+    <div class="part-2">
+        <div class="toolbar">
+            <div class="btn-toolbar">
+                <button onclick="formatDoc('undo')">
+                    <i class="bx bx-undo"></i>
+                </button>
+                <button onclick="formatDoc('redo')">
+                    <i class="bx bx-redo"></i>
+                </button>
+                <button onclick="formatDoc('bold')">
+                    <i class="bx bx-bold"></i>
+                </button>
+                <button onclick="formatDoc('underline')">
+                    <i class="bx bx-underline"></i>
+                </button>
+                <button onclick="formatDoc('italic')">
+                    <i class="bx bx-italic"></i>
+                </button>
+                <button onclick="formatDoc('strikeThrough')">
+                    <i class="bx bx-strikethrough"></i>
+                </button>
+                <button onclick="formatDoc('justifyLeft')">
+                    <i class="bx bx-align-left"></i>
+                </button>
+                <button onclick="formatDoc('justifyCenter')">
+                    <i class="bx bx-align-middle"></i>
+                </button>
+                <button onclick="formatDoc('justifyRight')">
+                    <i class="bx bx-align-right"></i>
+                </button>
+                <button onclick="formatDoc('justifyFull')">
+                    <i class="bx bx-align-justify"></i>
+                </button>
+                <button
+                    onclick="formatDoc('insertOrderedList')"
+                >
+                    <i class="bx bx-list-ol"></i>
+                </button>
+                <button
+                    onclick="formatDoc('insertUnorderedList')"
+                >
+                    <i class="bx bx-list-ul"></i>
+                </button>
+                <button onclick="addLink()">
+                    <i class="bx bx-link"></i>
+                </button>
+                <button onclick="formatDoc('unlink')">
+                    <i class="bx bx-unlink"></i>
+                </button>
+            </div>
+            <div class="head">
+                <select
+                    onchange="formatDoc('fontSize', this.value); this.selectedIndex=0;"
+                >
+                    <option
+                        value=""
+                        selected=""
+                        hidden=""
+                        disabled=""
+                    >
+                        Font size
+                    </option>
+                    <option value="1">Extra small</option>
+                    <option value="2">Small</option>
+                    <option value="3">Regular</option>
+                    <option value="4">Medium</option>
+                    <option value="5">Large</option>
+                    <option value="6">Extra Large</option>
+                    <option value="7">Big</option>
+                </select>
+                <button id="btn-save">
+                    <i class="fa-solid fa-bookmark"></i>
+                    save
+                </button>
+            </div>
+        </div>
+        <div class="mainContent">
+            <div
+                id="content"
+                class="upContent"
+                contenteditable="true"
+                spellcheck="false"
+            >
+                <input type="text" id="headTitle" placeholder="enter title ..."
+                value="{{article.title}}"
+                >
+            </div>
+            <div>
+                {% for block in  blocks%}
+                <div class="newBlock {{block.block_type}}" data-block-id="mrt1rrnzzmdbyggizgayi6" draggable="true">
+                    <img src="http://127.0.0.1:8000/static/images/enable to darg and drop.svg">
+                    <ion-icon name="radio-button-on-outline" role="img" class="md hydrated"></ion-icon>
+                    <p>{{block.content}}</p>
+                  </div>
+                {% endfor %}
+
+                <input
+                    id="mainInput"
+                    type="text"
+                    placeholder="Press ' / ' for commands ..... "
+                />
+                <div class="askFeather">
+                    <div class="input">
+                        <img
+                            src="{% static 'images/star.svg' %}"
+                            alt=""
+                        />
+                        <input
+                            id="inputDraftWithAi"
+                            type="text"
+                            placeholder="Ask Feather.Al to write anything..."
+                        />
+                        <div class="icon">
+                            <ion-icon
+                                name="arrow-up-outline"
+                            ></ion-icon>
+                        </div>
+                    </div>
+                    <div class="select step1">
+                        <p>Draft with Al</p>
+                        <div>
+                            <div class="option">
+                                <img
+                                    src="{% static 'images/icon ben-2.svg' %}"
+                                    alt=""
+                                />
+                                <p>Brainstorm ideas...</p>
+                            </div>
+                            <div class="option">
+                                <img
+                                    src="{% static 'images/icon ben-2.svg' %}"
+                                    alt=""
+                                />
+                                <p>Blog post...</p>
+                            </div>
+                            <div class="option">
+                                <img
+                                    src="{% static 'images/icon ben-2.svg' %}"
+                                    alt=""
+                                />
+                                <p>Outline...</p>
+                            </div>
+                            <div class="option">
+                                <img
+                                    src="{% static 'images/icon ben-2.svg' %}"
+                                    alt=""
+                                />
+                                <p>Social media post...</p>
+                            </div>
+                            <div class="option">
+                                <img
+                                    src="{% static 'images/icon ben-2.svg' %}"
+                                    alt=""
+                                />
+                                <p>Press release...</p>
+                            </div>
+                            <div class="option">
+                                <img
+                                    src="{% static 'images/icon ben-2.svg' %}"
+                                    alt=""
+                                />
+                                <p>Creative story...</p>
+                            </div>
+                            <div class="option">
+                                <img
+                                    src="{% static 'images/icon ben-2.svg' %}"
+                                    alt=""
+                                />
+                                <p>Essay...</p>
+                            </div>
+                            <div class="optionEnd seeMore">
+                                <p>....</p>
+                                <p>see more</p>
+                                <ion-icon
+                                    name="chevron-forward-outline"
+                                ></ion-icon>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="select step2">
+                        <div>
+                            <div class="option close">
+                                <ion-icon
+                                    name="checkmark-outline"
+                                ></ion-icon>
+                                <p>Done</p>
+                            </div>
+                            <div class="option">
+                                <img
+                                    src="{% static 'images/icon ben-2.svg' %}"
+                                    alt=""
+                                />
+                                <p>Brainstorm ideas...</p>
+                            </div>
+                            <div class="option">
+                                <img
+                                    src="{% static 'images/option.svg' %}"
+                                    alt=""
+                                />
+                                <p>Make longer</p>
+                            </div>
+                            <span class="hr"></span>
+                            <div class="option reload">
+                                <ion-icon name="reload-outline"></ion-icon>
+                                <p>try again</p>
+                            </div>
+                            <div class="option close">
+                                <ion-icon name="close-outline"></ion-icon>
+                                <p>close</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="commandsOption">
+                    <ul>
+                        <li class="askAi">
+                            <div>
+                                <img src="{% static 'images/star.svg' %}" alt="">
+                            </div>
+                            <p>
+                                ask ai
+                            </p>
+                        </li>
+                        <li class="h1">
+                            <div>
+                                h1
+                            </div>
+                            <p>heading 1</p>
+                        </li>
+                        <li class="h2">
+                            <div>
+                                h2
+                            </div>
+                            <p>heading 2</p>
+                        </li>
+                        <li class="h3">
+                            <div>
+                                h3
+                            </div>
+                            <p>heading 3</p>
+                        </li>
+                        <li class="paragraph">
+                            <div>
+                                t
+                            </div>
+                            <p>paragraph</p>
+                        </li>
+                        <li class="bullet-list">
+                            <div>
+                                <ion-icon name="list-outline"></ion-icon>
+                            </div>
+                            <p>bullet list</p>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script >
+    var staticUrl = "{% static 'images/' %}"
+</script>
+<script src="{% static 'js/long-form-editor2.js' %}"></script>
+{% endblock  %}
+

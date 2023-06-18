@@ -1,4 +1,4 @@
-from django.views.generic import ListView, CreateView,View
+from django.views.generic import ListView, CreateView,View , DetailView
 import uuid
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -104,3 +104,34 @@ def UpdateBlockPositionsView(request):
         return JsonResponse({'success': True})
     
     return JsonResponse({'success': False, 'error': 'Invalid request method'})
+
+class ArticleView(DetailView):
+    model = Article
+    template_name = 'saved_copies/long_form_editor_view.html'
+    context_object_name = 'article'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Fetch the article object
+        article = self.get_object()
+
+        # Fetch the associated Block2 objects
+        blocks = article.blocks.all()
+
+        # Prepare the Block2 data
+        block_data = []
+        for block in blocks:
+            block_data.append({
+                'content': block.content,
+                'block_type': block.block_type,
+                'position': block.position,
+                'unique_id': block.unique_id,
+            })
+
+        # Add the Block2 data to the context
+        context['blocks'] = block_data
+
+        return context
+
+

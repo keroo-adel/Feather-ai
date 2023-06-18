@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 from django.db import models
+from library_template.models import Article as LibraryArticle
 
 class Block(models.Model):
     id = models.CharField(max_length=255, primary_key=True)
@@ -9,6 +10,7 @@ class Block(models.Model):
     tag = models.CharField(max_length=10, default='p')
 
 class Article(models.Model):
+    library_article = models.ForeignKey(LibraryArticle, on_delete=models.CASCADE, related_name='editor_articles', null=True)
     title = models.CharField(max_length=255, blank=True, null=True)
     # Add other fields as needed for your Article model
 

@@ -418,7 +418,8 @@
       if (document.querySelector(".chat-item.active"))
       {
         activeChatId = document.querySelector(".chat-item.active").dataset.chatId;
-      }else {
+        scrollBottom();
+    }else {
         activeChatId = 0;
       }
       

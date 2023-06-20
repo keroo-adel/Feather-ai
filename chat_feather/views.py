@@ -9,6 +9,7 @@ import json
 from recent_activity.models import RecentActivity
 from django.contrib.auth.models import User
 import wikipedia
+from .functions import *
 
 class ChatFeatherView(LoginRequiredMixin,ListView):
     template_name = 'chat_feather/chat-feather.html'
@@ -78,7 +79,7 @@ class SendMessageView(LoginRequiredMixin, View):
         message = Message.objects.create(chat=chat, content=message_content)
 
         # Ai model response
-        ai_response = self.generate_text(message_content)
+        ai_response = chat_feather(message_content)['output']
 
         response = Response.objects.create(message=message, content=ai_response)
         
@@ -93,21 +94,4 @@ class SendMessageView(LoginRequiredMixin, View):
 
         return HttpResponse(ai_response, content_type="application/json")
 
-    def generate_text(self, topic):
-        # Search for the topic on Wikipedia
-        # Search for the topic on Wikipedia
-        search_results = wikipedia.search(topic)
 
-        if not search_results:
-            return "No Wikipedia results found for the given topic."
-
-        # Get the summary from the first search result
-        page = wikipedia.page(search_results[1])
-        summary = page.summary
-
-        # Split the summary into sentences and return the specified number of sentences
-        sentence_list = summary.split(". ")
-        generated_text = ". ".join(sentence_list[:5])
-
-        return generated_text
-    

@@ -9,7 +9,7 @@ from library_template.models import Article as editor_articles
 from django.shortcuts import render
 from django.core.exceptions import ObjectDoesNotExist
 import json
-
+from .functions import *
 
 class LongFormEditorView(LoginRequiredMixin,CreateView):
     template_name = 'long form editor/Long-form-editor.html'
@@ -74,7 +74,7 @@ class AskFeatherView(View):
 
             response = {
                 'question': question,
-                'answer': 'This is the answer to your question.',
+                'answer': chat_feather(question)['output'],
             }
 
             return JsonResponse(response)

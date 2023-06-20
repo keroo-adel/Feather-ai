@@ -39,7 +39,7 @@ class Suboutline(models.Model):
     
         
 class Article(models.Model):
-    title = models.CharField(max_length=200, blank=True)
+    title = models.TextField(null=True, blank=True)
     outlines = models.ManyToManyField('Outline', blank=True)
     article_text = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='articles_images/', blank=True, max_length=255)

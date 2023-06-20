@@ -11,7 +11,8 @@ from django.contrib.auth.models import User
 from recent_activity.models import RecentActivity
 from django.contrib import messages
 from django.urls import reverse
-
+from .functions import *
+import re
 
 
 ############################### 
@@ -32,10 +33,10 @@ class AiArticleWriterView(LoginRequiredMixin,ListView):
         # keywords = ai_model("""genreate only {} keywords with this format 
         # {"keyword1","keryword2",......tec}""".
         # format(message))
-
-        keywords = {"Lionel Messi", "football", "Barcelona"}
-        keyword_list = list(keywords)
-        
+        if 'output' in generate_keywrods(message) :
+            keyword_list = generate_keywrods(message)['output'].split(", ")
+        else:
+            keyword_list = ["messi","FC Barcelona","Argentina","Ballon d'Or","GOAT (Greatest of All Time)","La Liga","Skills"]
         if message:
             return render(request, self.template_name, 
                           {'keywordslist': keyword_list, 
@@ -132,17 +133,31 @@ class IdeasGenratorView(LoginRequiredMixin, ListView):
         # ideas = airesponse("""genrate ideas for article to {} and this keywords {} 
         # without any message by this form [idea1, idea2 , ....etc] with {} tone of 
         # voice and {} language""".format(topic_name, keywords, tone_of_voice, language))
-        
-        ideas = [
-            "Lionel Messi's Unforgettable Moments at Barcelona: A Retrospective",
-            "The Barcelona Legacy of Lionel Messi: An Era of Greatness",
-            "The Journey of Lionel Messi: From Argentina to Barcelona",
-            "Football Mastery: Analyzing Lionel Messi's Skills at Barcelona",
-            
-        ]
-
+        if 'output' in generate_ideas(topic_name, ", ".join(keywords)):
+            ideas = [item.split(":")[1].strip() for item in generate_ideas(topic_name, ", ".join(keywords))['output'].split("\n\n")]
+        else:
+            ideas = ["Unraveling the Genius: The Remarkable Journey of Lionel Messi",
+                    "Lionel Messi: The Maestro of FC Barcelona",
+                    "The GOAT Debate: Why Lionel Messi Reigns Supreme",
+                    "Messi's Magic: Decoding the Artistry of Argentina's Football Legend",
+                    "From Rosario to Barcelona: The Evolution of Lionel Messi",
+                    "Lionel Messi: A Living Legend in the World of Soccer",
+                    "Ballon d'Or Dominance: Lionel Messi's Legacy",
+                    "La Liga's Finest: Messi's Impact on Spanish Football",
+                    "Chasing Champions League Glory: Lionel Messi's Quest for European Success",
+                    "World Cup Dreams: Messi's Journey with the Argentina National Team",
+                    "Goal Machine: Analyzing Lionel Messi's Record-Breaking Achievements",
+                    "The Dribbling Wizard: Messi's Mesmerizing Skills on the Field",
+                    "Messi vs. Ronaldo: Comparing the Two Football Titans",
+                    "Captain Fantastic: Messi's Leadership at FC Barcelona",
+                    "Golden Shoe Glory: Lionel Messi's Pursuit of Individual Excellence",
+                    "The Playmaker Extraordinaire: Messi's Vision and Creativity",
+                    "Breaking Records, Inspiring Generations: Lionel Messi's Impact on the Sport",
+                    "The Messi Effect: How Lionel Messi Transcends Football",
+                    "Legends of Argentina: Messi's Role in National Team History",
+                    "Unforgettable Moments: Reliving Messi's Most Iconic Performances"]
         context = {
-            "generated_ideas": ideas,
+            "generated_ideas":ideas,
             "tone_of_voice": tone_of_voice,
             "language": language,
             "topic_name": topic_name,
@@ -250,7 +265,8 @@ class OutlinesGenratorView(LoginRequiredMixin,ListView):
                     "keroo"
                     ]
         ]
-          
+        
+        
         context = {
             "topic_name": topic_name,
             "topic_keywords": topic_keywords,
@@ -369,11 +385,18 @@ class ArticleGenratorView(LoginRequiredMixin,ListView):
                 In the following sections, we will delve deeper into the Barcelona legacy of Lionel Messi, exploring the unparalleled accomplishments, the trophies won, the records broken, and the unforgettable moments that defined this remarkable era of greatness.""",
             ],
                 [
-                """keroo""",
-                """adel""",
+                """Lionel Messi's journey to Barcelona began when he was just 13 years old. In 2000, Messi caught the eye of Barcelona's scouts during a youth tournament in Argentina. Recognizing his exceptional talent, Barcelona wasted no time in securing his services. However, bringing Messi to Barcelona was not without its challenges. His small stature and his need for growth hormone treatment due to a medical condition made some clubs hesitant. Nevertheless, Barcelona took a leap of faith and signed Messi, welcoming him into their prestigious youth academy, La Masia.""",
+                """Messi's arrival at Barcelona was met with excitement and anticipation. From the moment he stepped foot in La Masia, it was clear that he possessed a unique blend of skills and determination that set him apart from his peers. Despite being homesick and facing the challenges of adapting to a new country and culture, Messi's love for the game and his relentless work ethic helped him overcome these obstacles. He quickly formed close bonds with his teammates and coaches, who recognized his immense potential and supported his development both on and off the field.""",
                 
-                """azmy""",
-            ]
+                """As Messi progressed through the ranks of Barcelona's youth teams, it became increasingly evident that he was destined for greatness. His skills, agility, and ability to read the game made him a standout player. In 2004, at the age of 17, Messi made his first-team debut for Barcelona. From that moment on, his impact on the team was undeniable. Messi's electrifying performances and his ability to single-handedly change the outcome of matches quickly endeared him to the fans and established him as a key figure in Barcelona's success.
+
+Messi's contributions to Barcelona's triumphs cannot be overstated. He formed a formidable partnership with fellow superstars such as Ronaldinho, Xavi, and Iniesta, leading Barcelona to unprecedented success both domestically and internationally. Together, they won numerous La Liga titles, Copa del Rey trophies, and the coveted UEFA Champions League. Messi's goals, assists, and mesmerizing dribbling skills became a trademark of Barcelona's playing style, earning him the admiration of fans and opponents alike.
+
+Beyond the accolades and statistics, Messi's impact on the team went beyond the pitch. His humility, professionalism, and dedication to continuous improvement set an example for his teammates and inspired a culture of excellence within the club. He became a role model for aspiring footballers and a symbol of Barcelona's values both on and off the field.
+
+In conclusion, Messi's arrival at Barcelona marked the beginning of a transformative era for the club. His transfer not only brought immense talent but also a player who would go on to redefine the game of football. Through his remarkable skills, unwavering determination, and profound impact on the team, Messi became an integral part of Barcelona's success story. His journey from a young prodigy to a global superstar exemplifies the power of belief, hard work, and the right environment in nurturing exceptional talent.""",
+            ],
+ 
         ]
         
         if len(SuboutlineBody) < len(outlines_list):
